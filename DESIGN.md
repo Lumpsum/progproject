@@ -18,7 +18,7 @@ Dit schema geeft de verschillende ViewControllers weer en de daarbij gebruikte f
 <img src="https://github.com/Martijn66/progproject/blob/master/doc/15.png" width=30%>
 <img src="https://github.com/Martijn66/progproject/blob/master/doc/16.png" width=30%>
 
-###Frameworks
+###Frameworks/API's
 - Firebase
 - MapKit/Corlocation
 - Meldingen Openbare Ruimte Amsterdam Dataset (optioneel omdat de dataset incompleet is)
