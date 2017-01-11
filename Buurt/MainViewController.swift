@@ -14,7 +14,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet var tableView: UITableView!
     
     let ref = FIRDatabase.database().reference(withPath: "mentions")
-    let testArray = ["Testbericht1", "Testbericht2", "Testbericht3"]
+    let categoriesDictDutch = ["Verdachte situatie":"warning", "Klacht":"complaint", "Aandachtspunt":"focus", "Evenement":"event", "Bericht":"messsage" ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,16 +22,15 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         ref.child(currentInfo.postcode).observe(.value, with: { snapshot in
             let rawData = snapshot.value as? NSDictionary
             currentInfo.mentions = []
-            
-            for category in rawData!{
-                let categoryData = category.value as? NSDictionary
-                for item in categoryData! {
+            if rawData != nil {
+                for item in rawData! {
                     let mentionData = item.value as? NSDictionary
-                    let mentionItem = MentionItem(titel: mentionData!["titel"] as! String, addedByUser: mentionData!["addedByUser"] as! String, location: mentionData!["location"] as! String, message: mentionData!["message"] as! String, timeStamp: mentionData!["timeStamp"] as! String, replies: mentionData!["replies"] as! Array<Any>, key: item.key as! String)
+                    let mentionItem = MentionItem(titel: mentionData!["titel"] as! String, addedByUser: mentionData!["addedByUser"] as! String, category: mentionData!["category"] as! String, location: mentionData!["location"] as! String, message: mentionData!["message"] as! String, timeStamp: mentionData!["timeStamp"] as! String, replies: mentionData!["replies"] as! Array<Any>, key: item.key as! String)
+                    print(mentionItem)
                     currentInfo.mentions.append(mentionItem)
                 }
             }
-            print("TEST", currentInfo.mentions[0].toAnyObject())
+            //print("TEST", currentInfo.mentions[0].toAnyObject())
             self.tableView.reloadData()
         })
     }
@@ -43,7 +42,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(currentInfo.mentions.count)
         return currentInfo.mentions.count
     }
     
@@ -51,8 +49,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cell = tableView.dequeueReusableCell(withIdentifier: "mentionCell", for: indexPath) as! MentionCell
         let cellData = currentInfo.mentions[indexPath.row].toAnyObject()
         
+        
+        cell.iconHolder.image = UIImage(named:  categoriesDictDutch[(cellData["category"] as! String?)!]!)
         cell.titleLabel.text = cellData["titel"] as! String?
-        cell.iconHolder.image = UIImage(named: "warning")
+        cell.messageField.text = cellData["message"] as! String?
+        cell.timeLabel.text = cellData["timeStamp"] as! String?
+        
         return cell
     }
     

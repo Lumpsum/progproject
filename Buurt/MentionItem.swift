@@ -13,7 +13,7 @@ struct MentionItem {
     
     let key: String
     let titel: String
-    //let category: String
+    let category: String
     let addedByUser: String
     var location: String
     var message: String
@@ -21,10 +21,10 @@ struct MentionItem {
     var replies: Array<Any>
     let ref: FIRDatabaseReference?
     
-    init(titel: String, addedByUser: String, location: String, message: String, timeStamp: String, replies: Array<Any>, key: String = "") {
+    init(titel: String, addedByUser: String, category: String, location: String, message: String, timeStamp: String, replies: Array<Any>, key: String = "") {
         self.key = key
         self.titel = titel
-        //self.category = category
+        self.category = category
         self.addedByUser = addedByUser
         self.location = location
         self.message = message
@@ -47,6 +47,7 @@ struct MentionItem {
         return [
             "titel": titel,
             "addedByUser": addedByUser,
+            "category": category,
             "location": location,
             "message": message,
             "timeStamp": timeStamp,

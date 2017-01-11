@@ -23,12 +23,12 @@ Mogelijke extra features:
 - Chatten mogelijk maken.
 
 ###Schetsen
-<img src="https://github.com/Martijn66/progproject/blob/master/doc/1.png" width=30%>
-<img src="https://github.com/Martijn66/progproject/blob/master/doc/2.png" width=30%>
-<img src="https://github.com/Martijn66/progproject/blob/master/doc/3.png" width=30%>
-<img src="https://github.com/Martijn66/progproject/blob/master/doc/4.png" width=30%>
-<img src="https://github.com/Martijn66/progproject/blob/master/doc/5.png" width=30%>
-<img src="https://github.com/Martijn66/progproject/blob/master/doc/6.png" width=30%>
+<img src="https://github.com/Martijn66/progproject/blob/master/doc/11.png" width=30%>
+<img src="https://github.com/Martijn66/progproject/blob/master/doc/12.png" width=30%>
+<img src="https://github.com/Martijn66/progproject/blob/master/doc/13.png" width=30%>
+<img src="https://github.com/Martijn66/progproject/blob/master/doc/14.png" width=30%>
+<img src="https://github.com/Martijn66/progproject/blob/master/doc/15.png" width=30%>
+<img src="https://github.com/Martijn66/progproject/blob/master/doc/16.png" width=30%>
 
 ###Data
 De meeste data wordt geleverd door de gebruikers zelf. Deze data wordt opgeslagen in een database en is vervolgens te raadplegen door de andere gebruikers. Daarnaast wordt er data verkregen met gebruik van MapKit waarbij coordinaten van een locatie worden opgehaald.

@@ -20,15 +20,15 @@ Dit schema geeft de verschillende ViewControllers weer en de daarbij gebruikte f
 
 ###Frameworks
 - Firebase
-- MapKit
-- Meldingen Openbare Ruimte Amsterdam Dataset (optioneel)
+- MapKit/Corlocation
+- Meldingen Openbare Ruimte Amsterdam Dataset (optioneel omdat de dataset incompleet is)
 
 ###Structuur Firebase
 - mentions
   - mention_id
     - postcode
-      - category
         - addedByUser
+        - category
         - timeStamp
         - titel
         - location
