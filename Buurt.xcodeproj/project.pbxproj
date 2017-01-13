@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		103488D01E27F2E90038DCFE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 103488CF1E27F2E90038DCFE /* CoreLocation.framework */; };
+		103488D21E28CD0F0038DCFE /* SingleMentionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103488D11E28CD0F0038DCFE /* SingleMentionViewController.swift */; };
 		10BA312C1E2677DF002BE3E7 /* DESIGN.md in Sources */ = {isa = PBXBuildFile; fileRef = 10BA311B1E2677DF002BE3E7 /* DESIGN.md */; };
 		10BA312D1E2677DF002BE3E7 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 10BA311D1E2677DF002BE3E7 /* 1.png */; };
 		10BA312E1E2677DF002BE3E7 /* 11.png in Resources */ = {isa = PBXBuildFile; fileRef = 10BA311E1E2677DF002BE3E7 /* 11.png */; };
@@ -23,9 +25,11 @@
 		10BA31391E2677DF002BE3E7 /* diagram.png in Resources */ = {isa = PBXBuildFile; fileRef = 10BA31291E2677DF002BE3E7 /* diagram.png */; };
 		10BA313A1E2677DF002BE3E7 /* PROCESS.md in Sources */ = {isa = PBXBuildFile; fileRef = 10BA312A1E2677DF002BE3E7 /* PROCESS.md */; };
 		10BA313B1E2677DF002BE3E7 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 10BA312B1E2677DF002BE3E7 /* README.md */; };
+		10BA313E1E2784F0002BE3E7 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BA313D1E2784F0002BE3E7 /* SignUpViewController.swift */; };
+		10BA31401E279439002BE3E7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BA313F1E279439002BE3E7 /* User.swift */; };
+		10BA31471E27A324002BE3E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10BA31451E27A324002BE3E7 /* Main.storyboard */; };
 		10F3929B1E24270900D71952 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F3929A1E24270900D71952 /* AppDelegate.swift */; };
 		10F3929D1E24270900D71952 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F3929C1E24270900D71952 /* LoginViewController.swift */; };
-		10F392A01E24270900D71952 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10F3929E1E24270900D71952 /* Main.storyboard */; };
 		10F392A21E24270900D71952 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10F392A11E24270900D71952 /* Assets.xcassets */; };
 		10F392A51E24270900D71952 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10F392A31E24270900D71952 /* LaunchScreen.storyboard */; };
 		10F392AD1E24E8F800D71952 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F392AC1E24E8F800D71952 /* MainViewController.swift */; };
@@ -38,6 +42,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		103488CF1E27F2E90038DCFE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		103488D11E28CD0F0038DCFE /* SingleMentionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleMentionViewController.swift; sourceTree = "<group>"; };
 		10BA311B1E2677DF002BE3E7 /* DESIGN.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = DESIGN.md; sourceTree = "<group>"; };
 		10BA311D1E2677DF002BE3E7 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		10BA311E1E2677DF002BE3E7 /* 11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 11.png; sourceTree = "<group>"; };
@@ -54,10 +60,13 @@
 		10BA31291E2677DF002BE3E7 /* diagram.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = diagram.png; sourceTree = "<group>"; };
 		10BA312A1E2677DF002BE3E7 /* PROCESS.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = PROCESS.md; sourceTree = "<group>"; };
 		10BA312B1E2677DF002BE3E7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		10BA313C1E27843B002BE3E7 /* Buurt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Buurt.entitlements; sourceTree = "<group>"; };
+		10BA313D1E2784F0002BE3E7 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		10BA313F1E279439002BE3E7 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		10BA31461E27A324002BE3E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		10F392971E24270800D71952 /* Buurt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Buurt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10F3929A1E24270900D71952 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10F3929C1E24270900D71952 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		10F3929F1E24270900D71952 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		10F392A11E24270900D71952 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		10F392A41E24270900D71952 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		10F392A61E24270900D71952 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -77,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				103488D01E27F2E90038DCFE /* CoreLocation.framework in Frameworks */,
 				1ACB7B1EBF9478961962F330 /* libPods-Buurt.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -104,6 +114,48 @@
 			path = doc;
 			sourceTree = "<group>";
 		};
+		10BA31411E2795CC002BE3E7 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				10F3929C1E24270900D71952 /* LoginViewController.swift */,
+				10BA313D1E2784F0002BE3E7 /* SignUpViewController.swift */,
+				10F392AC1E24E8F800D71952 /* MainViewController.swift */,
+				10FE986B1E250148002FAA1F /* NewMentionViewController.swift */,
+				103488D11E28CD0F0038DCFE /* SingleMentionViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		10BA31421E2795F0002BE3E7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				10FE986F1E255706002FAA1F /* GlobalCode.swift */,
+				10FE986D1E2506B5002FAA1F /* MentionItem.swift */,
+				10BA313F1E279439002BE3E7 /* User.swift */,
+				10FE98771E263DFF002FAA1F /* CustomCell.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		10BA31431E279618002BE3E7 /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				10BA31451E27A324002BE3E7 /* Main.storyboard */,
+				10F392A31E24270900D71952 /* LaunchScreen.storyboard */,
+			);
+			name = Layout;
+			sourceTree = "<group>";
+		};
+		10BA31441E279644002BE3E7 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				10BA313C1E27843B002BE3E7 /* Buurt.entitlements */,
+				10F392A61E24270900D71952 /* Info.plist */,
+				10F392AE1E24EACA00D71952 /* GoogleService-Info.plist */,
+			);
+			name = Support;
+			sourceTree = "<group>";
+		};
 		10F3928E1E24270800D71952 = {
 			isa = PBXGroup;
 			children = (
@@ -129,18 +181,12 @@
 		10F392991E24270800D71952 /* Buurt */ = {
 			isa = PBXGroup;
 			children = (
-				10FE986D1E2506B5002FAA1F /* MentionItem.swift */,
-				10FE986F1E255706002FAA1F /* GlobalCode.swift */,
-				10FE98771E263DFF002FAA1F /* CustomCell.swift */,
-				10F3929A1E24270900D71952 /* AppDelegate.swift */,
-				10F3929C1E24270900D71952 /* LoginViewController.swift */,
-				10F392AC1E24E8F800D71952 /* MainViewController.swift */,
-				10FE986B1E250148002FAA1F /* NewMentionViewController.swift */,
 				10F392A11E24270900D71952 /* Assets.xcassets */,
-				10F3929E1E24270900D71952 /* Main.storyboard */,
-				10F392A31E24270900D71952 /* LaunchScreen.storyboard */,
-				10F392A61E24270900D71952 /* Info.plist */,
-				10F392AE1E24EACA00D71952 /* GoogleService-Info.plist */,
+				10F3929A1E24270900D71952 /* AppDelegate.swift */,
+				10BA31421E2795F0002BE3E7 /* Models */,
+				10BA31411E2795CC002BE3E7 /* ViewControllers */,
+				10BA31431E279618002BE3E7 /* Layout */,
+				10BA31441E279644002BE3E7 /* Support */,
 			);
 			path = Buurt;
 			sourceTree = "<group>";
@@ -157,6 +203,7 @@
 		F11B2C158FEAFE8F604A7EE6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				103488CF1E27F2E90038DCFE /* CoreLocation.framework */,
 				19120A78EA14B49AC8003991 /* libPods-Buurt.a */,
 			);
 			name = Frameworks;
@@ -197,7 +244,13 @@
 				TargetAttributes = {
 					10F392961E24270800D71952 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = AU7E2H8D44;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -230,6 +283,7 @@
 				10BA312F1E2677DF002BE3E7 /* 12.png in Resources */,
 				10F392AF1E24EACA00D71952 /* GoogleService-Info.plist in Resources */,
 				10BA31321E2677DF002BE3E7 /* 15.png in Resources */,
+				10BA31471E27A324002BE3E7 /* Main.storyboard in Resources */,
 				10BA31371E2677DF002BE3E7 /* 5.png in Resources */,
 				10BA31341E2677DF002BE3E7 /* 2.png in Resources */,
 				10BA31391E2677DF002BE3E7 /* diagram.png in Resources */,
@@ -238,7 +292,6 @@
 				10BA31351E2677DF002BE3E7 /* 3.png in Resources */,
 				10BA31331E2677DF002BE3E7 /* 16.png in Resources */,
 				10BA31301E2677DF002BE3E7 /* 13.png in Resources */,
-				10F392A01E24270900D71952 /* Main.storyboard in Resources */,
 				10BA31381E2677DF002BE3E7 /* 6.png in Resources */,
 				10BA312D1E2677DF002BE3E7 /* 1.png in Resources */,
 			);
@@ -299,13 +352,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10BA313E1E2784F0002BE3E7 /* SignUpViewController.swift in Sources */,
 				10FE986C1E250148002FAA1F /* NewMentionViewController.swift in Sources */,
 				10F392AD1E24E8F800D71952 /* MainViewController.swift in Sources */,
 				10BA313B1E2677DF002BE3E7 /* README.md in Sources */,
+				103488D21E28CD0F0038DCFE /* SingleMentionViewController.swift in Sources */,
 				10BA312C1E2677DF002BE3E7 /* DESIGN.md in Sources */,
 				10F3929D1E24270900D71952 /* LoginViewController.swift in Sources */,
 				10FE98701E255706002FAA1F /* GlobalCode.swift in Sources */,
 				10BA313A1E2677DF002BE3E7 /* PROCESS.md in Sources */,
+				10BA31401E279439002BE3E7 /* User.swift in Sources */,
 				10F3929B1E24270900D71952 /* AppDelegate.swift in Sources */,
 				10FE98781E263DFF002FAA1F /* CustomCell.swift in Sources */,
 				10FE986E1E2506B5002FAA1F /* MentionItem.swift in Sources */,
@@ -315,10 +371,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		10F3929E1E24270900D71952 /* Main.storyboard */ = {
+		10BA31451E27A324002BE3E7 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				10F3929F1E24270900D71952 /* Base */,
+				10BA31461E27A324002BE3E7 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -432,6 +488,8 @@
 			baseConfigurationReference = 5937A0C9CB5F7AFD35A1F3C1 /* Pods-Buurt.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Buurt/Buurt.entitlements;
+				DEVELOPMENT_TEAM = AU7E2H8D44;
 				INFOPLIST_FILE = Buurt/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.mprog.Buurt;
@@ -445,6 +503,8 @@
 			baseConfigurationReference = 7C5C25317F1FB64738821246 /* Pods-Buurt.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Buurt/Buurt.entitlements;
+				DEVELOPMENT_TEAM = AU7E2H8D44;
 				INFOPLIST_FILE = Buurt/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.mprog.Buurt;

@@ -8,11 +8,12 @@
 
 import UIKit
 import Firebase
+import CoreLocation
 
-class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, CLLocationManagerDelegate {
     
     let ref = FIRDatabase.database().reference(withPath: "mentions")
-    
+    let locationManager = CLLocationManager()
     var categoriesListDutch = ["Verdachte situatie", "Klacht", "Aandachtspunt", "Evenement", "Bericht"]
     
     
@@ -27,7 +28,7 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBAction func postMention(_ sender: Any) {
         if checkInput() == true {
             let mentionItem = MentionItem(titel: titleField.text!,
-                                      addedByUser: "testuser",
+                                      addedByUser: currentInfo.uid,
                                       category: categoryField.text!,
                                       location: locationField.text!,
                                       message: messageField.text,
@@ -45,8 +46,22 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
         var pickerView = UIPickerView()
         pickerView.delegate = self
         categoryField.inputView = pickerView
-
-        // Do any additional setup after loading the view.
+        
+        
+        
+        
+        // Ask for Authorisation from the User.
+        self.locationManager.requestAlwaysAuthorization()
+        
+        // For use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+        
     }
     
     func checkInput() -> Bool {
@@ -60,6 +75,15 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
             return false
         }
     }
+    
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+        self.locationField.text =  "\(locValue.latitude) \(locValue.longitude)"
+        //print("locations = \(locValue.latitude) \(locValue.longitude)")
+    }
+
+    
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
@@ -88,16 +112,5 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

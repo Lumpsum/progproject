@@ -7,12 +7,30 @@
 //
 
 import UIKit
+import Firebase
 
 class ViewController: UIViewController {
 
+    @IBOutlet var emailField: UITextField!
+    @IBOutlet var passwordField: UITextField!
+    
+    @IBAction func Login(_ sender: Any) {
+        FIRAuth.auth()!.signIn(withEmail: emailField.text!, password: passwordField.text!)
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        FIRAuth.auth()!.addStateDidChangeListener() { auth, user in
+            if user != nil {
+                self.performSegue(withIdentifier: "LoginToFeed", sender: nil)
+                
+                currentInfo.uid = (user?.uid)!
+            }
+        }
+    
     }
 
     override func didReceiveMemoryWarning() {

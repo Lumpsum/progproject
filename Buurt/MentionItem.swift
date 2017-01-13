@@ -46,8 +46,8 @@ struct MentionItem {
     func toAnyObject() -> Dictionary<String, Any> {
         return [
             "titel": titel,
-            "addedByUser": addedByUser,
             "category": category,
+            "addedByUser": addedByUser,
             "location": location,
             "message": message,
             "timeStamp": timeStamp,

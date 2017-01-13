@@ -11,4 +11,7 @@ import Foundation
 struct currentInfo {
     static var postcode = "1033"
     static var mentions = Array<MentionItem>()
+    static var uid = String()
+    static var userName = String()
+    static var selectedMention =  Dictionary<String, Any>()
 }
