@@ -9,3 +9,6 @@ Eerste meeting met groep gehad, ideeen uitgewisseld. Niks veranderd aan plan. Mo
 
 ## Dag 4
 Registreren en inloggen bij Firebase voor gebruiker gemaakt. Extra informatie zoals naam en postcode wordt tijdens de registratie weggeschreven in de database.
+
+## Dag 5
+Probleem: Soms tweemaal inlog segue, mogelijke oorzaak is de listener. Proberen de sideebar menu te implementeren.

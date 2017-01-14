@@ -14,4 +14,5 @@ struct currentInfo {
     static var uid = String()
     static var userName = String()
     static var selectedMention =  Dictionary<String, Any>()
+    static var uidNameDict = Dictionary<String, String>()
 }
