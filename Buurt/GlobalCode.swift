@@ -7,9 +7,6 @@
 //
 
 import Foundation
-import Firebase
-
-let ref = FIRDatabase.database().reference(withPath: "mentions")
 
 struct currentInfo {
     static var postcode = "1033"

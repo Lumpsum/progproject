@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import Firebase
 
 class SingleMentionViewController: UIViewController {
-
+    
+    let ref = FIRDatabase.database().reference(withPath: "mentions")
     
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
@@ -18,12 +20,13 @@ class SingleMentionViewController: UIViewController {
     
     @IBOutlet var commentField: UITextField!
     @IBAction func saveComment(_ sender: Any) {
-        //let commentRef = ref.child("mentions").child(currentInfo.postcode).child(currentInfo.selectedMention["added"])
-        //mentionItemRef.setValue(mentionItem.toAnyObject())
-        print(currentInfo.selectedMention)
+        let commentRef = ref.child(currentInfo.postcode).child((currentInfo.selectedMention["key"] as! String))
+        print((currentInfo.selectedMention["replies"]! as! Array<Array<String>>).count)
+        var currentComments = currentInfo.selectedMention["replies"] as! Array<Array<String>>
+        commentRef.updateChildValues(["replies": currentComments.append(["test3"])])
     }
     
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +35,7 @@ class SingleMentionViewController: UIViewController {
         nameLabel.text = currentInfo.uidNameDict[(currentInfo.selectedMention["addedByUser"] as! String?)!]
         timeLabel.text = getTimeDifference(inputDate: (currentInfo.selectedMention["timeStamp"] as! String?)!)
         messageField.text = currentInfo.selectedMention["message"] as! String?
-        print(currentInfo.selectedMention)
+        print("SELECTED", currentInfo.selectedMention)
         
         
     }

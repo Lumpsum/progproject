@@ -17,7 +17,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     let ref = FIRDatabase.database().reference(withPath: "mentions")
     let categoriesDictDutch = ["Verdachte situatie":"warning", "Klacht":"complaint", "Aandachtspunt":"focus", "Evenement":"event", "Bericht":"message"]
-    var mentionList = Array<MentionItem>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,8 +41,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                     currentInfo.mentions.append(mentionItem)
                 }
             }
-            
-            print("MENTIONS", currentInfo.mentions)
             
             self.tableView.reloadData()
         })
@@ -86,7 +83,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        currentInfo.selectedMention = mentionList[indexPath.row].toAnyObject()
+        currentInfo.selectedMention = currentInfo.mentions[indexPath.row].toAnyObject()
     }
     
 }
