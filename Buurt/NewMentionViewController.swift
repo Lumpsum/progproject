@@ -15,7 +15,7 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
     let ref = FIRDatabase.database().reference(withPath: "mentions")
     let locationManager = CLLocationManager()
     var categoriesListDutch = ["Verdachte situatie", "Klacht", "Aandachtspunt", "Evenement", "Bericht"]
-    
+    var coordinates = String()
     
     @IBOutlet var titleField: UITextField!
     
@@ -30,10 +30,10 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
             let mentionItem = MentionItem(titel: titleField.text!,
                                       addedByUser: currentInfo.uid,
                                       category: categoryField.text!,
-                                      location: locationField.text!,
+                                      location: coordinates,
                                       message: messageField.text,
                                       timeStamp: String(describing: NSDate()),
-                                      replies: ["test"])
+                                      replies: [["test"]])
             let mentionItemRef = ref.child(currentInfo.postcode).childByAutoId()
         
             mentionItemRef.setValue(mentionItem.toAnyObject())
@@ -77,10 +77,37 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     
+    func getLocation(longitude: CLLocationDegrees, latitude:CLLocationDegrees) -> String {
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        
+        CLGeocoder().reverseGeocodeLocation(location, completionHandler: {(placemarks, error) -> Void in
+            print(location)
+            
+            if error != nil {
+                print("Reverse geocoder failed with error" + (error?.localizedDescription)!)
+            }
+            
+            if (placemarks?.count)! > 0 {
+                let pm = (placemarks?[0])! as CLPlacemark
+                print("POSTCODE:", pm.postalCode, pm.thoroughfare)
+                currentInfo.location = pm.name! as String
+            }
+            
+            else {
+                print("Couldn't find address")
+            }
+        })
+        
+        return currentInfo.location
+        
+    }
+    
+    
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
-        self.locationField.text =  "\(locValue.latitude) \(locValue.longitude)"
-        //print("locations = \(locValue.latitude) \(locValue.longitude)")
+        coordinates = "\(locValue.longitude) \(locValue.latitude)"
+        self.locationField.text =  getLocation(longitude: locValue.longitude, latitude: locValue.latitude)
     }
 
     

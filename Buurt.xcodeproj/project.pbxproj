@@ -31,9 +31,9 @@
 		10BA313E1E2784F0002BE3E7 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BA313D1E2784F0002BE3E7 /* SignUpViewController.swift */; };
 		10BA31401E279439002BE3E7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BA313F1E279439002BE3E7 /* User.swift */; };
 		10BA31471E27A324002BE3E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10BA31451E27A324002BE3E7 /* Main.storyboard */; };
+		10C4488A1E2CFE94004B16A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10C448891E2CFE94004B16A9 /* Assets.xcassets */; };
 		10F3929B1E24270900D71952 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F3929A1E24270900D71952 /* AppDelegate.swift */; };
 		10F3929D1E24270900D71952 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F3929C1E24270900D71952 /* LoginViewController.swift */; };
-		10F392A21E24270900D71952 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10F392A11E24270900D71952 /* Assets.xcassets */; };
 		10F392A51E24270900D71952 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10F392A31E24270900D71952 /* LaunchScreen.storyboard */; };
 		10F392AD1E24E8F800D71952 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F392AC1E24E8F800D71952 /* MainViewController.swift */; };
 		10F392AF1E24EACA00D71952 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10F392AE1E24EACA00D71952 /* GoogleService-Info.plist */; };
@@ -72,10 +72,10 @@
 		10BA313D1E2784F0002BE3E7 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		10BA313F1E279439002BE3E7 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		10BA31461E27A324002BE3E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		10C448891E2CFE94004B16A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		10F392971E24270800D71952 /* Buurt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Buurt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10F3929A1E24270900D71952 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10F3929C1E24270900D71952 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		10F392A11E24270900D71952 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		10F392A41E24270900D71952 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		10F392A61E24270900D71952 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		10F392AC1E24E8F800D71952 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -180,9 +180,9 @@
 			isa = PBXGroup;
 			children = (
 				10BA311B1E2677DF002BE3E7 /* DESIGN.md */,
-				10BA311C1E2677DF002BE3E7 /* doc */,
 				10BA312A1E2677DF002BE3E7 /* PROCESS.md */,
 				10BA312B1E2677DF002BE3E7 /* README.md */,
+				10BA311C1E2677DF002BE3E7 /* doc */,
 				10F392991E24270800D71952 /* Buurt */,
 				10F392981E24270800D71952 /* Products */,
 				DD48F1C5553E42EC7ACACA7C /* Pods */,
@@ -201,7 +201,7 @@
 		10F392991E24270800D71952 /* Buurt */ = {
 			isa = PBXGroup;
 			children = (
-				10F392A11E24270900D71952 /* Assets.xcassets */,
+				10C448891E2CFE94004B16A9 /* Assets.xcassets */,
 				10F3929A1E24270900D71952 /* AppDelegate.swift */,
 				10BA31421E2795F0002BE3E7 /* Models */,
 				10BA31411E2795CC002BE3E7 /* ViewControllers */,
@@ -305,11 +305,11 @@
 				10BA312F1E2677DF002BE3E7 /* 12.png in Resources */,
 				10F392AF1E24EACA00D71952 /* GoogleService-Info.plist in Resources */,
 				10BA31321E2677DF002BE3E7 /* 15.png in Resources */,
+				10C4488A1E2CFE94004B16A9 /* Assets.xcassets in Resources */,
 				10BA31471E27A324002BE3E7 /* Main.storyboard in Resources */,
 				10BA31371E2677DF002BE3E7 /* 5.png in Resources */,
 				10BA31341E2677DF002BE3E7 /* 2.png in Resources */,
 				10BA31391E2677DF002BE3E7 /* diagram.png in Resources */,
-				10F392A21E24270900D71952 /* Assets.xcassets in Resources */,
 				10BA31361E2677DF002BE3E7 /* 4.png in Resources */,
 				10BA31351E2677DF002BE3E7 /* 3.png in Resources */,
 				10BA31331E2677DF002BE3E7 /* 16.png in Resources */,

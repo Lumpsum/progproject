@@ -10,13 +10,31 @@ import UIKit
 
 class SingleMentionViewController: UIViewController {
 
-    @IBOutlet var titleLabel: UILabel!
+    
+    @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var timeLabel: UILabel!
+    @IBOutlet var profilePictureHolder: UIImageView!
+    @IBOutlet var messageField: UITextView!
+    
+    @IBOutlet var commentField: UITextField!
+    @IBAction func saveComment(_ sender: Any) {
+        //let commentRef = ref.child("mentions").child(currentInfo.postcode).child(currentInfo.selectedMention["added"])
+        //mentionItemRef.setValue(mentionItem.toAnyObject())
+        print(currentInfo.selectedMention)
+    }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        titleLabel.text = currentInfo.selectedMention["titel"] as! String?
-        // Do any additional setup after loading the view.
+        self.title = currentInfo.selectedMention["titel"] as! String?
+        nameLabel.text = currentInfo.uidNameDict[(currentInfo.selectedMention["addedByUser"] as! String?)!]
+        timeLabel.text = getTimeDifference(inputDate: (currentInfo.selectedMention["timeStamp"] as! String?)!)
+        messageField.text = currentInfo.selectedMention["message"] as! String?
+        print(currentInfo.selectedMention)
+        
+        
     }
     
     
