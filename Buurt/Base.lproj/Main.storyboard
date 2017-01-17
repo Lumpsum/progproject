@@ -200,6 +200,7 @@
                         <barButtonItem key="leftBarButtonItem" image="menu" id="uVb-vh-4Is"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="mapView" destination="C61-DL-qTn" id="1I5-Rn-tHi"/>
                         <outlet property="menuButton" destination="uVb-vh-4Is" id="dmw-GU-oLO"/>
                     </connections>
                 </viewController>
