@@ -78,10 +78,6 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     
-    
-    
-    
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
         coordinates["longitude"] = String(locValue.longitude)

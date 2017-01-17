@@ -62,6 +62,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "mentionCell", for: indexPath) as! MentionCell
+        currentInfo.mentions = currentInfo.mentions.reversed() //To make sure that the new mentions are on top
         let cellData = currentInfo.mentions[indexPath.row].toAnyObject()
         cell.iconHolder.image = UIImage(named:  categoriesDictDutch[(cellData["category"] as! String?)!]!)
         cell.titleLabel.text = cellData["titel"] as! String?

@@ -36,7 +36,6 @@ func updateMentions(selectedKey: String?) {
             }
         }
     })
-    print("TEST", currentInfo.selectedMention)
 }
 
 func getTimeDifference(inputDate: String) -> String {

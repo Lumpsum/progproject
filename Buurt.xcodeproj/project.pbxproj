@@ -13,6 +13,7 @@
 		10431A351E2A9EFA003D7BE4 /* SideBarMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10431A341E2A9EFA003D7BE4 /* SideBarMenuTableViewController.swift */; };
 		10431A371E2AA04B003D7BE4 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10431A361E2AA04B003D7BE4 /* SettingsViewController.swift */; };
 		10B7BA101E2E4EED007BF50E /* MapPointer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B7BA0F1E2E4EED007BF50E /* MapPointer.swift */; };
+		10B7BA121E2E6764007BF50E /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B7BA111E2E6764007BF50E /* ExploreViewController.swift */; };
 		10BA312C1E2677DF002BE3E7 /* DESIGN.md in Sources */ = {isa = PBXBuildFile; fileRef = 10BA311B1E2677DF002BE3E7 /* DESIGN.md */; };
 		10BA312D1E2677DF002BE3E7 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 10BA311D1E2677DF002BE3E7 /* 1.png */; };
 		10BA312E1E2677DF002BE3E7 /* 11.png in Resources */ = {isa = PBXBuildFile; fileRef = 10BA311E1E2677DF002BE3E7 /* 11.png */; };
@@ -54,6 +55,7 @@
 		10431A341E2A9EFA003D7BE4 /* SideBarMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideBarMenuTableViewController.swift; sourceTree = "<group>"; };
 		10431A361E2AA04B003D7BE4 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		10B7BA0F1E2E4EED007BF50E /* MapPointer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapPointer.swift; sourceTree = "<group>"; };
+		10B7BA111E2E6764007BF50E /* ExploreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		10BA311B1E2677DF002BE3E7 /* DESIGN.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = DESIGN.md; sourceTree = "<group>"; };
 		10BA311D1E2677DF002BE3E7 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		10BA311E1E2677DF002BE3E7 /* 11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 11.png; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				10F3929C1E24270900D71952 /* LoginViewController.swift */,
 				10BA313D1E2784F0002BE3E7 /* SignUpViewController.swift */,
 				10F392AC1E24E8F800D71952 /* MainViewController.swift */,
+				10B7BA111E2E6764007BF50E /* ExploreViewController.swift */,
 				10FE986B1E250148002FAA1F /* NewMentionViewController.swift */,
 				103488D11E28CD0F0038DCFE /* SingleMentionViewController.swift */,
 				10431A341E2A9EFA003D7BE4 /* SideBarMenuTableViewController.swift */,
@@ -391,6 +394,7 @@
 				10BA313A1E2677DF002BE3E7 /* PROCESS.md in Sources */,
 				10BA31401E279439002BE3E7 /* User.swift in Sources */,
 				10F3929B1E24270900D71952 /* AppDelegate.swift in Sources */,
+				10B7BA121E2E6764007BF50E /* ExploreViewController.swift in Sources */,
 				10FE98781E263DFF002FAA1F /* CustomCell.swift in Sources */,
 				10B7BA101E2E4EED007BF50E /* MapPointer.swift in Sources */,
 				10FE986E1E2506B5002FAA1F /* MentionItem.swift in Sources */,
