@@ -15,7 +15,7 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
     let ref = FIRDatabase.database().reference(withPath: "mentions")
     let locationManager = CLLocationManager()
     var categoriesListDutch = ["Verdachte situatie", "Klacht", "Aandachtspunt", "Evenement", "Bericht"]
-    var coordinates = String()
+    var coordinates = Dictionary<String, String>()
     
     @IBOutlet var titleField: UITextField!
     
@@ -33,10 +33,11 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
                                       location: coordinates,
                                       message: messageField.text,
                                       timeStamp: String(describing: NSDate()),
-                                      replies: [["test"]])
+                                      replies: [["test", "test", "test"]])
             let mentionItemRef = ref.child(currentInfo.postcode).childByAutoId()
         
             mentionItemRef.setValue(mentionItem.toAnyObject())
+            
         }
     }
     
@@ -89,7 +90,7 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
             
             if (placemarks?.count)! > 0 {
                 let pm = (placemarks?[0])! as CLPlacemark
-                print("POSTCODE:", pm.postalCode, pm.thoroughfare)
+                //print("POSTCODE:", pm.postalCode, pm.thoroughfare)
                 currentInfo.location = pm.name! as String
             }
             
@@ -106,7 +107,8 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
-        coordinates = "\(locValue.longitude) \(locValue.latitude)"
+        coordinates["longitude"] = String(locValue.longitude)
+        coordinates["latitude"] = String(locValue.latitude)
         self.locationField.text =  getLocation(longitude: locValue.longitude, latitude: locValue.latitude)
     }
 

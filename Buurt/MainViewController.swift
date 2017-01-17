@@ -21,6 +21,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // GET MENTIONS FROM FIREBASE
+        updateMentions(selectedKey: nil)
+        self.tableView.reloadData()
         
         
         // SIDEBARMENU ENABLED
@@ -29,27 +32,13 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
-        
-        // GET MENTIONS FROM FIREBASE
-        ref.child(currentInfo.postcode).observe(.value, with: { snapshot in
-            let rawData = snapshot.value as? NSDictionary
-            currentInfo.mentions = []
-            if rawData != nil {
-                for item in rawData! {
-                    let mentionData = item.value as? NSDictionary
-                    let mentionItem = MentionItem(titel: mentionData!["titel"] as! String, addedByUser: mentionData!["addedByUser"] as! String, category: mentionData!["category"] as! String, location: mentionData!["location"] as! String, message: mentionData!["message"] as! String, timeStamp: mentionData!["timeStamp"] as! String, replies: mentionData!["replies"] as! Array<Array<Any>>, key: item.key as! String)
-                    currentInfo.mentions.append(mentionItem)
-                }
-            }
-            
-            self.tableView.reloadData()
-        })
+      
         
         // GET USER LIST (NOW ALL USERS, NEED TO EDDIT THIS)
         FIRDatabase.database().reference(withPath: "users").observe(.value, with: { snapshot in
-            var userData = (snapshot.value as? NSDictionary)!
+            let userData = (snapshot.value as? NSDictionary)!
             for item in userData {
-                var userDetails = item.value as? NSDictionary
+                let userDetails = item.value as? NSDictionary
                 currentInfo.uidNameDict[item.key as! String] = "\(userDetails!["firstname"] as! String) \(userDetails!["lastname"] as! String)"
             }
             

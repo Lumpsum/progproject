@@ -15,3 +15,6 @@ Probleem: Soms tweemaal inlog segue, mogelijke oorzaak is de listener. Sidebar m
 
 ## Dag 6
 Van coordinaat naar straatnaam en postcode. Tijdsinterval tussen opgeslagen tijd en actuele tijd en omzetten naar notatie nu/minuten/uren/dagen/weken. Reageren implementeren. Probleem was eerst dat ik niet aan de key van het geselecteerde bericht kon komen. Dit kon na van alles proberene echter heel makkelijk door de 'toAnyObject' methode aan te passen en de key mee terug te geven. 
+
+## Dag 7
+Reageren is nu mogelijk op een speciefieke melding. Probleem was eerst dat de meest recente comment overschreven werd, maar door de data opnieuw in te laden is dit probleem verholpen.
