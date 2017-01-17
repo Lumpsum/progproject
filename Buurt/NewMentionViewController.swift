@@ -78,30 +78,7 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     
-    func getLocation(longitude: CLLocationDegrees, latitude:CLLocationDegrees) -> String {
-        let location = CLLocation(latitude: latitude, longitude: longitude)
-        
-        CLGeocoder().reverseGeocodeLocation(location, completionHandler: {(placemarks, error) -> Void in
-            print(location)
-            
-            if error != nil {
-                print("Reverse geocoder failed with error" + (error?.localizedDescription)!)
-            }
-            
-            if (placemarks?.count)! > 0 {
-                let pm = (placemarks?[0])! as CLPlacemark
-                //print("POSTCODE:", pm.postalCode, pm.thoroughfare)
-                currentInfo.location = pm.name! as String
-            }
-            
-            else {
-                print("Couldn't find address")
-            }
-        })
-        
-        return currentInfo.location
-        
-    }
+    
     
     
     
@@ -110,6 +87,9 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
         coordinates["longitude"] = String(locValue.longitude)
         coordinates["latitude"] = String(locValue.latitude)
         self.locationField.text =  getLocation(longitude: locValue.longitude, latitude: locValue.latitude)
+        if self.locationField.text != "" {
+            locationManager.stopUpdatingLocation()
+        }
     }
 
     

@@ -30,7 +30,8 @@ class MentionCell: UITableViewCell {
 }
 
 class CommentCell: UITableViewCell {
-    @IBOutlet var textField: UILabel!
+    @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var commentField: UITextView!
     
     override func awakeFromNib() {
         

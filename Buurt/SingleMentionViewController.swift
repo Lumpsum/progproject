@@ -21,11 +21,12 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet var commentField: UITextField!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var mapView: MKMapView!
-        
+    
     @IBAction func saveComment(_ sender: Any) {
         updateMentions(selectedKey: currentInfo.selectedMention["key"] as? String)
         
         let commentRef = ref.child(currentInfo.postcode).child((currentInfo.selectedMention["key"] as! String))
+        
         var tempComments = currentInfo.selectedMention["replies"] as! Array<Array<String>>
         
         if tempComments[0] == ["test", "test", "test"] {
@@ -54,6 +55,10 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
         let initialLocation = CLLocation(latitude: Double(dbLocation["latitude"]!)!, longitude: Double(dbLocation["longitude"]!)!)
         centerMapOnLocation(location: initialLocation)
         
+        let mapPointer = MapPointer(title: (currentInfo.selectedMention["titel"] as! String?)!, locationName: getLocation(longitude: Double(dbLocation["longitude"]!)!, latitude: Double(dbLocation["latitude"]!)!), coordinate: CLLocationCoordinate2D(latitude: Double(dbLocation["latitude"]!)!, longitude: Double(dbLocation["longitude"]!)!))
+        
+        mapView.addAnnotation(mapPointer)
+        
     }
     
     
@@ -62,7 +67,7 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
         // Dispose of any resources that can be recreated.
     }
     
-    // MAP SETUP
+    
     let regionRadius: CLLocationDistance = 100
     func centerMapOnLocation(location: CLLocation) {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
@@ -79,7 +84,10 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath) as! CommentCell
         let cellData = currentInfo.selectedMention["replies"] as! Array<Array<String>>
-        cell.textField.text = cellData[indexPath.row][2]
+        print("DICT", currentInfo.uidNameDict)
+        print(cellData[indexPath.row][0])
+        cell.nameLabel.text = currentInfo.uidNameDict[cellData[indexPath.row][0]]
+        cell.commentField.text = cellData[indexPath.row][2]
         
         return cell
     }
