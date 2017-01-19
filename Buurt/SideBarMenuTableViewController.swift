@@ -12,9 +12,6 @@ class SideBarMenuController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("VIEWTEST")
-        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
@@ -27,14 +24,15 @@ class SideBarMenuController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+    func prepareForSegue(segue: SWRevealViewControllerSeguePushController!, sender: AnyObject!) {
+        print("IDENTIFIER", segue.identifier)
         if (segue.identifier == "FeedSegue") {
             let VC2 : MainViewController = segue.destination as! MainViewController
             print("SEGUE1")
             VC2.viewFunction = "feed"
             
         }
-        if (segue.identifier == "FollowSeuge") {
+        if (segue.identifier == "FollowSegue") {
             let VC2 : MainViewController = segue.destination as! MainViewController
             print("SEGUE1")
             VC2.viewFunction = "follow"

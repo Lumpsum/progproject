@@ -332,6 +332,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="commentField" destination="AHb-Er-vAK" id="d7w-Mc-jGb"/>
+                        <outlet property="followIcon" destination="t8H-90-wnr" id="PXJ-iU-TiD"/>
                         <outlet property="mapView" destination="sY0-YL-UZm" id="XYA-yR-8hJ"/>
                         <outlet property="messageField" destination="KxQ-CO-dCi" id="Tff-YC-HIk"/>
                         <outlet property="nameLabel" destination="jt9-Pe-pJL" id="1rs-pi-xwZ"/>
@@ -538,10 +539,10 @@
             </objects>
             <point key="canvasLocation" x="972" y="139"/>
         </scene>
-        <!--Side Bar Menu Table View Controller-->
+        <!--Side Bar Menu Controller-->
         <scene sceneID="EVI-zx-raG">
             <objects>
-                <tableViewController id="BQI-Zb-GaO" customClass="SideBarMenuTableViewController" sceneMemberID="viewController">
+                <tableViewController id="BQI-Zb-GaO" customClass="SideBarMenuController" customModule="Buurt" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="FwV-7I-7eA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

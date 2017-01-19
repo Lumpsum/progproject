@@ -1898,40 +1898,25 @@ NSString * const SWSegueRightIdentifier = @"sw_right";
 //
 //#pragma mark Storyboard support
 //
-//@implementation SWRevealViewController(deprecated)
-//
-//- (void)prepareForSegue:(SWRevealViewControllerSegue *)segue sender:(id)sender   // TO REMOVE: DEPRECATED IMPLEMENTATION
-//{
-//    // This method is required for compatibility with SWRevealViewControllerSegue, now deprecated.
-//    // It can be simply removed when using SWRevealViewControllerSegueSetController and SWRevealViewControlerSeguePushController
-//    
-//    NSString *identifier = segue.identifier;
-//    if ( [segue isKindOfClass:[SWRevealViewControllerSegue class]] && sender == nil )
-//    {
-//        if ( [identifier isEqualToString:SWSegueRearIdentifier] )
-//        {
-//            segue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc)
-//            {
-//                [self _setRearViewController:dvc animated:NO];
-//            };
-//        }
-//        else if ( [identifier isEqualToString:SWSegueFrontIdentifier] )
-//        {
-//            segue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc)
-//            {
-//                [self _setFrontViewController:dvc animated:NO];
-//            };
-//        }
-//        else if ( [identifier isEqualToString:SWSegueRightIdentifier] )
-//        {
-//            segue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc)
-//            {
-//                [self _setRightViewController:dvc animated:NO];
-//            };
-//        }
-//    }
-//}
-//
-//@end
+@implementation SWRevealViewController(deprecated)
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender   // TO REMOVE: DEPRECATED IMPLEMENTATION
+{
+    // This method is required for compatibility with SWRevealViewControllerSegue, now deprecated.
+    // It can be simply removed when using SWRevealViewControllerSegueSetController and SWRevealViewControlerSeguePushController
+    printf("TESTER1");
+    NSString *identifier = segue.identifier;
+    NSLog(@ "IDENTIFIER: %@", identifier);
+    if ( [segue isKindOfClass:[SWRevealViewController class]] && sender == nil )
+    {
+        printf("TESTER2");
+        if ( [identifier isEqualToString:@"FollowSegue"] )
+        {
+            printf("FOLLOWSEGUE PERFORMED");
+        }
+    }
+}
+
+@end
 
 

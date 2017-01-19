@@ -21,6 +21,7 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet var commentField: UITextField!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var mapView: MKMapView!
+    @IBOutlet var followIcon: UIBarButtonItem!
     
     @IBAction func saveComment(_ sender: Any) {
         updateMentions(selectedKey: currentInfo.selectedMention["key"] as? String)
@@ -45,6 +46,7 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
             let userRef = FIRDatabase.database().reference(withPath: "users").child(currentInfo.user["uid"]!)
             currentInfo.followlist.append(currentInfo.selectedMention["key"] as! String)
             userRef.updateChildValues(["followlist": currentInfo.followlist])
+            viewDidLoad()
         }
     }
 
@@ -52,19 +54,25 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // SHOW INFORMATION
         self.title = currentInfo.selectedMention["titel"] as! String?
         nameLabel.text = currentInfo.uidNameDict[(currentInfo.selectedMention["addedByUser"] as! String?)!]
         timeLabel.text = getTimeDifference(inputDate: (currentInfo.selectedMention["timeStamp"] as! String?)!)
         messageField.text = currentInfo.selectedMention["message"] as! String?
-        print("SELECTED", currentInfo.selectedMention)
         
+        // SHOW MAP
         let dbLocation = currentInfo.selectedMention["location"] as! Dictionary<String, String>
         let initialLocation = CLLocation(latitude: Double(dbLocation["latitude"]!)!, longitude: Double(dbLocation["longitude"]!)!)
         centerMapOnLocation(location: initialLocation)
-        
         let mapPointer = MapPointer(title: (currentInfo.selectedMention["titel"] as! String?)!, locationName: getLocation(longitude: Double(dbLocation["longitude"]!)!, latitude: Double(dbLocation["latitude"]!)!), coordinate: CLLocationCoordinate2D(latitude: Double(dbLocation["latitude"]!)!, longitude: Double(dbLocation["longitude"]!)!))
-        
         mapView.addAnnotation(mapPointer)
+        
+        // SET FOLLOW ICON
+        if currentInfo.followlist.contains(currentInfo.selectedMention["key"] as! String) {
+            followIcon.tintColor = UIColor.green
+        }
+        
+        
         
     }
     
