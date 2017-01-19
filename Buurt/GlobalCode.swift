@@ -14,7 +14,8 @@ struct currentInfo {
     static var postcode = "1033"
     static var mentions = Array<MentionItem>()
     static var uid = String()
-    static var userName = String()
+    static var user = Dictionary<String, String>()
+    static var followlist = Array<String>()
     static var selectedMention =  Dictionary<String, Any>()
     static var uidNameDict = Dictionary<String, String>()
     static var location = String()
@@ -32,6 +33,31 @@ func updateMentions(selectedKey: String?) {
                 currentInfo.mentions.append(mentionItem)
                 if item.key as? String == selectedKey {
                     currentInfo.selectedMention = mentionItem.toAnyObject()
+                }
+            }
+        }
+    })
+}
+
+func updateCurrentUserInfo() {
+    FIRDatabase.database().reference(withPath: "users").observe(.value, with: { snapshot in
+        let userData = (snapshot.value as? NSDictionary)!
+        if currentInfo.user["firstname"] != nil {
+            return
+        } else {
+            print("TESTPRINT1")
+            for item in userData {
+                print("TESTPRINT2")
+                let userDetails = item.value as? NSDictionary
+                print("KEY1", item.key as! String)
+                print("KEY2", currentInfo.user["uid"]!)
+                if item.key as! String == currentInfo.user["uid"]! {
+                    print("TESTPRINT3")
+                    currentInfo.user["firstname"] = userDetails!["firstname"] as? String
+                    currentInfo.user["lastname"] = userDetails!["lastname"] as? String
+                    currentInfo.user["email"] = userDetails!["email"] as? String
+                    currentInfo.user["postcode"] = userDetails!["postcode"] as? String
+                    print(currentInfo.user)
                 }
             }
         }

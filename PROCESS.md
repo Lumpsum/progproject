@@ -18,3 +18,9 @@ Van coordinaat naar straatnaam en postcode. Tijdsinterval tussen opgeslagen tijd
 
 ## Dag 7 (17-01-2017)
 Reageren is nu mogelijk op een speciefieke melding. Probleem was eerst dat de meest recente comment overschreven werd, maar door de data opnieuw in te laden is dit probleem verholpen. Mapkit geimplementeerd, kaartje met pin is nu zichtbaar op de pagina van een enkele melding. Ook de 'In de buurt' ViewController aangemaakt, ook hierbij worden alle pins geplaatst op de kaart. Er kan nog niet doorgelinkt worden naar de pagina's van de meldingen.
+
+## Dag 8 (18-01-2017)
+Naast de startUpdateLocation() methode heb ik ook de requestLocation() methode geimplementeerd. Instellingen scherm functioneel gemaakt. Start gemaakt met het mogelijk maken van berichten volgen, extra eigenschap aan de 'user' class gegeven hiervoor. Gewerkt aan de Style Guide.
+
+## Dag 9 (19-01-2017)
+Style Guide besproken met de groep en afgemaakt. Volgen van berichten nu mogelijk en weggeschreven in Firebase. Proberen om dezelfde ViewController te gebruiken voor zowel feed als volgen, maar ik kan geen identifier checken door het sidemenu dat ik gebruik.

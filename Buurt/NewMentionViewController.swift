@@ -28,7 +28,7 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBAction func postMention(_ sender: Any) {
         if checkInput() == true {
             let mentionItem = MentionItem(titel: titleField.text!,
-                                      addedByUser: currentInfo.uid,
+                                      addedByUser: currentInfo.user["uid"]!,
                                       category: categoryField.text!,
                                       location: coordinates,
                                       message: messageField.text,
@@ -43,6 +43,10 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        messageField.layer.borderColor = UIColor(red:0.78, green:0.78, blue:0.80, alpha:1.0).cgColor
+        messageField.layer.borderWidth = 0.5
+        messageField.layer.cornerRadius = 5
         
         var pickerView = UIPickerView()
         pickerView.delegate = self
@@ -82,6 +86,7 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
         coordinates["longitude"] = String(locValue.longitude)
         coordinates["latitude"] = String(locValue.latitude)
+        print("TESTPRINT")
         self.locationField.text =  getLocation(longitude: locValue.longitude, latitude: locValue.latitude)
         if self.locationField.text != "" {
             locationManager.stopUpdatingLocation()

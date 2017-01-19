@@ -16,21 +16,15 @@ struct User {
     let firstname: String
     let lastname: String
     let postcode: String
+    let followlist: Array<String>?
     
-    //init(authData: FIRUser, firstname: String, lastname: String, postcode: String) {
-    //    uid = authData.uid
-    //    email = authData.email!
-    //    self.firstname = firstname
-    //    self.lastname = lastname
-    //    self.postcode = postcode
-    //}
-    
-    init(uid: String, email: String, firstname: String, lastname: String, postcode: String) {
+    init(uid: String, email: String, firstname: String, lastname: String, postcode: String, followlist: Array<String>?) {
         self.uid = uid
         self.email = email
         self.firstname = firstname
         self.lastname = lastname
         self.postcode = postcode
+        self.followlist = followlist
     }
     
     func toAnyObject() -> Dictionary<String, Any> {
@@ -38,7 +32,8 @@ struct User {
             "email": email,
             "firstname": firstname,
             "lastname": lastname,
-            "postcode": postcode ]
+            "postcode": postcode,
+            "followlist": followlist]
     }
     
 }

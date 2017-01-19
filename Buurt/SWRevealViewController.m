@@ -1713,6 +1713,7 @@ const int FrontViewPositionNone = 0xff;
             [self performSegueWithIdentifier:SWSegueRightIdentifier sender:nil];
         }
         @catch(NSException *exception) {}
+        
     }
 }
 

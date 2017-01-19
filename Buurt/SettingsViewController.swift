@@ -7,19 +7,43 @@
 //
 
 import UIKit
+import Firebase
 
 class SettingsViewController: UIViewController {
 
+    @IBOutlet var firstNameField: UITextField!
+    @IBOutlet var lastNameField: UITextField!
+    @IBOutlet var emailField: UITextField!
     @IBOutlet var menuButton: UIBarButtonItem!
+    
+    @IBAction func updateUserData(_ sender: Any) {
+        
+        let userRef = FIRDatabase.database().reference(withPath: "users").child(currentInfo.user["uid"]!)
+        userRef.updateChildValues(["firstname": firstNameField.text!])
+        userRef.updateChildValues(["lastname": lastNameField.text!])
+        userRef.updateChildValues(["email": emailField.text!])
+        
+    }
+    @IBAction func logOutAction(_ sender: Any) {
+    
+        try! FIRAuth.auth()!.signOut()
+        let loginViewController = self.storyboard!.instantiateViewController(withIdentifier: "Login")
+        UIApplication.shared.keyWindow?.rootViewController = loginViewController
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        if self.revealViewController() != nil {
-            menuButton.target = self.revealViewController()
-            menuButton.action = "revealToggle:"
-            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-        }
+        
+        self.firstNameField.text = currentInfo.user["firstname"]!
+        self.lastNameField.text = currentInfo.user["lastname"]!
+        self.emailField.text = currentInfo.user["email"]!
+            
+        // SIDE BAR MENU SETUP
+        menuButton.target = self.revealViewController()
+        menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+        self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        
+        
     
     }
 
@@ -29,14 +53,5 @@ class SettingsViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

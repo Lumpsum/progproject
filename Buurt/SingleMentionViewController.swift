@@ -33,13 +33,20 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
             tempComments.remove(at: 0)
         }
         
-        tempComments.append([currentInfo.uid, "\(NSDate())", commentField.text!])
+        tempComments.append([currentInfo.user["uid"]!, "\(NSDate())", commentField.text!])
         commentRef.updateChildValues(["replies": tempComments])
         
         updateMentions(selectedKey: currentInfo.selectedMention["key"] as? String)
         self.tableView.reloadData()
     }
     
+    @IBAction func followAction(_ sender: Any) {
+        if currentInfo.followlist.contains(currentInfo.selectedMention["key"] as! String) == false {
+            let userRef = FIRDatabase.database().reference(withPath: "users").child(currentInfo.user["uid"]!)
+            currentInfo.followlist.append(currentInfo.selectedMention["key"] as! String)
+            userRef.updateChildValues(["followlist": currentInfo.followlist])
+        }
+    }
 
     
     override func viewDidLoad() {

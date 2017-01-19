@@ -19,7 +19,6 @@ class ViewController: UIViewController {
     }
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,10 +26,9 @@ class ViewController: UIViewController {
             if user != nil {
                 self.performSegue(withIdentifier: "LoginToFeed", sender: nil)
                 
-                currentInfo.uid = (user?.uid)!
+                currentInfo.user["uid"] = (user?.uid)!
             }
         }
-    
     }
 
     override func didReceiveMemoryWarning() {

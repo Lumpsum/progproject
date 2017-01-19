@@ -15,15 +15,44 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet var menuButton: UIBarButtonItem!
     
+    
+    var viewFunction = String()
     let ref = FIRDatabase.database().reference(withPath: "mentions")
     let categoriesDictDutch = ["Verdachte situatie":"warning", "Klacht":"complaint", "Aandachtspunt":"focus", "Evenement":"event", "Bericht":"message"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        print("VIEWFUNCTION:", viewFunction)
+        
+        
         // GET MENTIONS FROM FIREBASE
         updateMentions(selectedKey: nil)
         self.tableView.reloadData()
+        
+        
+        // GET ALL USER DATA
+        FIRDatabase.database().reference(withPath: "users").observe(.value, with: { snapshot in
+            let userData = (snapshot.value as? NSDictionary)!
+            print("TESTPRINT1")
+            for item in userData {
+                print("TESTPRINT2")
+                let userDetails = item.value as? NSDictionary
+                print("KEY1", item.key as! String)
+                print("KEY2", currentInfo.user["uid"]!)
+                if item.key as! String == currentInfo.user["uid"]! {
+                    print("TESTPRINT3")
+                    currentInfo.user["firstname"] = userDetails!["firstname"] as? String
+                    currentInfo.user["lastname"] = userDetails!["lastname"] as? String
+                    currentInfo.user["email"] = userDetails!["email"] as? String
+                    currentInfo.user["postcode"] = userDetails!["postcode"] as? String
+                    currentInfo.followlist = (userDetails!["followlist"] as? Array<String>)!
+                    print("TESTPRINT4", currentInfo.user, currentInfo.followlist)
+                }
+            }
+        })
+        
         
         
         // SIDEBARMENU ENABLED
@@ -33,15 +62,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
       
-        
-        // GET USER LIST (NOW ALL USERS, NEED TO EDDIT THIS)
         FIRDatabase.database().reference(withPath: "users").observe(.value, with: { snapshot in
             let userData = (snapshot.value as? NSDictionary)!
             for item in userData {
                 let userDetails = item.value as? NSDictionary
                 currentInfo.uidNameDict[item.key as! String] = "\(userDetails!["firstname"] as! String) \(userDetails!["lastname"] as! String)"
             }
-            
             self.tableView.reloadData()
         })
         
