@@ -24,22 +24,21 @@ class SideBarMenuController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func prepareForSegue(segue: SWRevealViewControllerSeguePushController!, sender: AnyObject!) {
-        print("IDENTIFIER", segue.identifier)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //print("IDENTIFIER", segue.identifier)
         if (segue.identifier == "FeedSegue") {
-            let VC2 : MainViewController = segue.destination as! MainViewController
-            print("SEGUE1")
-            VC2.viewFunction = "feed"
-            
+            let navigationVC = segue.destination as? UINavigationController
+            let destinationVC = navigationVC?.viewControllers.first as! MainViewController
+            destinationVC.viewFunction = "feed"
         }
         if (segue.identifier == "FollowSegue") {
-            let VC2 : MainViewController = segue.destination as! MainViewController
-            print("SEGUE1")
-            VC2.viewFunction = "follow"
+            let navigationVC = segue.destination as? UINavigationController
+            let destinationVC = navigationVC?.viewControllers.first as! MainViewController
+            destinationVC.viewFunction = "follow"
         }
+
     }
-    
-    
+   
     // MARK: - Table view data source
     
     

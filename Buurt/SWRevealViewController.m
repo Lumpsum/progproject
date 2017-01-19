@@ -1898,25 +1898,25 @@ NSString * const SWSegueRightIdentifier = @"sw_right";
 //
 //#pragma mark Storyboard support
 //
-@implementation SWRevealViewController(deprecated)
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender   // TO REMOVE: DEPRECATED IMPLEMENTATION
-{
-    // This method is required for compatibility with SWRevealViewControllerSegue, now deprecated.
-    // It can be simply removed when using SWRevealViewControllerSegueSetController and SWRevealViewControlerSeguePushController
-    printf("TESTER1");
-    NSString *identifier = segue.identifier;
-    NSLog(@ "IDENTIFIER: %@", identifier);
-    if ( [segue isKindOfClass:[SWRevealViewController class]] && sender == nil )
-    {
-        printf("TESTER2");
-        if ( [identifier isEqualToString:@"FollowSegue"] )
-        {
-            printf("FOLLOWSEGUE PERFORMED");
-        }
-    }
-}
-
-@end
+//@implementation SWRevealViewController(deprecated)
+//
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender   // TO REMOVE: DEPRECATED IMPLEMENTATION
+//{
+//    // This method is required for compatibility with SWRevealViewControllerSegue, now deprecated.
+//    // It can be simply removed when using SWRevealViewControllerSegueSetController and SWRevealViewControlerSeguePushController
+//    printf("TESTER1");
+//    NSString *identifier = segue.identifier;
+//    NSLog(@ "IDENTIFIER: %@", identifier);
+//    if ( [segue isKindOfClass:[SWRevealViewController class]] && sender == nil )
+//    {
+//        printf("TESTER2");
+//        if ( [identifier isEqualToString:@"FollowSegue"] )
+//        {
+//            printf("FOLLOWSEGUE PERFORMED");
+//        }
+//    }
+//}
+//
+//@end
 
 

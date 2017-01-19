@@ -23,14 +23,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        print("VIEWFUNCTION:", viewFunction)
-        
-        
         // GET MENTIONS FROM FIREBASE
         updateMentions(selectedKey: nil)
         self.tableView.reloadData()
-        
         
         // GET ALL USER DATA
         FIRDatabase.database().reference(withPath: "users").observe(.value, with: { snapshot in
@@ -47,15 +42,14 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         })
         
-        
-        
         // SIDEBARMENU ENABLED
         if self.revealViewController() != nil {
             menuButton.target = self.revealViewController()
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
-      
+        
+        // GET USERID:USER DICTIONARY
         FIRDatabase.database().reference(withPath: "users").observe(.value, with: { snapshot in
             let userData = (snapshot.value as? NSDictionary)!
             for item in userData {
@@ -64,18 +58,14 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             self.tableView.reloadData()
         })
-        
-        
-        
     }
 
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    
-
-
+    // TABELE METHODS
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return currentInfo.mentions.count
     }
