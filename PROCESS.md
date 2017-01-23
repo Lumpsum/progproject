@@ -23,4 +23,9 @@ Reageren is nu mogelijk op een speciefieke melding. Probleem was eerst dat de me
 Naast de startUpdateLocation() methode heb ik ook de requestLocation() methode geimplementeerd. Instellingen scherm functioneel gemaakt. Start gemaakt met het mogelijk maken van berichten volgen, extra eigenschap aan de 'user' class gegeven hiervoor. Gewerkt aan de Style Guide.
 
 ## Dag 9 (19-01-2017)
-Style Guide besproken met de groep en afgemaakt. Volgen van berichten nu mogelijk en weggeschreven in Firebase. Proberen om dezelfde ViewController te gebruiken voor zowel feed als volgen, maar ik kan geen identifier checken door het sidemenu dat ik gebruik.
+Style Guide besproken met de groep en afgemaakt. Volgen van berichten nu mogelijk en weggeschreven in Firebase. Proberen om dezelfde ViewController te gebruiken voor zowel feed als volgen, maar ik kan geen identifier checken door het sidemenu dat ik gebruik. Opgelost! Na struinen door de Objective-C bestanden te struinen en vanalles geprobeerd te hebben kwam Julian er achter dat ik gebruik maakte van een Swift 2 functie, die in Swift 3 net wat anders in elkaar zit. Nieuw probleem was de navigation controller die tussen de twee controllers in zit, dit is opgelost door eerst te linken naar de nav controller en dan door naar de destination controller.
+
+## Dag 10 (20-01-2017)
+Alpha versie gepresenteerd.
+
+## Dag 11 (23-01-2017)

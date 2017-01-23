@@ -25,7 +25,6 @@ class SideBarMenuController: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //print("IDENTIFIER", segue.identifier)
         if (segue.identifier == "FeedSegue") {
             let navigationVC = segue.destination as? UINavigationController
             let destinationVC = navigationVC?.viewControllers.first as! MainViewController
@@ -35,6 +34,11 @@ class SideBarMenuController: UITableViewController {
             let navigationVC = segue.destination as? UINavigationController
             let destinationVC = navigationVC?.viewControllers.first as! MainViewController
             destinationVC.viewFunction = "follow"
+        }
+        if (segue.identifier == "MyMentionsSegue") {
+            let navigationVC = segue.destination as? UINavigationController
+            let destinationVC = navigationVC?.viewControllers.first as! MainViewController
+            destinationVC.viewFunction = "mymentions"
         }
 
     }

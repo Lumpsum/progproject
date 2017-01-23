@@ -27,6 +27,7 @@ class SettingsViewController: UIViewController {
     @IBAction func logOutAction(_ sender: Any) {
     
         try! FIRAuth.auth()!.signOut()
+        currentInfo.mentions = Array<MentionItem>()
         let loginViewController = self.storyboard!.instantiateViewController(withIdentifier: "Login")
         UIApplication.shared.keyWindow?.rootViewController = loginViewController
     }

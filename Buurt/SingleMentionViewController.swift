@@ -44,9 +44,14 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
     @IBAction func followAction(_ sender: Any) {
         if currentInfo.followlist.contains(currentInfo.selectedMention["key"] as! String) == false {
             let userRef = FIRDatabase.database().reference(withPath: "users").child(currentInfo.user["uid"]!)
-            currentInfo.followlist.append(currentInfo.selectedMention["key"] as! String)
-            userRef.updateChildValues(["followlist": currentInfo.followlist])
-            viewDidLoad()
+            var tempFollowList = currentInfo.followlist
+            tempFollowList.append(currentInfo.selectedMention["key"] as! String)
+            //currentInfo.followlist.append(currentInfo.selectedMention["key"] as! String)
+            userRef.updateChildValues(["followlist": tempFollowList])
+            //viewDidLoad()
+        }
+        else if currentInfo.followlist.contains(currentInfo.selectedMention["key"] as! String) {
+            print("Have to delete this item")
         }
     }
 
@@ -61,10 +66,12 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
         messageField.text = currentInfo.selectedMention["message"] as! String?
         
         // SHOW MAP
+        
         let dbLocation = currentInfo.selectedMention["location"] as! Dictionary<String, String>
         let initialLocation = CLLocation(latitude: Double(dbLocation["latitude"]!)!, longitude: Double(dbLocation["longitude"]!)!)
         centerMapOnLocation(location: initialLocation)
         let mapPointer = MapPointer(title: (currentInfo.selectedMention["titel"] as! String?)!, locationName: getLocation(longitude: Double(dbLocation["longitude"]!)!, latitude: Double(dbLocation["latitude"]!)!), coordinate: CLLocationCoordinate2D(latitude: Double(dbLocation["latitude"]!)!, longitude: Double(dbLocation["longitude"]!)!))
+        //mapView.removeAnnotations(mapView.annotations)
         mapView.addAnnotation(mapPointer)
         
         // SET FOLLOW ICON

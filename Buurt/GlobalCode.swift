@@ -21,9 +21,14 @@ struct currentInfo {
     static var location = String()
 }
 
+extension Notification.Name {
+    static let reload = Notification.Name("reload")
+}
+
 func updateMentions(selectedKey: String?) {
+    print("UPDATEMENTIONS() EXECUTED")
     let ref = FIRDatabase.database().reference(withPath: "mentions")
-    ref.child(currentInfo.postcode).observe(.value, with: { snapshot in
+    ref.child(currentInfo.user["postcode"]!).observe(.value, with: { snapshot in
         let rawData = snapshot.value as? NSDictionary
         currentInfo.mentions = []
         if rawData != nil {
@@ -36,30 +41,33 @@ func updateMentions(selectedKey: String?) {
                 }
             }
         }
+        NotificationCenter.default.post(name: .reload, object: nil)
     })
 }
 
 func updateCurrentUserInfo() {
     FIRDatabase.database().reference(withPath: "users").observe(.value, with: { snapshot in
         let userData = (snapshot.value as? NSDictionary)!
-        if currentInfo.user["firstname"] != nil {
-            return
-        } else {
-            print("TESTPRINT1")
-            for item in userData {
-                print("TESTPRINT2")
-                let userDetails = item.value as? NSDictionary
-                print("KEY1", item.key as! String)
-                print("KEY2", currentInfo.user["uid"]!)
-                if item.key as! String == currentInfo.user["uid"]! {
-                    print("TESTPRINT3")
-                    currentInfo.user["firstname"] = userDetails!["firstname"] as? String
-                    currentInfo.user["lastname"] = userDetails!["lastname"] as? String
-                    currentInfo.user["email"] = userDetails!["email"] as? String
-                    currentInfo.user["postcode"] = userDetails!["postcode"] as? String
-                    print(currentInfo.user)
-                }
+        for item in userData {
+            let userDetails = item.value as? NSDictionary
+            if item.key as! String == currentInfo.user["uid"]! {
+                currentInfo.user["firstname"] = userDetails!["firstname"] as? String
+                currentInfo.user["lastname"] = userDetails!["lastname"] as? String
+                currentInfo.user["email"] = userDetails!["email"] as? String
+                currentInfo.user["postcode"] = userDetails!["postcode"] as? String
+                currentInfo.followlist = (userDetails!["followlist"] as? Array<String>)!
             }
+        }
+    })
+
+}
+
+func updateUserDict () {
+    FIRDatabase.database().reference(withPath: "users").observe(.value, with: { snapshot in
+        let userData = (snapshot.value as? NSDictionary)!
+        for item in userData {
+            let userDetails = item.value as? NSDictionary
+            currentInfo.uidNameDict[item.key as! String] = "\(userDetails!["firstname"] as! String) \(userDetails!["lastname"] as! String)"
         }
     })
 }
