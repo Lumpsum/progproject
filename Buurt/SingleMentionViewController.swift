@@ -44,10 +44,8 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
     @IBAction func followAction(_ sender: Any) {
         if currentInfo.followlist.contains(currentInfo.selectedMention["key"] as! String) == false {
             let userRef = FIRDatabase.database().reference(withPath: "users").child(currentInfo.user["uid"]!)
-            var tempFollowList = currentInfo.followlist
-            tempFollowList.append(currentInfo.selectedMention["key"] as! String)
-            //currentInfo.followlist.append(currentInfo.selectedMention["key"] as! String)
-            userRef.updateChildValues(["followlist": tempFollowList])
+            currentInfo.followlist.append(currentInfo.selectedMention["key"] as! String)
+            userRef.updateChildValues(["followlist": currentInfo.followlist])
             //viewDidLoad()
         }
         else if currentInfo.followlist.contains(currentInfo.selectedMention["key"] as! String) {
@@ -58,6 +56,7 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         // SHOW INFORMATION
         self.title = currentInfo.selectedMention["titel"] as! String?
@@ -83,11 +82,13 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
         
     }
     
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+    
     
     
     let regionRadius: CLLocationDistance = 100
