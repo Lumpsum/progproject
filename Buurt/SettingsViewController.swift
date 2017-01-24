@@ -8,10 +8,14 @@
 
 import UIKit
 import Firebase
+import FirebaseStorage
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var lockValue = true
+    var imagePicker = UIImagePickerController()
+    let storageRef = FIRStorage.storage().reference()
+    var picturePath = String()
     
     @IBOutlet var firstNameField: UITextField!
     @IBOutlet var lastNameField: UITextField!
@@ -19,20 +23,13 @@ class SettingsViewController: UIViewController {
     @IBOutlet var postcodeField: UITextField!
     @IBOutlet var menuButton: UIBarButtonItem!
     @IBOutlet var lockIcon: UIBarButtonItem!
-    
-    @IBAction func lockIconAction(_ sender: Any) {
-        if lockValue == true {
-            lockValue = false
-            lockIcon.tintColor = UIColor.green
-            self.firstNameField.allowsEditingTextAttributes = false
-        }
-        else if lockValue == false {
-            lockValue = true
-            lockIcon.tintColor = UIColor.white
-            updateUserData(Any)
-        }
+    @IBOutlet var profilePicture: UIImageView!
+
+    @IBAction func didTapProfilePicture(_ sender: Any) {
+        imagePicker.allowsEditing = true
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
     }
-    
     
     @IBAction func updateUserData(_ sender: Any) {
         
@@ -41,8 +38,9 @@ class SettingsViewController: UIViewController {
         userRef.updateChildValues(["lastname": lastNameField.text!])
         userRef.updateChildValues(["email": emailField.text!])
         userRef.updateChildValues(["postcode": postcodeField.text!])
-        
+        userRef.updateChildValues(["picture": picturePath])
     }
+    
     @IBAction func logOutAction(_ sender: Any) {
     
         try! FIRAuth.auth()!.signOut()
@@ -54,20 +52,114 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // IMAGE PICKER
+        imagePicker.delegate = self
+        
+        // SET TEXTFIELDS
         self.firstNameField.text = currentInfo.user["firstname"]!
         self.lastNameField.text = currentInfo.user["lastname"]!
         self.emailField.text = currentInfo.user["email"]!
         self.postcodeField.text = currentInfo.user["postcode"]!
-            
+        
+        // SET PROFILE PICTURE
+        print("PATH", currentInfo.user["picture"]!)
+        let httpsReference = FIRStorage.storage().reference(forURL: currentInfo.user["picture"]!)
+        
+        httpsReference.data(withMaxSize: 1 * 1024 * 1024) { data, error in
+            if error != nil {
+                // Uh-oh, an error occurred!
+            } else {
+                self.profilePicture.image = UIImage(data: data!)
+                // MAKE PICTURE ROUND
+                self.profilePicture.layer.cornerRadius = self.profilePicture.frame.size.width / 2
+                self.profilePicture.clipsToBounds = true
+            }
+        }
+        
         // SIDE BAR MENU SETUP
         menuButton.target = self.revealViewController()
         menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-        
-        
-    
     }
+    
+    
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            profilePicture.image = image
+            
+            var data = NSData()
+            data = UIImageJPEGRepresentation(profilePicture.image!, 0.8)! as NSData
+            
+            let filePath = "\(FIRAuth.auth()!.currentUser!.uid)/\("profilePicture")"
+            
+            let metaData = FIRStorageMetadata()
+            metaData.contentType = "image/jpg"
+            
+            self.storageRef.child(filePath).put(data as Data, metadata: metaData){(metaData,error) in
+                if let error = error {
+                    print("IMAGE UPLOAD ERROR", error.localizedDescription)
+                    return
+                }else{
+                    print("IMAGE UPLOADED SUCCESFULLY")
+                    self.picturePath = metaData!.downloadURL()!.absoluteString
+                    //store downloadURL
+                    //let downloadURL = metaData!.downloadURL()!.absoluteString
+                    //store downloadURL at database
+                    //self.databaseRef.child("users").child(FIRAuth.auth()!.currentUser!.uid).updateChildValues(["userPhoto": downloadURL])
+                }
+                
+            }
+            
+            
+        } else{
+            print("Something went wrong")
+        }
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+    
+    
 
+    // TESTING
+    /*
+    let storageRef = FIRStorage.storage().reference()
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+        profilePicture.image = image
+        dismiss(animated: true, completion: nil)
+        
+        var data = NSData()
+        data = UIImageJPEGRepresentation(profilePicture.image!, 0.8)! as NSData
+        
+        // set upload path
+        let filePath = "\(FIRAuth.auth()!.currentUser!.uid)/\("userPhoto")"
+        let metaData = FIRStorageMetadata()
+        metaData.contentType = "image/jpg"
+        self.storageRef.child(filePath).put(data as Data, metadata: metaData){(metaData,error) in
+            if let error = error {
+                print("IMAGE UPLOAD ERROR", error.localizedDescription)
+                return
+            }else{
+                print("IMAGE UPLOADED SUCCESFULLY")
+                //store downloadURL
+                //let downloadURL = metaData!.downloadURL()!.absoluteString
+                //store downloadURL at database
+                //self.databaseRef.child("users").child(FIRAuth.auth()!.currentUser!.uid).updateChildValues(["userPhoto": downloadURL])
+            }
+            
+        }
+    }
+    */
+    // END TESTING
+    
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

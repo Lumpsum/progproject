@@ -55,6 +55,7 @@ func updateCurrentUserInfo() {
                 currentInfo.user["lastname"] = userDetails!["lastname"] as? String
                 currentInfo.user["email"] = userDetails!["email"] as? String
                 currentInfo.user["postcode"] = userDetails!["postcode"] as? String
+                //currentInfo.user["picture"] = userDetails!["picture"] as? String
                 currentInfo.followlist = (userDetails!["followlist"] as? Array<String>)!
             }
         }
