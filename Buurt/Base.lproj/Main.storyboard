@@ -42,16 +42,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="go" secureTextEntry="YES"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dbD-ie-JXv">
-                                <rect key="frame" x="168" y="308" width="38" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Login">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="Login:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Q2f-T2-41B"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="WACHT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7fG-C7-fR0">
                                 <rect key="frame" x="127" y="79" width="121" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -59,8 +49,25 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aUu-YW-F19">
+                                <rect key="frame" x="47" y="512" width="300" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dbD-ie-JXv">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Login">
+                                            <color key="titleColor" red="0.99758952860000005" green="0.45136284830000001" blue="0.42206245660000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="Login:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Q2f-T2-41B"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="naY-bQ-yFQ">
-                                <rect key="frame" x="158" y="336" width="59" height="30"/>
+                                <rect key="frame" x="168" y="582" width="59" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Sign Up!">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -738,14 +745,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VdK-uu-6Bt">
-                                <rect key="frame" x="108" y="463" width="158" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Veranderingen opslaan"/>
-                                <connections>
-                                    <action selector="updateUserData:" destination="akH-4w-ZGR" eventType="touchUpInside" id="Z5T-7W-weO"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cay-Jy-9Ie">
                                 <rect key="frame" x="37" y="578" width="300" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -763,18 +762,39 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.99758952860000005" green="0.45136284830000001" blue="0.42206245660000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ThR-p2-NET">
+                                <rect key="frame" x="37" y="450" width="300" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VdK-uu-6Bt">
+                                <rect key="frame" x="108" y="506" width="158" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Veranderingen opslaan"/>
+                                <connections>
+                                    <action selector="updateUserData:" destination="akH-4w-ZGR" eventType="touchUpInside" id="Z5T-7W-weO"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Instellingen" id="NYZ-Zf-aej">
                         <barButtonItem key="leftBarButtonItem" image="menu" id="ZqF-Xe-NMV"/>
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="r6X-OG-4pu"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="pause" id="r6X-OG-4pu">
+                            <connections>
+                                <action selector="lockIconAction:" destination="akH-4w-ZGR" id="ZJb-fz-DOf"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="emailField" destination="HH2-7T-z4Y" id="Xpy-qF-9Hf"/>
                         <outlet property="firstNameField" destination="g9S-gh-k99" id="FeQ-vn-sCV"/>
                         <outlet property="lastNameField" destination="2n6-nR-CHW" id="Kv6-yP-kiM"/>
+                        <outlet property="lockIcon" destination="r6X-OG-4pu" id="Lr4-ps-nkf"/>
                         <outlet property="menuButton" destination="ZqF-Xe-NMV" id="tFx-ES-oaZ"/>
+                        <outlet property="postcodeField" destination="ThR-p2-NET" id="oTJ-ZI-yuT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cfk-Gh-auO" userLabel="First Responder" sceneMemberID="firstResponder"/>

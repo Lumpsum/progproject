@@ -15,12 +15,26 @@ class ViewController: UIViewController {
     @IBOutlet var passwordField: UITextField!
     
     @IBAction func Login(_ sender: Any) {
-        FIRAuth.auth()!.signIn(withEmail: emailField.text!, password: passwordField.text!)
+        if emailField.text != "" && passwordField.text != "" {
+            FIRAuth.auth()!.signIn(withEmail: emailField.text!, password: passwordField.text!) { (user, error) in
+                if error != nil {
+                    let alert = UIAlertController(title: "Inloggen mislukt", message: "Mailadres of wachtwoord is incorrect.", preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "Probeer opnieuw", style: UIAlertActionStyle.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
+        else {
+            let alert = UIAlertController(title: "Inloggen mislukt", message: "Vul uw mailadres en/of wachtwoord in.", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Probeer opnieuw", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         FIRAuth.auth()!.addStateDidChangeListener() { auth, user in
             if user != nil {

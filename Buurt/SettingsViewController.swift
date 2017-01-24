@@ -10,11 +10,29 @@ import UIKit
 import Firebase
 
 class SettingsViewController: UIViewController {
-
+    
+    var lockValue = true
+    
     @IBOutlet var firstNameField: UITextField!
     @IBOutlet var lastNameField: UITextField!
     @IBOutlet var emailField: UITextField!
+    @IBOutlet var postcodeField: UITextField!
     @IBOutlet var menuButton: UIBarButtonItem!
+    @IBOutlet var lockIcon: UIBarButtonItem!
+    
+    @IBAction func lockIconAction(_ sender: Any) {
+        if lockValue == true {
+            lockValue = false
+            lockIcon.tintColor = UIColor.green
+            self.firstNameField.allowsEditingTextAttributes = false
+        }
+        else if lockValue == false {
+            lockValue = true
+            lockIcon.tintColor = UIColor.white
+            updateUserData(Any)
+        }
+    }
+    
     
     @IBAction func updateUserData(_ sender: Any) {
         
@@ -22,6 +40,7 @@ class SettingsViewController: UIViewController {
         userRef.updateChildValues(["firstname": firstNameField.text!])
         userRef.updateChildValues(["lastname": lastNameField.text!])
         userRef.updateChildValues(["email": emailField.text!])
+        userRef.updateChildValues(["postcode": postcodeField.text!])
         
     }
     @IBAction func logOutAction(_ sender: Any) {
@@ -38,6 +57,7 @@ class SettingsViewController: UIViewController {
         self.firstNameField.text = currentInfo.user["firstname"]!
         self.lastNameField.text = currentInfo.user["lastname"]!
         self.emailField.text = currentInfo.user["email"]!
+        self.postcodeField.text = currentInfo.user["postcode"]!
             
         // SIDE BAR MENU SETUP
         menuButton.target = self.revealViewController()

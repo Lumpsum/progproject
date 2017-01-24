@@ -41,29 +41,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
         // LOAD ALL DATA
-        group1.enter()
-        FIRDatabase.database().reference(withPath: "users").observe(.value, with: { snapshot in
-            let userData = (snapshot.value as? NSDictionary)!
-            for item in userData {
-                let userDetails = item.value as? NSDictionary
-                if item.key as! String == currentInfo.user["uid"]! {
-                    currentInfo.user["firstname"] = userDetails!["firstname"] as? String
-                    currentInfo.user["lastname"] = userDetails!["lastname"] as? String
-                    currentInfo.user["email"] = userDetails!["email"] as? String
-                    currentInfo.user["postcode"] = userDetails!["postcode"] as? String
-                    currentInfo.followlist = (userDetails!["followlist"] as? Array<String>)!
-                }
-            }
-            self.group1.leave()
-        })
-            
-        group1.notify(queue: DispatchQueue.main, execute: {
-            print("Finished all requests.")
-            print("POSTCODE:", currentInfo.user["postcode"]!)
-            updateUserDict()
-            updateMentions(selectedKey: nil)
-        })
-        
+        loadAllData()
         
         // GET MENTIONS FROM FIREBASE
         //updateMentions(selectedKey: nil)
@@ -84,7 +62,47 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         
     }
-
+    
+    
+    // TESTING
+    
+    func loadAllData() {
+        observeDatabase(beginHandler: {
+            self.group1.enter()
+            self.group1.notify(queue: DispatchQueue.main, execute: {
+                print("Finished all requests.")
+                print("POSTCODE:", currentInfo.user["postcode"]!)
+                updateUserDict()
+                updateMentions(selectedKey: nil)
+            })
+        }, completionHandler: { self.group1.leave() })
+    }
+    
+    func observeDatabase(beginHandler: @escaping () -> (), completionHandler: @escaping () -> ()) {
+        
+        FIRDatabase.database().reference(withPath: "users").observe(.value, with: { snapshot in
+            beginHandler()
+            let userData = (snapshot.value as? NSDictionary)!
+            for item in userData {
+                let userDetails = item.value as? NSDictionary
+                if item.key as! String == currentInfo.user["uid"]! {
+                    currentInfo.user["firstname"] = userDetails!["firstname"] as? String
+                    currentInfo.user["lastname"] = userDetails!["lastname"] as? String
+                    currentInfo.user["email"] = userDetails!["email"] as? String
+                    currentInfo.user["postcode"] = userDetails!["postcode"] as? String
+                    currentInfo.followlist = (userDetails!["followlist"] as? Array<String>)!
+                }
+            }
+            completionHandler()
+        })
+    }
+    
+    // END TESTING
+    
+    
+    
+    
+    
     func reloadTableData(_ notification: Notification) {
         tableView.reloadData()
     }
