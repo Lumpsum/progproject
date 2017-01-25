@@ -8,33 +8,32 @@
 
 import UIKit
 import Firebase
+import FirebaseStorage
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet var tableView: UITableView!
-    
     @IBOutlet var menuButton: UIBarButtonItem!
-    
-    
+    @IBOutlet var composeButton: UIBarButtonItem!
+
     var viewFunction = String()
     let ref = FIRDatabase.database().reference(withPath: "mentions")
     let categoriesDictDutch = ["Verdachte situatie":"warning", "Klacht":"complaint", "Aandachtspunt":"focus", "Evenement":"event", "Bericht":"message"]
-    
-    // ASYNC TEST VARIABEL
     var group1 = DispatchGroup()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableData(_:)), name: .reload, object: nil)
         
         // SET TITLE BAR
         if viewFunction == "follow" {
             self.title = "Volgend"
+            self.navigationItem.rightBarButtonItem = nil
         }
         else if viewFunction == "mymentions" {
             self.title = "Mijn meldingen"
+            self.navigationItem.rightBarButtonItem = nil
         }
         else {
             self.title = "Feed"
@@ -70,8 +69,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         observeDatabase(beginHandler: {
             self.group1.enter()
             self.group1.notify(queue: DispatchQueue.main, execute: {
-                print("Finished all requests.")
-                print("POSTCODE:", currentInfo.user["postcode"]!)
                 updateUserDict()
                 updateMentions(selectedKey: nil)
             })
@@ -126,7 +123,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         else if viewFunction == "mymentions" {
             for item in currentInfo.mentions {
-                print("UID 1: \(item.addedByUser), UID 2: \(currentInfo.user["uid"]!)")
+
                 if item.addedByUser == currentInfo.user["uid"]!{
                     presentData.append(item)
                 }
@@ -142,18 +139,35 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "mentionCell", for: indexPath) as! MentionCell
-        print("presentData", presentData)
+
         let cellData = presentData[indexPath.row].toAnyObject()
         cell.iconHolder.image = UIImage(named:  categoriesDictDutch[(cellData["category"] as! String?)!]!)
         cell.titleLabel.text = cellData["titel"] as! String?
         cell.nameLabel.text = currentInfo.uidNameDict[(cellData["addedByUser"] as! String?)!]
         cell.messageField.text = cellData["message"] as! String?
         cell.timeLabel.text = getTimeDifference(inputDate: (cellData["timeStamp"] as! String?)!)
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         currentInfo.selectedMention = currentInfo.mentions[indexPath.row].toAnyObject()
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if viewFunction == "mymentions" {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
+            // handle delete (by removing the data from your array and updating the tableview)
+        }
+    }
+    
     
 }

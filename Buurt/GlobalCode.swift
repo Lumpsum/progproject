@@ -18,6 +18,7 @@ struct currentInfo {
     static var followlist = Array<String>()
     static var selectedMention =  Dictionary<String, Any>()
     static var uidNameDict = Dictionary<String, String>()
+    static var uidPictureDict = Dictionary<String, String>()
     static var location = String()
 }
 
@@ -55,7 +56,7 @@ func updateCurrentUserInfo() {
                 currentInfo.user["lastname"] = userDetails!["lastname"] as? String
                 currentInfo.user["email"] = userDetails!["email"] as? String
                 currentInfo.user["postcode"] = userDetails!["postcode"] as? String
-                //currentInfo.user["picture"] = userDetails!["picture"] as? String
+                currentInfo.user["picture"] = userDetails!["picture"] as? String
                 currentInfo.followlist = (userDetails!["followlist"] as? Array<String>)!
             }
         }
@@ -69,6 +70,7 @@ func updateUserDict () {
         for item in userData {
             let userDetails = item.value as? NSDictionary
             currentInfo.uidNameDict[item.key as! String] = "\(userDetails!["firstname"] as! String) \(userDetails!["lastname"] as! String)"
+            currentInfo.uidPictureDict[item.key as! String] = "\(userDetails!["picture"] as? String)"
         }
     })
 }

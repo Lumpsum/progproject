@@ -36,12 +36,9 @@ class ExploreViewController: UIViewController, CLLocationManagerDelegate {
         for item in currentInfo.mentions {
             let dbLocation = item.location as Dictionary<String, String>
             let mapPointer = MapPointer(title: item.titel, locationName: getLocation(longitude: Double(dbLocation["longitude"]!)!, latitude: Double(dbLocation["latitude"]!)!), coordinate: CLLocationCoordinate2D(latitude: Double(dbLocation["latitude"]!)!, longitude: Double(dbLocation["longitude"]!)!))
-            
             mapView.addAnnotation(mapPointer)
         } 
     }
-    
-    
     
     // LOCATION MANAGERS
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -55,16 +52,13 @@ class ExploreViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
         if locations.first != nil {
             coordinates["longitude"] = String(locations[0].coordinate.longitude)
             coordinates["latitude"] = String(locations[0].coordinate.latitude)
             print("LOCATIONTEST",  locations[0].coordinate)
             let initialLocation = CLLocation(latitude: Double(coordinates["latitude"]!)!, longitude: Double(coordinates["longitude"]!)!)
             centerMapOnLocation(location: initialLocation)
-            
         }
-        
     }
     
     // LOCATION CENTERING

@@ -164,6 +164,7 @@
                                             <outlet property="iconHolder" destination="0E3-Ta-EmS" id="2dx-wv-SGB"/>
                                             <outlet property="messageField" destination="r3i-Jr-WVj" id="0lS-m4-zux"/>
                                             <outlet property="nameLabel" destination="IcY-5m-en0" id="wzW-sz-WAg"/>
+                                            <outlet property="profilePictureHolder" destination="I19-OV-qFd" id="9hL-Uf-eSa"/>
                                             <outlet property="timeLabel" destination="6JT-ec-U56" id="1rG-UE-5KC"/>
                                             <outlet property="titleLabel" destination="Uai-a8-MBs" id="czm-fo-Tmu"/>
                                             <segue destination="5qz-TY-2ES" kind="show" id="URQ-5a-uQc"/>
@@ -182,11 +183,12 @@
                         <barButtonItem key="leftBarButtonItem" image="menu" id="KMl-2j-VZA"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="KqR-yy-smI">
                             <connections>
-                                <segue destination="RjF-qu-nwe" kind="push" id="qtt-Ry-de8"/>
+                                <segue destination="RjF-qu-nwe" kind="push" identifier="FeedToNewMention" id="qtt-Ry-de8"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="composeButton" destination="KqR-yy-smI" id="1jS-Z1-7P5"/>
                         <outlet property="menuButton" destination="KMl-2j-VZA" id="bfv-Pc-vCZ"/>
                         <outlet property="tableView" destination="5Di-s6-Xjm" id="S3L-eY-Xv6"/>
                     </connections>
@@ -338,7 +340,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Bericht" id="sFI-6J-oSP">
-                        <barButtonItem key="rightBarButtonItem" systemItem="bookmarks" id="t8H-90-wnr">
+                        <barButtonItem key="rightBarButtonItem" image="bookmark" id="t8H-90-wnr">
                             <connections>
                                 <action selector="followAction:" destination="5qz-TY-2ES" id="8Yt-Q4-xu7"/>
                             </connections>
@@ -844,6 +846,7 @@
     </scenes>
     <resources>
         <image name="avatar" width="64" height="64"/>
+        <image name="bookmark" width="24" height="24"/>
         <image name="menu" width="24" height="24"/>
         <image name="next" width="64" height="64"/>
     </resources>

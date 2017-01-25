@@ -23,7 +23,6 @@ class SignUpViewController: UIViewController {
     @IBAction func SignUp(_ sender: Any) {
     
         // CREATE USER
-        
         FIRAuth.auth()!.createUser(withEmail: emailField.text!, password: passwordField.text!) { user, error in
             if error == nil {
                 
@@ -34,14 +33,13 @@ class SignUpViewController: UIViewController {
                                     lastname: self.lastNameField.text!,
                                     postcode: self.postcodeField.text!,
                                     followlist: ["test"])
-                
                 let userItemRef = self.ref.child((FIRAuth.auth()?.currentUser?.uid)!)
                 userItemRef.setValue(userItem.toAnyObject())
                 
-                
+                // SET CURRENT UID LOCAL
                 currentInfo.user["uid"] = (user?.uid)!
                 
-                // SEND TO START VIEW
+                // SEND TO MAINVIEWCONTROLLER
                 let loginViewController = self.storyboard!.instantiateViewController(withIdentifier: "Start")
                 UIApplication.shared.keyWindow?.rootViewController = loginViewController
             }

@@ -11,6 +11,7 @@ import UIKit
 class MentionCell: UITableViewCell {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var iconHolder: UIImageView!
+    @IBOutlet var profilePictureHolder: UIImageView!
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var messageField: UITextView!

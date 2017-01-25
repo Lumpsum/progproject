@@ -18,11 +18,8 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
     var coordinates = Dictionary<String, String>()
     
     @IBOutlet var titleField: UITextField!
-    
     @IBOutlet var categoryField: UITextField!
-    
     @IBOutlet var locationField: UITextField!
-    
     @IBOutlet var messageField: UITextView!
     
     @IBAction func postMention(_ sender: Any) {
@@ -35,39 +32,33 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
                                       timeStamp: String(describing: NSDate()),
                                       replies: [["test", "test", "test"]])
             let mentionItemRef = ref.child(currentInfo.postcode).childByAutoId()
-        
             mentionItemRef.setValue(mentionItem.toAnyObject())
-            
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // SET LAYOUT MESSAGEFIELD
         messageField.layer.borderColor = UIColor(red:0.78, green:0.78, blue:0.80, alpha:1.0).cgColor
         messageField.layer.borderWidth = 0.5
         messageField.layer.cornerRadius = 5
         
+        // SET CATEGORY PICKERVIEW
         var pickerView = UIPickerView()
         pickerView.delegate = self
         categoryField.inputView = pickerView
-        
-        
-        
-        
-        // Ask for Authorisation from the User.
+
+        // LOCATION
         self.locationManager.requestAlwaysAuthorization()
-        
-        // For use in foreground
         self.locationManager.requestWhenInUseAuthorization()
-        
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
         }
-        
     }
+    
     
     func checkInput() -> Bool {
         if titleField.text != "" && categoryField.text != "" && locationField.text != "" && messageField.text != "" {
@@ -81,7 +72,7 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
         }
     }
     
-    
+    // LOCATION MANAGER FUNCTION
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
         coordinates["longitude"] = String(locValue.longitude)
@@ -93,8 +84,7 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
         }
     }
 
-    
-    
+    // PICKER VIEW FUNCTIONS
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
     }

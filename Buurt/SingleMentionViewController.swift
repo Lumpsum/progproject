@@ -13,6 +13,7 @@ import MapKit
 class SingleMentionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let ref = FIRDatabase.database().reference(withPath: "mentions")
+    let userRef = FIRDatabase.database().reference(withPath: "users").child(currentInfo.user["uid"]!)
     
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
@@ -43,13 +44,15 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
     
     @IBAction func followAction(_ sender: Any) {
         if currentInfo.followlist.contains(currentInfo.selectedMention["key"] as! String) == false {
-            let userRef = FIRDatabase.database().reference(withPath: "users").child(currentInfo.user["uid"]!)
             currentInfo.followlist.append(currentInfo.selectedMention["key"] as! String)
             userRef.updateChildValues(["followlist": currentInfo.followlist])
-            //viewDidLoad()
+            navigationItem.rightBarButtonItem?.tintColor = UIColor.green
         }
         else if currentInfo.followlist.contains(currentInfo.selectedMention["key"] as! String) {
-            print("Have to delete this item")
+            let indexToRemove = currentInfo.followlist.index(of: currentInfo.selectedMention["key"] as! String)
+            currentInfo.followlist.remove(at: indexToRemove!)
+            userRef.updateChildValues(["followlist": currentInfo.followlist])
+            navigationItem.rightBarButtonItem?.tintColor = UIColor.white
         }
     }
 

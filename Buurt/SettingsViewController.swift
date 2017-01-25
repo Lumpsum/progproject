@@ -32,7 +32,6 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     @IBAction func updateUserData(_ sender: Any) {
-        
         let userRef = FIRDatabase.database().reference(withPath: "users").child(currentInfo.user["uid"]!)
         userRef.updateChildValues(["firstname": firstNameField.text!])
         userRef.updateChildValues(["lastname": lastNameField.text!])
@@ -42,7 +41,6 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     @IBAction func logOutAction(_ sender: Any) {
-    
         try! FIRAuth.auth()!.signOut()
         currentInfo.mentions = Array<MentionItem>()
         let loginViewController = self.storyboard!.instantiateViewController(withIdentifier: "Login")
@@ -63,16 +61,20 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
         
         // SET PROFILE PICTURE
         print("PATH", currentInfo.user["picture"]!)
-        let httpsReference = FIRStorage.storage().reference(forURL: currentInfo.user["picture"]!)
         
-        httpsReference.data(withMaxSize: 1 * 1024 * 1024) { data, error in
-            if error != nil {
-                // Uh-oh, an error occurred!
-            } else {
-                self.profilePicture.image = UIImage(data: data!)
-                // MAKE PICTURE ROUND
-                self.profilePicture.layer.cornerRadius = self.profilePicture.frame.size.width / 2
-                self.profilePicture.clipsToBounds = true
+        if currentInfo.user["picture"] != nil && currentInfo.user["picture"] != "" {
+        
+            let httpsReference = FIRStorage.storage().reference(forURL: currentInfo.user["picture"]!)
+        
+            httpsReference.data(withMaxSize: 1 * 1024 * 1024) { data, error in
+                if error != nil {
+                    // Uh-oh, an error occurred!
+                } else {
+                    self.profilePicture.image = UIImage(data: data!)
+                    // MAKE PICTURE ROUND
+                    self.profilePicture.layer.cornerRadius = self.profilePicture.frame.size.width / 2
+                    self.profilePicture.clipsToBounds = true
+                }
             }
         }
         
@@ -87,12 +89,9 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             profilePicture.image = image
-            
             var data = NSData()
             data = UIImageJPEGRepresentation(profilePicture.image!, 0.8)! as NSData
-            
             let filePath = "\(FIRAuth.auth()!.currentUser!.uid)/\("profilePicture")"
-            
             let metaData = FIRStorageMetadata()
             metaData.contentType = "image/jpg"
             
@@ -100,13 +99,8 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
                 if let error = error {
                     print("IMAGE UPLOAD ERROR", error.localizedDescription)
                     return
-                }else{
-                    print("IMAGE UPLOADED SUCCESFULLY")
+                } else {
                     self.picturePath = metaData!.downloadURL()!.absoluteString
-                    //store downloadURL
-                    //let downloadURL = metaData!.downloadURL()!.absoluteString
-                    //store downloadURL at database
-                    //self.databaseRef.child("users").child(FIRAuth.auth()!.currentUser!.uid).updateChildValues(["userPhoto": downloadURL])
                 }
                 
             }
@@ -121,45 +115,7 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
-    
-    
-    
-    
 
-    // TESTING
-    /*
-    let storageRef = FIRStorage.storage().reference()
-    
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-        profilePicture.image = image
-        dismiss(animated: true, completion: nil)
-        
-        var data = NSData()
-        data = UIImageJPEGRepresentation(profilePicture.image!, 0.8)! as NSData
-        
-        // set upload path
-        let filePath = "\(FIRAuth.auth()!.currentUser!.uid)/\("userPhoto")"
-        let metaData = FIRStorageMetadata()
-        metaData.contentType = "image/jpg"
-        self.storageRef.child(filePath).put(data as Data, metadata: metaData){(metaData,error) in
-            if let error = error {
-                print("IMAGE UPLOAD ERROR", error.localizedDescription)
-                return
-            }else{
-                print("IMAGE UPLOADED SUCCESFULLY")
-                //store downloadURL
-                //let downloadURL = metaData!.downloadURL()!.absoluteString
-                //store downloadURL at database
-                //self.databaseRef.child("users").child(FIRAuth.auth()!.currentUser!.uid).updateChildValues(["userPhoto": downloadURL])
-            }
-            
-        }
-    }
-    */
-    // END TESTING
-    
-    
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
