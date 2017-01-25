@@ -17,6 +17,8 @@ extension UIImageView {
 
     func loadImagesWithCache(urlstring: String, uid: String) {
         
+        self.image = nil
+        
         // CHECK CACHE FOR IMAGE FIRST
         if let cachedImage = imageCache.object(forKey: urlstring as AnyObject) as? UIImage {
             self.image = cachedImage

@@ -60,20 +60,11 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
         self.postcodeField.text = currentInfo.user["postcode"]!
         
         // SET PROFILE PICTURE        
-        if currentInfo.user["picture"] != nil && currentInfo.user["picture"] != "" {
-        
-            let httpsReference = FIRStorage.storage().reference(forURL: currentInfo.user["picture"]!)
-        
-            httpsReference.data(withMaxSize: 1 * 1024 * 1024) { data, error in
-                if error != nil {
-                    // Uh-oh, an error occurred!
-                } else {
-                    self.profilePicture.image = UIImage(data: data!)
-                    // MAKE PICTURE ROUND
-                    self.profilePicture.layer.cornerRadius = self.profilePicture.frame.size.width / 2
-                    self.profilePicture.clipsToBounds = true
-                }
-            }
+        let pictureUrl = currentInfo.uidPictureDict[currentInfo.user["uid"]!]
+        if pictureUrl != nil && pictureUrl != "" {
+            self.profilePicture.loadImagesWithCache(urlstring: pictureUrl!, uid: currentInfo.user["uid"]!)
+            self.profilePicture.layer.cornerRadius = self.profilePicture.frame.size.width / 2
+            self.profilePicture.clipsToBounds = true
         }
         
         // SIDE BAR MENU SETUP

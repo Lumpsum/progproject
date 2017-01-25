@@ -15,7 +15,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet var tableView: UITableView!
     @IBOutlet var menuButton: UIBarButtonItem!
     @IBOutlet var composeButton: UIBarButtonItem!
-
+    
+    @IBAction func unwindToFeed(segue: UIStoryboardSegue) {
+        
+    }
+    
     var viewFunction = String()
     let ref = FIRDatabase.database().reference(withPath: "mentions")
     let categoriesDictDutch = ["Verdachte situatie":"warning", "Klacht":"complaint", "Aandachtspunt":"focus", "Evenement":"event", "Bericht":"message"]
@@ -119,7 +123,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "mentionCell", for: indexPath) as! MentionCell
-
         let cellData = presentData[indexPath.row].toAnyObject()
         cell.iconHolder.image = UIImage(named:  categoriesDictDutch[(cellData["category"] as! String?)!]!)
         cell.titleLabel.text = cellData["titel"] as! String?
@@ -127,7 +130,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.messageField.text = cellData["message"] as! String?
         cell.timeLabel.text = getTimeDifference(inputDate: (cellData["timeStamp"] as! String?)!)
         
-        var pictureUrl = currentInfo.uidPictureDict[(cellData["addedByUser"] as! String?)!]
+        let pictureUrl = currentInfo.uidPictureDict[(cellData["addedByUser"] as! String?)!]
         if pictureUrl != nil && pictureUrl != "" {
             cell.profilePictureHolder.loadImagesWithCache(urlstring: pictureUrl!, uid: (cellData["addedByUser"] as! String?)!)
             cell.profilePictureHolder.layer.cornerRadius = cell.profilePictureHolder.frame.size.width / 2
@@ -154,7 +157,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.delete) {
-            // handle delete (by removing the data from your array and updating the tableview)
+            ref.child(currentInfo.user["postcode"]!).child(self.presentData[indexPath.row].key).removeValue { (error, ref) in
+                if error != nil {
+                    print("error \(error)")
+                }
+            }
         }
     }
     

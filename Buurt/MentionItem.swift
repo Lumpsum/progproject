@@ -21,7 +21,7 @@ struct MentionItem {
     var replies: Array<Array<Any>>
     let ref: FIRDatabaseReference?
     
-    init(titel: String, addedByUser: String, category: String, location: Dictionary<String, String>, message: String, timeStamp: String, replies: Array<Array<Any>>, key: String = "") {
+    init(titel: String, addedByUser: String, category: String, location: Dictionary<String, String>, message: String, timeStamp: String, replies: Array<Array<Any>> = [[]], key: String = "") {
         self.key = key
         self.titel = titel
         self.category = category

@@ -11,15 +11,12 @@ import Firebase
 import MapKit
 
 struct currentInfo {
-    static var postcode = "1033"
     static var mentions = Array<MentionItem>()
-    static var uid = String()
     static var user = Dictionary<String, String>()
     static var followlist = Array<String>()
     static var selectedMention =  Dictionary<String, Any>()
     static var uidNameDict = Dictionary<String, String>()
     static var uidPictureDict = Dictionary<String, String>()
-    static var location = String()
 }
 
 extension Notification.Name {
@@ -36,13 +33,25 @@ func updateMentions(selectedKey: String?) {
             for item in rawData! {
                 let mentionData = item.value as? NSDictionary
                 print("MENTIONDATA", mentionData)
-                let mentionItem = MentionItem(titel: mentionData!["titel"] as! String, addedByUser: mentionData!["addedByUser"] as! String, category: mentionData!["category"] as! String, location: mentionData!["location"] as! Dictionary<String, String>, message: mentionData!["message"] as! String, timeStamp: mentionData!["timeStamp"] as! String, replies: mentionData!["replies"] as! Array<Array<Any>>, key: item.key as! String)
-                currentInfo.mentions.append(mentionItem)
-                if item.key as? String == selectedKey {
-                    currentInfo.selectedMention = mentionItem.toAnyObject()
+                if mentionData!["replies"] != nil {
+                    print("REPLIES", (mentionData!["replies"] as! Array<Array<Any>>))
+                    let mentionItem = MentionItem(titel: mentionData!["titel"] as! String, addedByUser: mentionData!["addedByUser"] as! String, category: mentionData!["category"] as! String, location: mentionData!["location"] as! Dictionary<String, String>, message: mentionData!["message"] as! String, timeStamp: mentionData!["timeStamp"] as! String, replies: mentionData!["replies"] as! Array<Array<Any>>, key: item.key as! String)
+                    currentInfo.mentions.append(mentionItem)
+                    if item.key as? String == selectedKey {
+                        currentInfo.selectedMention = mentionItem.toAnyObject()
+                    }
                 }
+                else {
+                    let mentionItem = MentionItem(titel: mentionData!["titel"] as! String, addedByUser: mentionData!["addedByUser"] as! String, category: mentionData!["category"] as! String, location: mentionData!["location"] as! Dictionary<String, String>, message: mentionData!["message"] as! String, timeStamp: mentionData!["timeStamp"] as! String, key: item.key as! String)
+                    currentInfo.mentions.append(mentionItem)
+                    if item.key as? String == selectedKey {
+                        currentInfo.selectedMention = mentionItem.toAnyObject()
+                    }
+                }
+                
             }
         }
+        currentInfo.mentions = currentInfo.mentions.reversed()
         NotificationCenter.default.post(name: .reload, object: nil)
     })
 }
@@ -102,7 +111,7 @@ func getTimeDifference(inputDate: String) -> String {
 
 func getLocation(longitude: CLLocationDegrees, latitude:CLLocationDegrees) -> String {
     let location = CLLocation(latitude: latitude, longitude: longitude)
-    
+    var returnLocation = String()
     CLGeocoder().reverseGeocodeLocation(location, completionHandler: {(placemarks, error) -> Void in
         print(location)
         
@@ -112,7 +121,7 @@ func getLocation(longitude: CLLocationDegrees, latitude:CLLocationDegrees) -> St
         
         if (placemarks?.count)! > 0 {
             let pm = (placemarks?[0])! as CLPlacemark
-            currentInfo.location = pm.name! as String
+            returnLocation = pm.name! as String
         }
             
         else {
@@ -120,6 +129,6 @@ func getLocation(longitude: CLLocationDegrees, latitude:CLLocationDegrees) -> St
         }
     })
     
-    return currentInfo.location
+    return returnLocation
     
 }

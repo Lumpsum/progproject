@@ -26,18 +26,13 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
     
     @IBAction func saveComment(_ sender: Any) {
         updateMentions(selectedKey: currentInfo.selectedMention["key"] as? String)
-        
-        let commentRef = ref.child(currentInfo.postcode).child((currentInfo.selectedMention["key"] as! String))
-        
+        let commentRef = ref.child(currentInfo.user["postcode"]!).child((currentInfo.selectedMention["key"] as! String))
         var tempComments = currentInfo.selectedMention["replies"] as! Array<Array<String>>
-        
-        if tempComments[0] == ["test", "test", "test"] {
-            tempComments.remove(at: 0)
+        if tempComments[0].count == 0 {
+            tempComments = Array<Array<String>>()
         }
-        
         tempComments.append([currentInfo.user["uid"]!, "\(NSDate())", commentField.text!])
         commentRef.updateChildValues(["replies": tempComments])
-        
         updateMentions(selectedKey: currentInfo.selectedMention["key"] as? String)
         self.tableView.reloadData()
     }
@@ -70,8 +65,15 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
         timeLabel.text = getTimeDifference(inputDate: (currentInfo.selectedMention["timeStamp"] as! String?)!)
         messageField.text = currentInfo.selectedMention["message"] as! String?
         
-        // SHOW MAP
+        // SET PICTURE OF WRITER
+        var pictureUrl = currentInfo.uidPictureDict[(currentInfo.selectedMention["addedByUser"] as! String?)!]
+        if pictureUrl != nil && pictureUrl != "" {
+            self.profilePictureHolder.loadImagesWithCache(urlstring: pictureUrl!, uid: ((currentInfo.selectedMention["addedByUser"] as! String?)!))
+            self.profilePictureHolder.layer.cornerRadius = self.profilePictureHolder.frame.size.width / 2
+            self.profilePictureHolder.clipsToBounds = true
+        }
         
+        // SHOW MAP
         let dbLocation = currentInfo.selectedMention["location"] as! Dictionary<String, String>
         let initialLocation = CLLocation(latitude: Double(dbLocation["latitude"]!)!, longitude: Double(dbLocation["longitude"]!)!)
         centerMapOnLocation(location: initialLocation)
@@ -86,6 +88,10 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
         
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
     
     // KEYBOARD FUNCTIONS
     func keyboardWillShow(notification: NSNotification) {
@@ -103,20 +109,8 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
             }
         }
     }
-    
-    
-    
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
-    
-    
-    
+
+    // CENTERING MAP
     let regionRadius: CLLocationDistance = 100
     func centerMapOnLocation(location: CLLocation) {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
@@ -125,18 +119,29 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     
-    
+    // TABLE FUNCTIONS
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (currentInfo.selectedMention["replies"] as! Array<Array<String>>).count
+        if (currentInfo.selectedMention["replies"] as! Array<Array<String>>)[0].isEmpty == false {
+            print ("NUMBEROFREPLIES", (currentInfo.selectedMention["replies"] as! Array<Array<String>>).count)
+            print(currentInfo.selectedMention["replies"] as! Array<Array<String>>)
+            return (currentInfo.selectedMention["replies"] as! Array<Array<String>>).count
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath) as! CommentCell
         let cellData = currentInfo.selectedMention["replies"] as! Array<Array<String>>
-        print("DICT", currentInfo.uidNameDict)
-        print(cellData[indexPath.row][0])
+        print("TESTPRINT", cellData)
         cell.nameLabel.text = currentInfo.uidNameDict[cellData[indexPath.row][0]]
         cell.commentField.text = cellData[indexPath.row][2]
+        
+        let pictureUrl = currentInfo.uidPictureDict[cellData[indexPath.row][0]]
+        if pictureUrl != nil && pictureUrl != "" {
+            cell.profilePictureHolder.loadImagesWithCache(urlstring: pictureUrl!, uid: (cellData[indexPath.row][0]))
+            cell.profilePictureHolder.layer.cornerRadius = cell.profilePictureHolder.frame.size.width / 2
+            cell.profilePictureHolder.clipsToBounds = true
+        }
         
         return cell
     }

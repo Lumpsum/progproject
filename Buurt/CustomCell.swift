@@ -33,6 +33,7 @@ class MentionCell: UITableViewCell {
 class CommentCell: UITableViewCell {
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var commentField: UITextView!
+    @IBOutlet var profilePictureHolder: UIImageView!
     
     override func awakeFromNib() {
         

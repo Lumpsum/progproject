@@ -313,6 +313,7 @@
                                         <connections>
                                             <outlet property="commentField" destination="BtO-G0-jU9" id="3TR-Mz-JN2"/>
                                             <outlet property="nameLabel" destination="QxG-0a-eiN" id="1E7-dr-6PS"/>
+                                            <outlet property="profilePictureHolder" destination="L54-Ry-k8F" id="jf1-zq-tsF"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -418,9 +419,11 @@
                         <outlet property="locationField" destination="8s7-vQ-bNj" id="cXR-Px-b8h"/>
                         <outlet property="messageField" destination="4Js-nq-Uvp" id="MnZ-oG-0bC"/>
                         <outlet property="titleField" destination="Tc1-Y7-tKf" id="pwd-PE-aiA"/>
+                        <segue destination="AYD-T3-F6r" kind="unwind" identifier="UnwindToFeedSegue" unwindAction="unwindToFeedWithSegue:" id="jUW-Cb-Pf6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tms-SC-zhT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="AYD-T3-F6r" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4159" y="-637"/>
         </scene>

@@ -29,12 +29,16 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
                                       category: categoryField.text!,
                                       location: coordinates,
                                       message: messageField.text,
-                                      timeStamp: String(describing: NSDate()),
-                                      replies: [["test", "test", "test"]])
-            let mentionItemRef = ref.child(currentInfo.postcode).childByAutoId()
+                                      timeStamp: String(describing: NSDate()))
+                                      //replies: [["test", "test", "test"]])
+            let mentionItemRef = ref.child(currentInfo.user["postcode"]!).childByAutoId()
             mentionItemRef.setValue(mentionItem.toAnyObject())
+            self.performSegue(withIdentifier: "UnwindToFeedSegue", sender: self)
         }
     }
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
