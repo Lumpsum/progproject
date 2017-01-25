@@ -10,6 +10,7 @@
 		103488D01E27F2E90038DCFE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 103488CF1E27F2E90038DCFE /* CoreLocation.framework */; };
 		103488D21E28CD0F0038DCFE /* SingleMentionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103488D11E28CD0F0038DCFE /* SingleMentionViewController.swift */; };
 		103488D81E291A020038DCFE /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 103488D71E291A020038DCFE /* SWRevealViewController.m */; };
+		10413F041E38D2B000732460 /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10413F031E38D2B000732460 /* ImageExtension.swift */; };
 		10431A351E2A9EFA003D7BE4 /* SideBarMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10431A341E2A9EFA003D7BE4 /* SideBarMenuTableViewController.swift */; };
 		10431A371E2AA04B003D7BE4 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10431A361E2AA04B003D7BE4 /* SettingsViewController.swift */; };
 		10B7BA101E2E4EED007BF50E /* MapPointer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B7BA0F1E2E4EED007BF50E /* MapPointer.swift */; };
@@ -52,6 +53,7 @@
 		103488D51E291A020038DCFE /* Buurt-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Buurt-Bridging-Header.h"; sourceTree = "<group>"; };
 		103488D61E291A020038DCFE /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		103488D71E291A020038DCFE /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		10413F031E38D2B000732460 /* ImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageExtension.swift; sourceTree = "<group>"; };
 		10431A341E2A9EFA003D7BE4 /* SideBarMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideBarMenuTableViewController.swift; sourceTree = "<group>"; };
 		10431A361E2AA04B003D7BE4 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		10B7BA0F1E2E4EED007BF50E /* MapPointer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapPointer.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				10BA313F1E279439002BE3E7 /* User.swift */,
 				10FE98771E263DFF002FAA1F /* CustomCell.swift */,
 				10B7BA0F1E2E4EED007BF50E /* MapPointer.swift */,
+				10413F031E38D2B000732460 /* ImageExtension.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				10431A351E2A9EFA003D7BE4 /* SideBarMenuTableViewController.swift in Sources */,
+				10413F041E38D2B000732460 /* ImageExtension.swift in Sources */,
 				10BA313E1E2784F0002BE3E7 /* SignUpViewController.swift in Sources */,
 				10FE986C1E250148002FAA1F /* NewMentionViewController.swift in Sources */,
 				10F392AD1E24E8F800D71952 /* MainViewController.swift in Sources */,

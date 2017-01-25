@@ -45,7 +45,7 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
         messageField.layer.cornerRadius = 5
         
         // SET CATEGORY PICKERVIEW
-        var pickerView = UIPickerView()
+        let pickerView = UIPickerView()
         pickerView.delegate = self
         categoryField.inputView = pickerView
 
@@ -55,7 +55,8 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.startUpdatingLocation()
+            //locationManager.startUpdatingLocation()
+            locationManager.requestLocation()
         }
     }
     
@@ -73,16 +74,37 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     // LOCATION MANAGER FUNCTION
+    /*
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
         coordinates["longitude"] = String(locValue.longitude)
         coordinates["latitude"] = String(locValue.latitude)
-        print("TESTPRINT")
         self.locationField.text =  getLocation(longitude: locValue.longitude, latitude: locValue.latitude)
         if self.locationField.text != "" {
             locationManager.stopUpdatingLocation()
         }
     }
+    */
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("error:: \(error.localizedDescription)")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            locationManager.requestLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if locations.first != nil {
+            let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+            coordinates["longitude"] = String(locValue.longitude)
+            coordinates["latitude"] = String(locValue.latitude)
+            self.locationField.text =  getLocation(longitude: locValue.longitude, latitude: locValue.latitude)
+        }
+    }
+    
 
     // PICKER VIEW FUNCTIONS
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {

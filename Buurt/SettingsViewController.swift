@@ -59,9 +59,7 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
         self.emailField.text = currentInfo.user["email"]!
         self.postcodeField.text = currentInfo.user["postcode"]!
         
-        // SET PROFILE PICTURE
-        print("PATH", currentInfo.user["picture"]!)
-        
+        // SET PROFILE PICTURE        
         if currentInfo.user["picture"] != nil && currentInfo.user["picture"] != "" {
         
             let httpsReference = FIRStorage.storage().reference(forURL: currentInfo.user["picture"]!)

@@ -35,6 +35,7 @@ func updateMentions(selectedKey: String?) {
         if rawData != nil {
             for item in rawData! {
                 let mentionData = item.value as? NSDictionary
+                print("MENTIONDATA", mentionData)
                 let mentionItem = MentionItem(titel: mentionData!["titel"] as! String, addedByUser: mentionData!["addedByUser"] as! String, category: mentionData!["category"] as! String, location: mentionData!["location"] as! Dictionary<String, String>, message: mentionData!["message"] as! String, timeStamp: mentionData!["timeStamp"] as! String, replies: mentionData!["replies"] as! Array<Array<Any>>, key: item.key as! String)
                 currentInfo.mentions.append(mentionItem)
                 if item.key as? String == selectedKey {
@@ -70,7 +71,7 @@ func updateUserDict () {
         for item in userData {
             let userDetails = item.value as? NSDictionary
             currentInfo.uidNameDict[item.key as! String] = "\(userDetails!["firstname"] as! String) \(userDetails!["lastname"] as! String)"
-            currentInfo.uidPictureDict[item.key as! String] = "\(userDetails!["picture"] as? String)"
+            currentInfo.uidPictureDict[item.key as! String] = userDetails!["picture"] as? String
         }
     })
 }
@@ -111,7 +112,6 @@ func getLocation(longitude: CLLocationDegrees, latitude:CLLocationDegrees) -> St
         
         if (placemarks?.count)! > 0 {
             let pm = (placemarks?[0])! as CLPlacemark
-            //print("POSTCODE:", pm.postalCode, pm.thoroughfare)
             currentInfo.location = pm.name! as String
         }
             

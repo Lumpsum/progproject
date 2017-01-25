@@ -31,25 +31,24 @@ class ViewController: UIViewController {
         }
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        // CHECK IF USER ALREADY LOGGED IN
         FIRAuth.auth()!.addStateDidChangeListener() { auth, user in
             if user != nil {
                 
+                // SET CURRENT UID LOCAL
                 currentInfo.user["uid"] = (user?.uid)!
-                    
-                self.performSegue(withIdentifier: "LoginToFeed", sender: nil)
                 
+                // GO TO FEED
+                self.performSegue(withIdentifier: "LoginToFeed", sender: nil)
             }
         }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
 

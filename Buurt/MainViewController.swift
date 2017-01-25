@@ -21,7 +21,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     let categoriesDictDutch = ["Verdachte situatie":"warning", "Klacht":"complaint", "Aandachtspunt":"focus", "Evenement":"event", "Bericht":"message"]
     var group1 = DispatchGroup()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableData(_:)), name: .reload, object: nil)
@@ -42,15 +41,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         // LOAD ALL DATA
         loadAllData()
         
-        // GET MENTIONS FROM FIREBASE
-        //updateMentions(selectedKey: nil)
-        
-        // GET ALL USER DATA
-        //updateCurrentUserInfo()
-        
-        // GET USERID:USER DICTIONARY
-        //updateUserDict()
-        
         
         // SIDEBARMENU ENABLED
         if self.revealViewController() != nil {
@@ -58,13 +48,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
-        
-        
     }
     
     
-    // TESTING
-    
+    // LOAD FIRST USER DATA, SECOND MENTIONS AND UID/NAME DICT
     func loadAllData() {
         observeDatabase(beginHandler: {
             self.group1.enter()
@@ -76,7 +63,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func observeDatabase(beginHandler: @escaping () -> (), completionHandler: @escaping () -> ()) {
-        
         FIRDatabase.database().reference(withPath: "users").observe(.value, with: { snapshot in
             beginHandler()
             let userData = (snapshot.value as? NSDictionary)!
@@ -95,12 +81,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         })
     }
     
-    // END TESTING
-    
-    
-    
-    
-    
+    // HELP FUNCTIONS
     func reloadTableData(_ notification: Notification) {
         tableView.reloadData()
     }
@@ -137,7 +118,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "mentionCell", for: indexPath) as! MentionCell
 
         let cellData = presentData[indexPath.row].toAnyObject()
@@ -146,6 +126,15 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.nameLabel.text = currentInfo.uidNameDict[(cellData["addedByUser"] as! String?)!]
         cell.messageField.text = cellData["message"] as! String?
         cell.timeLabel.text = getTimeDifference(inputDate: (cellData["timeStamp"] as! String?)!)
+        
+        var pictureUrl = currentInfo.uidPictureDict[(cellData["addedByUser"] as! String?)!]
+        if pictureUrl != nil && pictureUrl != "" {
+            cell.profilePictureHolder.loadImagesWithCache(urlstring: pictureUrl!, uid: (cellData["addedByUser"] as! String?)!)
+            cell.profilePictureHolder.layer.cornerRadius = cell.profilePictureHolder.frame.size.width / 2
+            cell.profilePictureHolder.clipsToBounds = true
+        }
+        
+        
         
         return cell
     }

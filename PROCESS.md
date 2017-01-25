@@ -33,3 +33,6 @@ De gebruiker gegevens worden nu ingeladen voordat de mentions worden opgehaald, 
 
 ## Dag 11 (24-01-2017)
 User Feedback bij inlogscherm in de vorm van een alert toegevoegd. Gebruiker kan nu ook zijn postcode aanpassen in het instellingen scherm. EINDELIJK werkt alle code met Firebase goed. De postcode moet eerst opgehaald worden, daarna kan pas de rest ingeladen worden omdat het geen zin heeft om gelijk alle mentions in te laden van andere postcode gebieden. Het probleem was als ergens in de app (instellingen of volgen van een melding) iets in Firebase aangepast werd, de observer in de MainViewController vast liep. De oorzaak was dat in deze observer de dispatch groep verlaten moest worden, maar als in een ander scherm wat aangepast werd, werd deze observer niet eerst aan de dispatch groep toegevoegd. De oplossing is om ook te werken met een begin handler (http://stackoverflow.com/questions/39465789/swift-how-to-use-dispatch-group-with-multiple-called-web-service/40004392). Begin gemaakt met profielfoto's. Bericht kan nu ook onvolgd worden.'
+
+## Dag 12 (25-01-2017)
+Profielfoto's kunnen worden opgeslagen en worden opgehaald. Deze worden in het cache geheugen bewaard, zodat deze niet telkens opgehaald hoeven te worden als een ViewController opnieuw aangeroepen wordt.
