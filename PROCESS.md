@@ -36,3 +36,5 @@ User Feedback bij inlogscherm in de vorm van een alert toegevoegd. Gebruiker kan
 
 ## Dag 12 (25-01-2017)
 Profielfoto's kunnen worden opgeslagen en worden opgehaald. Deze worden in het cache geheugen bewaard, zodat deze niet telkens opgehaald hoeven te worden als een ViewController opnieuw aangeroepen wordt. Na het plaatsen van een melding wordt nu een unwind segue uitgevoerd naar de feed. Berichten staan nu van nieuw naar oud gesorteerd. Je kan berichten verwijderen die van je zelf zijn onder de tab 'mijn meldingen'. Geen beginreactie meer nodig voor de initialisatie van een Mention object, parameter is nu optioneel en heeft een default waarde. Checkt nu in het registreer scherm of alles is ingevuld en of het controle wachtwoord goed is ingevuld. Geeft ook feedback met een alert aan de gebruiker. Probleem was nu dat bij de eerste reactie de index 1 wordt meegegeven waardoor de app crasht, opgelost door goed te checken wanneer er nog geen reacties zijn geplaatst.
+
+## Dag 13 (26-01-2017)

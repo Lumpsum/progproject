@@ -15,7 +15,9 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
     let ref = FIRDatabase.database().reference(withPath: "mentions")
     let locationManager = CLLocationManager()
     var categoriesListDutch = ["Verdachte situatie", "Klacht", "Aandachtspunt", "Evenement", "Bericht"]
-    var coordinates = Dictionary<String, String>()
+    var coordinatesDict = Dictionary<String, String>()
+    var coordinates = CLLocationCoordinate2D()
+    
     
     @IBOutlet var titleField: UITextField!
     @IBOutlet var categoryField: UITextField!
@@ -27,7 +29,7 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
             let mentionItem = MentionItem(titel: titleField.text!,
                                       addedByUser: currentInfo.user["uid"]!,
                                       category: categoryField.text!,
-                                      location: coordinates,
+                                      location: coordinatesDict,
                                       message: messageField.text,
                                       timeStamp: String(describing: NSDate()))
                                       //replies: [["test", "test", "test"]])
@@ -42,6 +44,15 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("NEWMENTIONVC", coordinatesDict)
+        
+        getLocation(longitude: coordinates.longitude, latitude: coordinates.latitude, completion: {(locationName: String) -> Void in
+            self.locationField.text = locationName
+            
+        })
+        
+        
         
         // SET LAYOUT MESSAGEFIELD
         messageField.layer.borderColor = UIColor(red:0.78, green:0.78, blue:0.80, alpha:1.0).cgColor
@@ -103,9 +114,9 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if locations.first != nil {
             let locValue:CLLocationCoordinate2D = manager.location!.coordinate
-            coordinates["longitude"] = String(locValue.longitude)
-            coordinates["latitude"] = String(locValue.latitude)
-            self.locationField.text =  getLocation(longitude: locValue.longitude, latitude: locValue.latitude)
+            coordinatesDict["longitude"] = String(locValue.longitude)
+            coordinatesDict["latitude"] = String(locValue.latitude)
+            //self.locationField.text =  getLocation(longitude: locValue.longitude, latitude: locValue.latitude)
         }
     }
     
@@ -131,8 +142,7 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         categoryField.text = categoriesListDutch[row]
     }
-    
-    
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

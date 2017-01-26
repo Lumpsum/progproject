@@ -91,7 +91,6 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
                 } else {
                     self.picturePath = metaData!.downloadURL()!.absoluteString
                 }
-                
             }
             
             

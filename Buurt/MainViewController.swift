@@ -45,7 +45,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         // LOAD ALL DATA
         loadAllData()
         
-        
         // SIDEBARMENU ENABLED
         if self.revealViewController() != nil {
             menuButton.target = self.revealViewController()
@@ -144,6 +143,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         currentInfo.selectedMention = currentInfo.mentions[indexPath.row].toAnyObject()
+        print("HIER", currentInfo.mentions[indexPath.row].toAnyObject())
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -163,6 +163,20 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 }
             }
         }
+    }
+    
+    
+    var currentIndex = Int()
+    
+
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! SingleMentionViewController
+        destinationVC.testVar = "testing"
+        //destinationVC.title = currentInfo.selectedMention["titel"] as! String?
+        //destinationVC.nameLabel.text = currentInfo.uidNameDict[(currentInfo.selectedMention["addedByUser"] as! String?)!]
+        //destinationVC.timeLabel.text = getTimeDifference(inputDate: (currentInfo.selectedMention["timeStamp"] as! String?)!)
+        //destinationVC.messageField.text = currentInfo.selectedMention["message"] as! String?
     }
     
     

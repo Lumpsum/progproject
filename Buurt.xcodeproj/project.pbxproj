@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1017E2E01E3A006400FF29C2 /* PickLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1017E2DF1E3A006400FF29C2 /* PickLocationViewController.swift */; };
 		103488D01E27F2E90038DCFE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 103488CF1E27F2E90038DCFE /* CoreLocation.framework */; };
 		103488D21E28CD0F0038DCFE /* SingleMentionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103488D11E28CD0F0038DCFE /* SingleMentionViewController.swift */; };
 		103488D81E291A020038DCFE /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 103488D71E291A020038DCFE /* SWRevealViewController.m */; };
@@ -48,6 +49,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1017E2DF1E3A006400FF29C2 /* PickLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickLocationViewController.swift; sourceTree = "<group>"; };
 		103488CF1E27F2E90038DCFE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		103488D11E28CD0F0038DCFE /* SingleMentionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleMentionViewController.swift; sourceTree = "<group>"; };
 		103488D51E291A020038DCFE /* Buurt-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Buurt-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				103488D11E28CD0F0038DCFE /* SingleMentionViewController.swift */,
 				10431A341E2A9EFA003D7BE4 /* SideBarMenuTableViewController.swift */,
 				10431A361E2AA04B003D7BE4 /* SettingsViewController.swift */,
+				1017E2DF1E3A006400FF29C2 /* PickLocationViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -387,6 +390,7 @@
 				10413F041E38D2B000732460 /* ImageExtension.swift in Sources */,
 				10BA313E1E2784F0002BE3E7 /* SignUpViewController.swift in Sources */,
 				10FE986C1E250148002FAA1F /* NewMentionViewController.swift in Sources */,
+				1017E2E01E3A006400FF29C2 /* PickLocationViewController.swift in Sources */,
 				10F392AD1E24E8F800D71952 /* MainViewController.swift in Sources */,
 				10BA313B1E2677DF002BE3E7 /* README.md in Sources */,
 				103488D21E28CD0F0038DCFE /* SingleMentionViewController.swift in Sources */,

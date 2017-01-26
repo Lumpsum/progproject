@@ -35,7 +35,14 @@ class ExploreViewController: UIViewController, CLLocationManagerDelegate {
         // PLACE PINPOINTS
         for item in currentInfo.mentions {
             let dbLocation = item.location as Dictionary<String, String>
-            let mapPointer = MapPointer(title: item.titel, locationName: getLocation(longitude: Double(dbLocation["longitude"]!)!, latitude: Double(dbLocation["latitude"]!)!), coordinate: CLLocationCoordinate2D(latitude: Double(dbLocation["latitude"]!)!, longitude: Double(dbLocation["longitude"]!)!))
+            
+            var locationNameLocal = String()
+            getLocation(longitude: Double(dbLocation["longitude"]!)!, latitude: Double(dbLocation["latitude"]!)!, completion: {(locationName: String) -> Void in
+                locationNameLocal = locationName
+                
+            })
+            
+            let mapPointer = MapPointer(title: item.titel, locationName: locationNameLocal, coordinate: CLLocationCoordinate2D(latitude: Double(dbLocation["latitude"]!)!, longitude: Double(dbLocation["longitude"]!)!))
             mapView.addAnnotation(mapPointer)
         } 
     }

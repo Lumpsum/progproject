@@ -362,6 +362,34 @@
             </objects>
             <point key="canvasLocation" x="4157.6000000000004" y="138.98050974512745"/>
         </scene>
+        <!--Pick Location View Controller-->
+        <scene sceneID="d90-Ow-aZH">
+            <objects>
+                <viewController id="fcQ-1U-8Z2" customClass="PickLocationViewController" customModule="Buurt" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tRa-vz-A2h"/>
+                        <viewControllerLayoutGuide type="bottom" id="L0g-3I-w0B"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="LLM-Fv-JBw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="2vU-vn-RAQ">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="2vU-vn-RAQ" id="LOT-vZ-cZ1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BVS-kB-NWd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5104.8000000000002" y="-637.33133433283365"/>
+        </scene>
         <!--Nieuwe Melding-->
         <scene sceneID="O6R-kI-ywa">
             <objects>
@@ -374,8 +402,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Locatie" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8s7-vQ-bNj">
-                                <rect key="frame" x="16" y="211" width="343" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Locatie" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8s7-vQ-bNj">
+                                <rect key="frame" x="16" y="211" width="310" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -410,6 +438,14 @@
                                     <action selector="postMention:" destination="RjF-qu-nwe" eventType="touchUpInside" id="02T-En-Zu2"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fqX-LW-ZFb">
+                                <rect key="frame" x="16" y="190" width="25" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="target"/>
+                                <connections>
+                                    <segue destination="fcQ-1U-8Z2" kind="show" id="dZM-Ts-1hJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -424,8 +460,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tms-SC-zhT" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="AYD-T3-F6r" userLabel="Exit" sceneMemberID="exit"/>
+                <tapGestureRecognizer id="xCh-e8-Ot8"/>
             </objects>
-            <point key="canvasLocation" x="4159" y="-637"/>
+            <point key="canvasLocation" x="4157.6000000000004" y="-637.33133433283365"/>
         </scene>
         <!--Sign Up-->
         <scene sceneID="58N-EH-Eb6">
@@ -852,6 +889,7 @@
         <image name="bookmark" width="24" height="24"/>
         <image name="menu" width="24" height="24"/>
         <image name="next" width="64" height="64"/>
+        <image name="target" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="1bC-7Z-CVw"/>

@@ -109,11 +109,9 @@ func getTimeDifference(inputDate: String) -> String {
     
 }
 
-func getLocation(longitude: CLLocationDegrees, latitude:CLLocationDegrees) -> String {
+func getLocation(longitude: CLLocationDegrees, latitude:CLLocationDegrees, completion: @escaping (_ locationName: String) -> Void) {
     let location = CLLocation(latitude: latitude, longitude: longitude)
-    var returnLocation = String()
     CLGeocoder().reverseGeocodeLocation(location, completionHandler: {(placemarks, error) -> Void in
-        print(location)
         
         if error != nil {
             print("Reverse geocoder failed with error" + (error?.localizedDescription)!)
@@ -121,14 +119,13 @@ func getLocation(longitude: CLLocationDegrees, latitude:CLLocationDegrees) -> St
         
         if (placemarks?.count)! > 0 {
             let pm = (placemarks?[0])! as CLPlacemark
-            returnLocation = pm.name! as String
+            completion((pm.name! as String))
+            //return pm.name! as String
+            //print("PLACE MARK", returnLocation)
         }
             
         else {
             print("Couldn't find address")
         }
     })
-    
-    return returnLocation
-    
 }

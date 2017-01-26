@@ -14,6 +14,7 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
     
     let ref = FIRDatabase.database().reference(withPath: "mentions")
     let userRef = FIRDatabase.database().reference(withPath: "users").child(currentInfo.user["uid"]!)
+    var testVar = String()
     
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
@@ -54,19 +55,20 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("TESTVAR", testVar)
         
         // KEYBOARD NOTIFICATIONS
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         // SHOW INFORMATION
-        self.title = currentInfo.selectedMention["titel"] as! String?
-        nameLabel.text = currentInfo.uidNameDict[(currentInfo.selectedMention["addedByUser"] as! String?)!]
-        timeLabel.text = getTimeDifference(inputDate: (currentInfo.selectedMention["timeStamp"] as! String?)!)
-        messageField.text = currentInfo.selectedMention["message"] as! String?
+        //self.title = currentInfo.selectedMention["titel"] as! String?
+        //nameLabel.text = currentInfo.uidNameDict[(currentInfo.selectedMention["addedByUser"] as! String?)!]
+        //timeLabel.text = getTimeDifference(inputDate: (currentInfo.selectedMention["timeStamp"] as! String?)!)
+        //messageField.text = currentInfo.selectedMention["message"] as! String?
         
         // SET PICTURE OF WRITER
-        var pictureUrl = currentInfo.uidPictureDict[(currentInfo.selectedMention["addedByUser"] as! String?)!]
+        let pictureUrl = currentInfo.uidPictureDict[(currentInfo.selectedMention["addedByUser"] as! String?)!]
         if pictureUrl != nil && pictureUrl != "" {
             self.profilePictureHolder.loadImagesWithCache(urlstring: pictureUrl!, uid: ((currentInfo.selectedMention["addedByUser"] as! String?)!))
             self.profilePictureHolder.layer.cornerRadius = self.profilePictureHolder.frame.size.width / 2
@@ -77,7 +79,14 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
         let dbLocation = currentInfo.selectedMention["location"] as! Dictionary<String, String>
         let initialLocation = CLLocation(latitude: Double(dbLocation["latitude"]!)!, longitude: Double(dbLocation["longitude"]!)!)
         centerMapOnLocation(location: initialLocation)
-        let mapPointer = MapPointer(title: (currentInfo.selectedMention["titel"] as! String?)!, locationName: getLocation(longitude: Double(dbLocation["longitude"]!)!, latitude: Double(dbLocation["latitude"]!)!), coordinate: CLLocationCoordinate2D(latitude: Double(dbLocation["latitude"]!)!, longitude: Double(dbLocation["longitude"]!)!))
+        
+        var locationNameLocal = String()
+        getLocation(longitude: Double(dbLocation["longitude"]!)!, latitude: Double(dbLocation["latitude"]!)!, completion: {(locationName: String) -> Void in
+            locationNameLocal = locationName
+            
+        })
+        
+        let mapPointer = MapPointer(title: (currentInfo.selectedMention["titel"] as! String?)!, locationName: locationNameLocal, coordinate: CLLocationCoordinate2D(latitude: Double(dbLocation["latitude"]!)!, longitude: Double(dbLocation["longitude"]!)!))
         //mapView.removeAnnotations(mapView.annotations)
         mapView.addAnnotation(mapPointer)
         
