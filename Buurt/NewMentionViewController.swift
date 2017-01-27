@@ -44,16 +44,7 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("NEWMENTIONVC", coordinatesDict)
-        
-        getLocation(longitude: coordinates.longitude, latitude: coordinates.latitude, completion: {(locationName: String) -> Void in
-            self.locationField.text = locationName
-            
-        })
-        
-        
-        
+
         // SET LAYOUT MESSAGEFIELD
         messageField.layer.borderColor = UIColor(red:0.78, green:0.78, blue:0.80, alpha:1.0).cgColor
         messageField.layer.borderWidth = 0.5
@@ -73,8 +64,20 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
             //locationManager.startUpdatingLocation()
             locationManager.requestLocation()
         }
+    
+        if coordinates.latitude != 0.0 {
+            setLocationField()
+        }
+    
+    
+    
     }
     
+    func setLocationField() {
+        getLocation(longitude: coordinates.longitude, latitude: coordinates.latitude, completion: {(locationName: String) -> Void in
+            self.locationField.text = locationName
+        })
+    }
     
     func checkInput() -> Bool {
         if titleField.text != "" && categoryField.text != "" && locationField.text != "" && messageField.text != "" {
@@ -116,7 +119,8 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
             let locValue:CLLocationCoordinate2D = manager.location!.coordinate
             coordinatesDict["longitude"] = String(locValue.longitude)
             coordinatesDict["latitude"] = String(locValue.latitude)
-            //self.locationField.text =  getLocation(longitude: locValue.longitude, latitude: locValue.latitude)
+            coordinates = locValue
+            setLocationField()
         }
     }
     

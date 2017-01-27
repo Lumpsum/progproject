@@ -14,7 +14,6 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
     
     let ref = FIRDatabase.database().reference(withPath: "mentions")
     let userRef = FIRDatabase.database().reference(withPath: "users").child(currentInfo.user["uid"]!)
-    var testVar = String()
     
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
@@ -55,17 +54,16 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("TESTVAR", testVar)
         
         // KEYBOARD NOTIFICATIONS
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         // SHOW INFORMATION
-        //self.title = currentInfo.selectedMention["titel"] as! String?
-        //nameLabel.text = currentInfo.uidNameDict[(currentInfo.selectedMention["addedByUser"] as! String?)!]
-        //timeLabel.text = getTimeDifference(inputDate: (currentInfo.selectedMention["timeStamp"] as! String?)!)
-        //messageField.text = currentInfo.selectedMention["message"] as! String?
+        self.title = currentInfo.selectedMention["titel"] as! String?
+        nameLabel.text = currentInfo.uidNameDict[(currentInfo.selectedMention["addedByUser"] as! String?)!]
+        timeLabel.text = getTimeDifference(inputDate: (currentInfo.selectedMention["timeStamp"] as! String?)!)
+        messageField.text = currentInfo.selectedMention["message"] as! String?
         
         // SET PICTURE OF WRITER
         let pictureUrl = currentInfo.uidPictureDict[(currentInfo.selectedMention["addedByUser"] as! String?)!]

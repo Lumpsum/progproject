@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1017E2E01E3A006400FF29C2 /* PickLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1017E2DF1E3A006400FF29C2 /* PickLocationViewController.swift */; };
+		1017E2E21E3B4C7A00FF29C2 /* .bettercodehub.yml in Resources */ = {isa = PBXBuildFile; fileRef = 1017E2E11E3B4C7A00FF29C2 /* .bettercodehub.yml */; };
 		103488D01E27F2E90038DCFE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 103488CF1E27F2E90038DCFE /* CoreLocation.framework */; };
 		103488D21E28CD0F0038DCFE /* SingleMentionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103488D11E28CD0F0038DCFE /* SingleMentionViewController.swift */; };
 		103488D81E291A020038DCFE /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 103488D71E291A020038DCFE /* SWRevealViewController.m */; };
@@ -50,6 +51,7 @@
 
 /* Begin PBXFileReference section */
 		1017E2DF1E3A006400FF29C2 /* PickLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickLocationViewController.swift; sourceTree = "<group>"; };
+		1017E2E11E3B4C7A00FF29C2 /* .bettercodehub.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .bettercodehub.yml; sourceTree = "<group>"; };
 		103488CF1E27F2E90038DCFE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		103488D11E28CD0F0038DCFE /* SingleMentionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleMentionViewController.swift; sourceTree = "<group>"; };
 		103488D51E291A020038DCFE /* Buurt-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Buurt-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 		10F3928E1E24270800D71952 = {
 			isa = PBXGroup;
 			children = (
+				1017E2E11E3B4C7A00FF29C2 /* .bettercodehub.yml */,
 				10BA311B1E2677DF002BE3E7 /* DESIGN.md */,
 				10BA312A1E2677DF002BE3E7 /* PROCESS.md */,
 				10BA312B1E2677DF002BE3E7 /* README.md */,
@@ -311,6 +314,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1017E2E21E3B4C7A00FF29C2 /* .bettercodehub.yml in Resources */,
 				10F392A51E24270900D71952 /* LaunchScreen.storyboard in Resources */,
 				10BA31311E2677DF002BE3E7 /* 14.png in Resources */,
 				10BA312E1E2677DF002BE3E7 /* 11.png in Resources */,
