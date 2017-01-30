@@ -50,3 +50,5 @@ Het gebruik maken van de locatie zal waarschijnlijk het meest uitdagend zijn. Er
 In de App store zijn vergelijkbare app's beschikbaar. De app 'BuurtApp' heeft niet veel goede beoordelingen. In de slechte recensies wordt voornamelijk aangegeven dat de app crasht en niet naar behoren werkt. De app 'Nextdoor' daarentegen heeft 4 sterren over alle versies en krijgt zeer goede recencies. Wel zijn er drie punten van kritiek te vinden: reclame in de app, spam en ongewenste berichten en de hoeveelheid persoonlijke gegevens die de app wilt weten.
 
 Dit laatste punt is denk ik belangrijk om rekening mee te houden. Zo is voor het bepalen van de buurt de postcode in eerste instantie genoeg informatie, daarnaast is een (gebruikers)naam verplicht, maar een profielfoto is bijvoorbeeld optioneel.Ik denk dat het zeer belangrijk om de scope van de app niet al te breed te maken en het maken en ontvangen van meldingen centraal moet staan. De drempel om deel te nemen aan deze app moet zo laag mogelijk zijn.
+
+[![BCH compliance](https://bettercodehub.com/edge/badge/Martijn66/progproject)](https://bettercodehub.com)

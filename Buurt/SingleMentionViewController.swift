@@ -33,6 +33,7 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
         }
         tempComments.append([currentInfo.user["uid"]!, "\(NSDate())", commentField.text!])
         commentRef.updateChildValues(["replies": tempComments])
+        currentInfo.selectedMention["replies"] = tempComments
         updateMentions(selectedKey: currentInfo.selectedMention["key"] as? String)
         self.tableView.reloadData()
     }
@@ -129,8 +130,6 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
     // TABLE FUNCTIONS
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (currentInfo.selectedMention["replies"] as! Array<Array<String>>)[0].isEmpty == false {
-            print ("NUMBEROFREPLIES", (currentInfo.selectedMention["replies"] as! Array<Array<String>>).count)
-            print(currentInfo.selectedMention["replies"] as! Array<Array<String>>)
             return (currentInfo.selectedMention["replies"] as! Array<Array<String>>).count
         }
         return 0
@@ -139,7 +138,6 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath) as! CommentCell
         let cellData = currentInfo.selectedMention["replies"] as! Array<Array<String>>
-        print("TESTPRINT", cellData)
         cell.nameLabel.text = currentInfo.uidNameDict[cellData[indexPath.row][0]]
         cell.commentField.text = cellData[indexPath.row][2]
         
