@@ -100,11 +100,9 @@ func getTimeDifference(inputDate: String) -> String {
     else if interval < 86400 {
         return "\(Int(interval/3600)) uur"
     }
-    else if interval < 604800 {
-        return "Deze week"
-    }
     else {
-        return "\(Int(interval/604800)) weken"
+        let index = inputDate.index(inputDate.startIndex, offsetBy: 10)
+        return inputDate.substring(to: index)
     }
     
 }

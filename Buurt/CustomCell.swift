@@ -19,7 +19,7 @@ class MentionCell: UITableViewCell {
     override func awakeFromNib() {
         
         super.awakeFromNib()
-        // Initialization code
+       messageField.contentInset = UIEdgeInsetsMake(-4,-4,0,0);
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -31,11 +31,17 @@ Alpha versie gepresenteerd.
 ## Dag 11 (23-01-2017)
 De gebruiker gegevens worden nu ingeladen voordat de mentions worden opgehaald, nu kan de postcode gecheckt worden en worden alleen de berichten ingeladen die uit deze postcode komen. Probleem: asynchrone processen op de juiste volgorde uitvoeren en wachten totdat het ene proces klaar is. Gebruik gemaakt van dispatch groepen hiervoor. Wel nog een probleem met het volgen van een melding. SingleMentionViewController aangepast, het bericht zelf scrollt nu mee als de gebruiker meer reacties wilt zien. View verplaatst nu ook omhoog als het toetsenbord verschijnt, de gebruiker kan nu zien wat hij/zij typt.
 
-## Dag 11 (24-01-2017)
+## Dag 12 (24-01-2017)
 User Feedback bij inlogscherm in de vorm van een alert toegevoegd. Gebruiker kan nu ook zijn postcode aanpassen in het instellingen scherm. EINDELIJK werkt alle code met Firebase goed. De postcode moet eerst opgehaald worden, daarna kan pas de rest ingeladen worden omdat het geen zin heeft om gelijk alle mentions in te laden van andere postcode gebieden. Het probleem was als ergens in de app (instellingen of volgen van een melding) iets in Firebase aangepast werd, de observer in de MainViewController vast liep. De oorzaak was dat in deze observer de dispatch groep verlaten moest worden, maar als in een ander scherm wat aangepast werd, werd deze observer niet eerst aan de dispatch groep toegevoegd. De oplossing is om ook te werken met een begin handler (http://stackoverflow.com/questions/39465789/swift-how-to-use-dispatch-group-with-multiple-called-web-service/40004392). Begin gemaakt met profielfoto's. Bericht kan nu ook onvolgd worden.'
 
-## Dag 12 (25-01-2017)
+## Dag 13 (25-01-2017)
 Profielfoto's kunnen worden opgeslagen en worden opgehaald. Deze worden in het cache geheugen bewaard, zodat deze niet telkens opgehaald hoeven te worden als een ViewController opnieuw aangeroepen wordt. Na het plaatsen van een melding wordt nu een unwind segue uitgevoerd naar de feed. Berichten staan nu van nieuw naar oud gesorteerd. Je kan berichten verwijderen die van je zelf zijn onder de tab 'mijn meldingen'. Geen beginreactie meer nodig voor de initialisatie van een Mention object, parameter is nu optioneel en heeft een default waarde. Checkt nu in het registreer scherm of alles is ingevuld en of het controle wachtwoord goed is ingevuld. Geeft ook feedback met een alert aan de gebruiker. Probleem was nu dat bij de eerste reactie de index 1 wordt meegegeven waardoor de app crasht, opgelost door goed te checken wanneer er nog geen reacties zijn geplaatst.
 
-## Dag 13 (26-01-2017)
+## Dag 14 (26-01-2017)
 De gebruiker kan bij het aanmaken van een nieuwe melding ook op de kaart een pin plaatsen ipv huidige locatie te gebruiken. Ook wordt in de schermen 'mijn meldingen' en 'volgend' naar het goede bericht doorgelinkt als hierop wordt geklikt. Huidige locatie bij nieuwe melding gefixt.
+
+## Dag 15 (27-01-2017)
+Presentatie
+
+## Dag 16 (30-01-2017)
+Alle viewcontrollers zijn responsive. Bestanden zijn 's avonds door mijn eigen backup overschreven, dus ik moest mijn commit van 1 uur 's middags terug zetten. Dus helaas wat dubbel werk gehad..
