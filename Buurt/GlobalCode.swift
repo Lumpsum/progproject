@@ -117,9 +117,18 @@ func getLocation(longitude: CLLocationDegrees, latitude:CLLocationDegrees, compl
         
         if (placemarks?.count)! > 0 {
             let pm = (placemarks?[0])! as CLPlacemark
-            completion((pm.name! as String))
-            //return pm.name! as String
-            //print("PLACE MARK", returnLocation)
+            
+            var postalcode = pm.postalCode!
+            let index = postalcode.index(postalcode.startIndex, offsetBy: 4)
+            postalcode = postalcode.substring(to: index)
+            print("CURRENT POSTAL CODE", postalcode)
+            
+            if postalcode == currentInfo.user["postcode"] {
+                completion((pm.name! as String))
+            }
+            else {
+                print("NOT IN POSTCODE REGION")
+            }
         }
             
         else {
