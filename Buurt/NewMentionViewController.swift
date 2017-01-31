@@ -12,48 +12,34 @@ import CoreLocation
 
 class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, CLLocationManagerDelegate {
     
-    let ref = FIRDatabase.database().reference(withPath: "mentions")
     let locationManager = CLLocationManager()
-    var categoriesListDutch = ["Verdachte situatie", "Klacht", "Aandachtspunt", "Evenement", "Bericht"]
-    var coordinatesDict = Dictionary<String, String>()
     var coordinates = CLLocationCoordinate2D()
-    
     
     @IBOutlet var titleField: UITextField!
     @IBOutlet var categoryField: UITextField!
     @IBOutlet var locationField: UITextField!
     @IBOutlet var messageField: UITextView!
     
-    @IBAction func postMention(_ sender: Any) {
+    @IBAction func PostMentionButtonDidTouch(_ sender: Any) {
         if checkInput() == true {
-            let mentionItem = MentionItem(titel: titleField.text!,
-                                      addedByUser: currentInfo.user["uid"]!,
-                                      category: categoryField.text!,
-                                      location: coordinatesDict,
-                                      message: messageField.text,
-                                      timeStamp: String(describing: NSDate()))
-            let mentionItemRef = ref.child(currentInfo.user["postcode"]!).childByAutoId()
-            mentionItemRef.setValue(mentionItem.toAnyObject())
+            saveMention()
             self.performSegue(withIdentifier: "UnwindToFeedSegue", sender: self)
         }
     }
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
 
-        // SET LAYOUT MESSAGEFIELD
         messageField.layer.borderColor = UIColor(red:0.78, green:0.78, blue:0.80, alpha:1.0).cgColor
         messageField.layer.borderWidth = 0.5
         messageField.layer.cornerRadius = 5
         
-        // SET CATEGORY PICKERVIEW
         let pickerView = UIPickerView()
         pickerView.delegate = self
         categoryField.inputView = pickerView
 
-        // LOCATION
-        if coordinatesDict.isEmpty {
+        if coordinates.longitude == 0.0 {
             self.locationManager.requestAlwaysAuthorization()
             self.locationManager.requestWhenInUseAuthorization()
             if CLLocationManager.locationServicesEnabled() {
@@ -69,7 +55,22 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
         
     }
     
-    func setLocationField() {
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    private func saveMention() {
+        let mentionItem = MentionItem(titel: titleField.text!,
+                                      addedByUser: currentInfo.user["uid"]!,
+                                      category: categoryField.text!,
+                                      location: ["latitude": String(coordinates.latitude), "longitude": String(coordinates.longitude)],
+                                      message: messageField.text,
+                                      timeStamp: String(describing: NSDate()))
+        let mentionItemRef = FIRDatabase.database().reference(withPath: "mentions").child(currentInfo.user["postcode"]!).childByAutoId()
+        mentionItemRef.setValue(mentionItem.toAnyObject())
+    }
+    
+    private func setLocationField() {
         getLocation(longitude: coordinates.longitude, latitude: coordinates.latitude, completion: {(locationName: String) -> Void in
             
             if locationName == "invalid" {
@@ -83,7 +84,7 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
         })
     }
     
-    func checkInput() -> Bool {
+    private func checkInput() -> Bool {
         if titleField.text != "" && categoryField.text != "" && locationField.text != "" && messageField.text != "" {
             return true
         }
@@ -109,8 +110,6 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
         if locations.first != nil {
             let locValue:CLLocationCoordinate2D = manager.location!.coordinate
             print("AUTO LOC", locValue)
-            coordinatesDict["longitude"] = String(locValue.longitude)
-            coordinatesDict["latitude"] = String(locValue.latitude)
             coordinates = locValue
             setLocationField()
         }
@@ -128,21 +127,18 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return categoriesListDutch.count
+        return  Array(currentInfo.categoriesDictDutch.keys).count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return categoriesListDutch[row]
+        return Array(currentInfo.categoriesDictDutch.keys)[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        categoryField.text = categoriesListDutch[row]
+        categoryField.text = Array(currentInfo.categoriesDictDutch.keys)[row]
     }
 
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    
 
 }

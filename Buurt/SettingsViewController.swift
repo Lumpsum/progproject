@@ -48,6 +48,7 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         
         // IMAGE PICKER
         imagePicker.delegate = self

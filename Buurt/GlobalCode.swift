@@ -19,6 +19,7 @@ struct currentInfo {
     static var selectedMention =  Dictionary<String, Any>()
     static var uidNameDict = Dictionary<String, String>()
     static var uidPictureDict = Dictionary<String, String>()
+    static let categoriesDictDutch = ["Verdachte situatie":"warning", "Klacht":"complaint", "Aandachtspunt":"focus", "Evenement":"event", "Bericht":"message"]
 }
 
 

@@ -18,8 +18,6 @@ class MapPointer: NSObject, MKAnnotation {
         self.title = title
         self.locationName = locationName
         self.coordinate = coordinate
-        
         super.init()
     }
-    
 }

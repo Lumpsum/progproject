@@ -14,33 +14,26 @@ class ViewController: UIViewController {
     @IBOutlet var emailField: UITextField!
     @IBOutlet var passwordField: UITextField!
     
-    @IBAction func Login(_ sender: Any) {
+    @IBAction func LoginButtonDidTouch(_ sender: Any) {
         if emailField.text != "" && passwordField.text != "" {
             FIRAuth.auth()!.signIn(withEmail: emailField.text!, password: passwordField.text!) { (user, error) in
                 if error != nil {
-                    let alert = UIAlertController(title: "Inloggen mislukt", message: "Mailadres of wachtwoord is incorrect.", preferredStyle: UIAlertControllerStyle.alert)
-                    alert.addAction(UIAlertAction(title: "Probeer opnieuw", style: UIAlertActionStyle.default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
+                    self.showLoginAlert(showMessage: "Mailadres of wachtwoord is incorrect.")
                 }
             }
         }
         else {
-            let alert = UIAlertController(title: "Inloggen mislukt", message: "Vul uw mailadres en/of wachtwoord in.", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "Probeer opnieuw", style: UIAlertActionStyle.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            self.showLoginAlert(showMessage: "Vul uw mailadres en/of wachtwoord in.")
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         
-        // CHECK IF USER ALREADY LOGGED IN
         FIRAuth.auth()!.addStateDidChangeListener() { auth, user in
             if user != nil {
-                // SET CURRENT UID LOCAL
                 currentInfo.user["uid"] = (user?.uid)!
-                
-                // GO TO FEED
                 self.performSegue(withIdentifier: "LoginToFeed", sender: nil)
             }
         }
@@ -49,7 +42,12 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
-
+    
+    /// Shows alert with given message and specific title for Login.
+    private func showLoginAlert(showMessage: String) {
+        let alert = UIAlertController(title: "Inloggen mislukt", message: showMessage, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Probeer opnieuw", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
 }
 

@@ -33,16 +33,6 @@ struct MentionItem {
         self.ref = nil
     }
     
-    /*
-    init(snapshot: FIRDataSnapshot) {
-        key = snapshot.key
-        let snapshotValue = snapshot.value as! [String: AnyObject]
-        name = snapshotValue["name"] as! String
-        addedByUser = snapshotValue["addedByUser"] as! String
-        completed = snapshotValue["completed"] as! Bool
-        ref = snapshot.ref
-    }
-     */
     func toAnyObject() -> Dictionary<String, Any> {
         return [
             "key": key,

@@ -11,25 +11,37 @@ import Firebase
 import FirebaseStorage
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
+    var viewFunction = String()
+    var loadDispatchGroup = DispatchGroup()
+    var presentData = Array<MentionItem>()
+    
     @IBOutlet var tableView: UITableView!
     @IBOutlet var menuButton: UIBarButtonItem!
     @IBOutlet var composeButton: UIBarButtonItem!
-    
-    @IBAction func unwindToFeed(segue: UIStoryboardSegue) {
-        
-    }
-    
-    var viewFunction = String()
-    let ref = FIRDatabase.database().reference(withPath: "mentions")
-    let categoriesDictDutch = ["Verdachte situatie":"warning", "Klacht":"complaint", "Aandachtspunt":"focus", "Evenement":"event", "Bericht":"message"]
-    var group1 = DispatchGroup()
-    
+    @IBAction func unwindToFeed(segue: UIStoryboardSegue) {}
+
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableData(_:)), name: .reload, object: nil)
         
-        // SET TITLE BAR
+        setPropertiesViewFunction()
+        loadAllData()
+        
+        // SIDEBARMENU ENABLED
+        if self.revealViewController() != nil {
+            menuButton.target = self.revealViewController()
+            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    /// Sets NavigationBar title and navigation item for the current view function.
+    private func setPropertiesViewFunction() {
         if viewFunction == "follow" {
             self.title = "Volgend"
             self.navigationItem.rightBarButtonItem = nil
@@ -41,31 +53,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         else {
             self.title = "Feed"
         }
-        
-        // LOAD ALL DATA
-        loadAllData()
-        
-        // SIDEBARMENU ENABLED
-        if self.revealViewController() != nil {
-            menuButton.target = self.revealViewController()
-            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
-            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-        }
     }
     
-    
-    // LOAD FIRST USER DATA, SECOND MENTIONS AND UID/NAME DICT
-    func loadAllData() {
-        observeDatabase(beginHandler: {
-            self.group1.enter()
-            self.group1.notify(queue: DispatchQueue.main, execute: {
-                updateUserDict()
-                updateMentions(selectedKey: nil)
-            })
-        }, completionHandler: { self.group1.leave() })
-    }
-    
-    func observeDatabase(beginHandler: @escaping () -> (), completionHandler: @escaping () -> ()) {
+    /// Get current user information from Firebase and store in currentInfo.user.
+    private func setCurrentUserInfo(beginHandler: @escaping () -> (), completionHandler: @escaping () -> ()) {
         FIRDatabase.database().reference(withPath: "users").observe(.value, with: { snapshot in
             beginHandler()
             let userData = (snapshot.value as? NSDictionary)!
@@ -84,18 +75,25 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         })
     }
     
-    // HELP FUNCTIONS
+    /// Performs updateUserDict() and updateMentions() after userinformation is retrieved in setCurrentUserInfo.
+    private func loadAllData() {
+        setCurrentUserInfo(beginHandler: {
+            self.loadDispatchGroup.enter()
+            self.loadDispatchGroup.notify(queue: DispatchQueue.main, execute: {
+                updateUserDict()
+                updateMentions(selectedKey: nil)
+            })
+        }, completionHandler: { self.loadDispatchGroup.leave() })
+    }
+    
+    /// Used to reload data in tableView within observer.
     func reloadTableData(_ notification: Notification) {
         tableView.reloadData()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
     
-    // TABELE METHODS
-    var presentData = Array<MentionItem>()
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    ///
+    private func filterDataForFunction() {
         presentData = []
         if viewFunction == "follow" {
             for item in currentInfo.mentions {
@@ -103,27 +101,29 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                     presentData.append(item)
                 }
             }
-            return presentData.count
         }
         else if viewFunction == "mymentions" {
             for item in currentInfo.mentions {
-
+                
                 if item.addedByUser == currentInfo.user["uid"]!{
                     presentData.append(item)
                 }
             }
-            return presentData.count
         }
         else {
             presentData = currentInfo.mentions
-            return presentData.count
         }
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        filterDataForFunction()
+        return presentData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "mentionCell", for: indexPath) as! MentionCell
         let cellData = presentData[indexPath.row].toAnyObject()
-        cell.iconHolder.image = UIImage(named:  categoriesDictDutch[(cellData["category"] as! String?)!]!)
+        cell.iconHolder.image = UIImage(named:  currentInfo.categoriesDictDutch[(cellData["category"] as! String?)!]!)
         cell.titleLabel.text = cellData["titel"] as! String?
         cell.nameLabel.text = currentInfo.uidNameDict[(cellData["addedByUser"] as! String?)!]
         cell.messageField.text = cellData["message"] as! String?
@@ -135,15 +135,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell.profilePictureHolder.layer.cornerRadius = cell.profilePictureHolder.frame.size.width / 2
             cell.profilePictureHolder.clipsToBounds = true
         }
-        
-        
-        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         currentInfo.selectedMention = presentData[indexPath.row].toAnyObject()
-        print("HIER", currentInfo.selectedMention)
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -157,7 +153,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.delete) {
-            ref.child(currentInfo.user["postcode"]!).child(self.presentData[indexPath.row].key).removeValue { (error, ref) in
+            FIRDatabase.database().reference(withPath: "mentions").child(currentInfo.user["postcode"]!).child(self.presentData[indexPath.row].key).removeValue { (error, ref) in
                 if error != nil {
                     print("error \(error)")
                 }

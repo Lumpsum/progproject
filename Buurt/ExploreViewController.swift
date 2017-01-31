@@ -20,7 +20,6 @@ class ExploreViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // LOCATION
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.requestLocation()
@@ -32,7 +31,11 @@ class ExploreViewController: UIViewController, CLLocationManagerDelegate {
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
         
-        // PLACE PINPOINTS
+        placePinPoints()
+    }
+    
+    /// Places a pinpoint for each mentions on the map.
+    private func placePinPoints() {
         for item in currentInfo.mentions {
             let dbLocation = item.location as Dictionary<String, String>
             
@@ -44,10 +47,9 @@ class ExploreViewController: UIViewController, CLLocationManagerDelegate {
             
             let mapPointer = MapPointer(title: item.titel, locationName: locationNameLocal, coordinate: CLLocationCoordinate2D(latitude: Double(dbLocation["latitude"]!)!, longitude: Double(dbLocation["longitude"]!)!))
             mapView.addAnnotation(mapPointer)
-        } 
+        }
     }
     
-    // LOCATION MANAGERS
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("error:: \(error.localizedDescription)")
     }
@@ -62,17 +64,13 @@ class ExploreViewController: UIViewController, CLLocationManagerDelegate {
         if locations.first != nil {
             coordinates["longitude"] = String(locations[0].coordinate.longitude)
             coordinates["latitude"] = String(locations[0].coordinate.latitude)
-            print("LOCATIONTEST",  locations[0].coordinate)
             let initialLocation = CLLocation(latitude: Double(coordinates["latitude"]!)!, longitude: Double(coordinates["longitude"]!)!)
-            centerMapOnLocation(location: initialLocation)
+            centerMapOnLocation(location: initialLocation, regionRadius: 1000)
         }
     }
     
-    // LOCATION CENTERING
-    let regionRadius: CLLocationDistance = 1000
-    func centerMapOnLocation(location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
-                                                                  regionRadius * 2.0, regionRadius * 2.0)
+    private func centerMapOnLocation(location: CLLocation, regionRadius: CLLocationDistance) {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2.0, regionRadius * 2.0)
         mapView.setRegion(coordinateRegion, animated: true)
     }
     

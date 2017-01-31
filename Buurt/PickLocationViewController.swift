@@ -11,7 +11,6 @@ import MapKit
 
 class PickLocationViewController: UIViewController, UIGestureRecognizerDelegate, UINavigationControllerDelegate {
 
-    var coordinatesDict = Dictionary<String, String>()
     var coordinates = CLLocationCoordinate2D()
     
     @IBOutlet var mapView: MKMapView!
@@ -35,10 +34,6 @@ class PickLocationViewController: UIViewController, UIGestureRecognizerDelegate,
         let location = sender.location(in: mapView)
         coordinates = mapView.convert(location,toCoordinateFrom: mapView)
         
-        coordinatesDict["longitude"] = String(coordinates.longitude)
-        coordinatesDict["latitude"] = String(coordinates.latitude)
-        print("PICKLOCATIONVC", coordinatesDict)
-        
         // Add annotation:
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinates
@@ -47,7 +42,6 @@ class PickLocationViewController: UIViewController, UIGestureRecognizerDelegate,
     
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         if let controller = viewController as? NewMentionViewController {
-            controller.coordinatesDict = coordinatesDict
             controller.coordinates = coordinates
             controller.viewDidLoad()
         }

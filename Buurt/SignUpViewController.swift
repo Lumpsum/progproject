@@ -11,8 +11,6 @@ import Firebase
 
 class SignUpViewController: UIViewController {
     
-    let ref = FIRDatabase.database().reference(withPath: "users")
-    
     @IBOutlet var emailField: UITextField!
     @IBOutlet var passwordField: UITextField!
     @IBOutlet var passwordCheckField: UITextField!
@@ -20,26 +18,12 @@ class SignUpViewController: UIViewController {
     @IBOutlet var lastNameField: UITextField!
     @IBOutlet var postcodeField: UITextField!
     
-    @IBAction func SignUp(_ sender: Any) {
+    @IBAction func SignUpButtonDidTouch(_ sender: Any) {
         if checkInputFields() && checkPasswords() {
-        // CREATE USER
             FIRAuth.auth()!.createUser(withEmail: emailField.text!, password: passwordField.text!) { user, error in
                 if error == nil {
-                
-                    // SAVE ADDITIONAL USERINFORMATION IN DATABASE
-                    let userItem = User(uid: (user?.uid)!,
-                                        email: self.emailField.text!,
-                                        firstname: self.firstNameField.text!,
-                                        lastname: self.lastNameField.text!,
-                                        postcode: self.postcodeField.text!,
-                                        followlist: ["test"])
-                    let userItemRef = self.ref.child((FIRAuth.auth()?.currentUser?.uid)!)
-                    userItemRef.setValue(userItem.toAnyObject())
-                
-                    // SET CURRENT UID LOCAL
+                    self.saveUserData(userid: (user?.uid)!)
                     currentInfo.user["uid"] = (user?.uid)!
-                
-                    // SEND TO MAINVIEWCONTROLLER
                     let loginViewController = self.storyboard!.instantiateViewController(withIdentifier: "Start")
                     UIApplication.shared.keyWindow?.rootViewController = loginViewController
                 }
@@ -49,36 +33,51 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    func checkInputFields() -> Bool {
+    /// Checks if all fields in SingUpViewController do have some input, returns bool.
+    private func checkInputFields() -> Bool {
         if emailField.text != "" && passwordField.text != "" && passwordCheckField.text != "" && firstNameField.text != "" && lastNameField.text != "" && postcodeField.text != "" {
                 return true
         }
-        showAlert(showMessage: "Vul alle velden in.")
+        showSignUpAlert(showMessage: "Vul alle velden in.")
         return false
     }
     
-    func checkPasswords() -> Bool {
+    /// Checks if the password and ceckpassword are the same and the password is longer than 5 characters, returns bool.
+    private func checkPasswords() -> Bool {
         if (passwordField.text?.characters.count)! >= 6 {
             if passwordField.text == passwordCheckField.text  {
                 return true
             }
-            showAlert(showMessage: "Controle wachtwoord is niet correct ingevuld.")
+            showSignUpAlert(showMessage: "Controle wachtwoord is niet correct ingevuld.")
             return false
         }
-        showAlert(showMessage: "Wachtwoord moet minimaal uit 6 karakters bestaan.")
+        showSignUpAlert(showMessage: "Wachtwoord moet minimaal uit 6 karakters bestaan.")
         return false
     }
     
-    func showAlert(showMessage: String) {
+    private func showSignUpAlert(showMessage: String) {
         let alert = UIAlertController(title: "Registreren mislukt", message: showMessage, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Probeer opnieuw", style: UIAlertActionStyle.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    /// Saves all aditional userinformation to database at registration.
+    private func saveUserData(userid: String) {
+        let userItem = User(uid: userid,
+                            email: self.emailField.text!,
+                            firstname: self.firstNameField.text!,
+                            lastname: self.lastNameField.text!,
+                            postcode: self.postcodeField.text!,
+                            followlist: ["test"])
+        let userItemRef = FIRDatabase.database().reference(withPath: "users").child((FIRAuth.auth()?.currentUser?.uid)!)
+        userItemRef.setValue(userItem.toAnyObject())
     }
 
 }
