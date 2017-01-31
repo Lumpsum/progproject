@@ -24,21 +24,15 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var followIcon: UIBarButtonItem!
     
-    @IBAction func saveComment(_ sender: Any) {
+    @IBAction func CommentButtonDidTouch(_ sender: Any) {
         updateMentions(selectedKey: currentInfo.selectedMention["key"] as? String)
-        let commentRef = ref.child(currentInfo.user["postcode"]!).child((currentInfo.selectedMention["key"] as! String))
-        var tempComments = currentInfo.selectedMention["replies"] as! Array<Array<String>>
-        if tempComments[0].count == 0 {
-            tempComments = Array<Array<String>>()
-        }
-        tempComments.append([currentInfo.user["uid"]!, "\(NSDate())", commentField.text!])
-        commentRef.updateChildValues(["replies": tempComments])
-        currentInfo.selectedMention["replies"] = tempComments
+        saveComment()
         updateMentions(selectedKey: currentInfo.selectedMention["key"] as? String)
         self.tableView.reloadData()
+
     }
     
-    @IBAction func followAction(_ sender: Any) {
+    @IBAction func FollowButtonDidTouch(_ sender: Any) {
         if currentInfo.followlist.contains(currentInfo.selectedMention["key"] as! String) == false {
             currentInfo.followlist.append(currentInfo.selectedMention["key"] as! String)
             userRef.updateChildValues(["followlist": currentInfo.followlist])
@@ -52,7 +46,6 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
@@ -99,9 +92,22 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
+    private func saveComment() {
+        let commentRef = ref.child(currentInfo.user["postcode"]!).child((currentInfo.selectedMention["key"] as! String))
+        var tempComments = currentInfo.selectedMention["replies"] as! Array<Array<String>>
+        if tempComments[0].count == 0 {
+            tempComments = Array<Array<String>>()
+        }
+        tempComments.append([currentInfo.user["uid"]!, "\(NSDate())", commentField.text!])
+        commentRef.updateChildValues(["replies": tempComments])
+        // The next line is needed to make sure the reply shows directly in the table view.
+        currentInfo.selectedMention["replies"] = tempComments
+        self.commentField.text = ""
+        dismissKeyboard()
+    }
+
     // KEYBOARD FUNCTIONS
     func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {

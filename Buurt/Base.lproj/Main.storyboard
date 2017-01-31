@@ -445,7 +445,7 @@
                                 </constraints>
                                 <state key="normal" title="Reageer"/>
                                 <connections>
-                                    <action selector="saveComment:" destination="5qz-TY-2ES" eventType="touchUpInside" id="Zai-BW-FuG"/>
+                                    <action selector="CommentButtonDidTouch:" destination="5qz-TY-2ES" eventType="touchUpInside" id="mcY-Vv-0nH"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -465,7 +465,7 @@
                     <navigationItem key="navigationItem" title="Bericht" id="sFI-6J-oSP">
                         <barButtonItem key="rightBarButtonItem" image="bookmark" id="t8H-90-wnr">
                             <connections>
-                                <action selector="followAction:" destination="5qz-TY-2ES" id="8Yt-Q4-xu7"/>
+                                <action selector="FollowButtonDidTouch:" destination="5qz-TY-2ES" id="Qnz-Rk-niF"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

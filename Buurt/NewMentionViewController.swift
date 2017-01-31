@@ -72,7 +72,6 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     private func setLocationField() {
         getLocation(longitude: coordinates.longitude, latitude: coordinates.latitude, completion: {(locationName: String) -> Void in
-            
             if locationName == "invalid" {
                 let alert = UIAlertController(title: "Locatiefout", message: "De gekozen locatie bevindt zich niet in uw woonwijk.", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
@@ -89,7 +88,7 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
             return true
         }
         else {
-            let alert = UIAlertController(title: "Oeps!", message: "U heeft niet alle velden ingevuld.", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Melden mislukt", message: "U heeft niet alle velden ingevuld.", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
             return false
@@ -109,14 +108,12 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if locations.first != nil {
             let locValue:CLLocationCoordinate2D = manager.location!.coordinate
-            print("AUTO LOC", locValue)
             coordinates = locValue
             setLocationField()
         }
     }
     
-
-    // PICKER VIEW FUNCTIONS
+    // Pickerview functions
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -137,8 +134,4 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         categoryField.text = Array(currentInfo.categoriesDictDutch.keys)[row]
     }
-
-    
-    
-
 }
