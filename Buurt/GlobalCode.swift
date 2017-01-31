@@ -26,7 +26,7 @@ extension Notification.Name {
     static let reload = Notification.Name("reload")
 }
 
-/// Fills currentInfo.mentions and currentInfo.selectedMention, only used as helpfunction of updateMentions().
+/// Helpfunction of updateMentions(). Fills currentInfo.mentions and currentInfo.selectedMention.
 private func fillMentionsArray(replies: Bool, mentionData: NSDictionary, mentionKey: String, selectedKey: String?) {
     if replies == false {
         let mentionItem = MentionItem(titel: mentionData["titel"] as! String, addedByUser: mentionData["addedByUser"] as! String, category: mentionData["category"] as! String, location: mentionData["location"] as! Dictionary<String, String>, message: mentionData["message"] as! String, timeStamp: mentionData["timeStamp"] as! String, replies: mentionData["replies"] as! Array<Array<Any>>, key: mentionKey)
@@ -122,7 +122,7 @@ func getTimeDifference(inputDate: String) -> String {
     
 }
 
-///
+/// Takes coordinates and gives back the adress as String and checks if the given location is in the postalcode area of the current user. Gives back "invalid" if location is outside the postalcode area.
 func getLocation(longitude: CLLocationDegrees, latitude:CLLocationDegrees, completion: @escaping (_ locationName: String) -> Void) {
     let location = CLLocation(latitude: latitude, longitude: longitude)
     CLGeocoder().reverseGeocodeLocation(location, completionHandler: {(placemarks, error) -> Void in
@@ -134,16 +134,10 @@ func getLocation(longitude: CLLocationDegrees, latitude:CLLocationDegrees, compl
         if (placemarks?.count)! > 0 {
             let pm = (placemarks?[0])! as CLPlacemark
             
-            var postalcode = pm.postalCode!
-            let index = postalcode.index(postalcode.startIndex, offsetBy: 4)
-            postalcode = postalcode.substring(to: index)
-            print("CURRENT POSTAL CODE", postalcode)
-            
-            if postalcode == currentInfo.user["postcode"] {
+            if postalcodeCheck(fullPostalcode: pm.postalCode!) {
                 completion((pm.name! as String))
             }
             else {
-                print("NOT IN POSTCODE REGION")
                 completion("invalid")
             }
         }
@@ -152,4 +146,17 @@ func getLocation(longitude: CLLocationDegrees, latitude:CLLocationDegrees, compl
             print("Couldn't find address")
         }
     })
+}
+
+
+/// Helpfunction of getLocation(). Checks if location is in postalcode area of the current user.
+private func postalcodeCheck(fullPostalcode: String) -> Bool {
+    let index = fullPostalcode.index(fullPostalcode.startIndex, offsetBy: 4)
+    let postalcode = fullPostalcode.substring(to: index)
+    if postalcode == currentInfo.user["postcode"] {
+        return true
+    }
+    else {
+        return false
+    }
 }

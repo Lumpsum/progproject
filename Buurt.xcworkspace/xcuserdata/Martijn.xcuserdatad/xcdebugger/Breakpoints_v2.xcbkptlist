@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Buurt/GlobalCode.swift"
-            timestampString = "507557062.401205"
+            timestampString = "507558308.3271"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
             landmarkName = "fillMentionsArray(replies:mentionData:mentionKey:selectedKey:)"
             landmarkType = "9">
          </BreakpointContent>
