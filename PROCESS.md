@@ -45,3 +45,7 @@ Presentatie
 
 ## Dag 16 (30-01-2017)
 Alle viewcontrollers zijn responsive. Bestanden zijn 's avonds door mijn eigen backup overschreven, dus ik moest mijn commit van 1 uur 's middags terug zetten. Dus helaas wat dubbel werk gehad..
+
+## Dag 17 (31-01-2017)
+Segmentation Fault: 11 gefixt, dit had te maken met de referentie naar Firebase Storage. Deze had ik bovenaan in de VC class gedefineerd, en later in een functie gebruikt. Nu defineer ik de referentie pas in de functie. 
+

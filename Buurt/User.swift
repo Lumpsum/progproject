@@ -33,7 +33,7 @@ struct User {
             "firstname": firstname,
             "lastname": lastname,
             "postcode": postcode,
-            "followlist": followlist]
+            "followlist": followlist!]
     }
     
 }

@@ -14,7 +14,6 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
     
     var lockValue = true
     var imagePicker = UIImagePickerController()
-    let storageRef = FIRStorage.storage().reference()
     var picturePath = String()
     
     @IBOutlet var firstNameField: UITextField!
@@ -75,7 +74,7 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
     
     
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             profilePicture.image = image
             var data = NSData()
@@ -84,7 +83,7 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
             let metaData = FIRStorageMetadata()
             metaData.contentType = "image/jpg"
             
-            self.storageRef.child(filePath).put(data as Data, metadata: metaData){(metaData,error) in
+            FIRStorage.storage().reference().child(filePath).put(data as Data, metadata: metaData){(metaData,error) in
                 if let error = error {
                     print("IMAGE UPLOAD ERROR", error.localizedDescription)
                     return

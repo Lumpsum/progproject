@@ -31,7 +31,7 @@ extension UIImageView {
             (data, response, error) in
             
             if error != nil {
-                print("IMAGEERROR:", error)
+                print("IMAGEERROR:", error!)
             }
             
             DispatchQueue.main.async {
