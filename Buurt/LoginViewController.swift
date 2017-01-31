@@ -37,7 +37,6 @@ class ViewController: UIViewController {
         // CHECK IF USER ALREADY LOGGED IN
         FIRAuth.auth()!.addStateDidChangeListener() { auth, user in
             if user != nil {
-                
                 // SET CURRENT UID LOCAL
                 currentInfo.user["uid"] = (user?.uid)!
                 

@@ -10,6 +10,8 @@ import Foundation
 import Firebase
 import MapKit
 
+let ref = FIRDatabase.database().reference(withPath: "mentions")
+
 struct currentInfo {
     static var mentions = Array<MentionItem>()
     static var user = Dictionary<String, String>()
@@ -19,42 +21,46 @@ struct currentInfo {
     static var uidPictureDict = Dictionary<String, String>()
 }
 
+
 extension Notification.Name {
     static let reload = Notification.Name("reload")
 }
 
+
+/// Retrieve all mentions from the Firebase server for the current postal code and sets global variables.
 func updateMentions(selectedKey: String?) {
-    print("UPDATEMENTIONS() EXECUTED")
-    let ref = FIRDatabase.database().reference(withPath: "mentions")
     ref.child(currentInfo.user["postcode"]!).observe(.value, with: { snapshot in
         let rawData = snapshot.value as? NSDictionary
         currentInfo.mentions = []
+        
         if rawData != nil {
             for item in rawData! {
                 let mentionData = item.value as? NSDictionary
-                print("MENTIONDATA", mentionData)
+
                 if mentionData!["replies"] != nil {
-                    print("REPLIES", (mentionData!["replies"] as! Array<Array<Any>>))
                     let mentionItem = MentionItem(titel: mentionData!["titel"] as! String, addedByUser: mentionData!["addedByUser"] as! String, category: mentionData!["category"] as! String, location: mentionData!["location"] as! Dictionary<String, String>, message: mentionData!["message"] as! String, timeStamp: mentionData!["timeStamp"] as! String, replies: mentionData!["replies"] as! Array<Array<Any>>, key: item.key as! String)
                     currentInfo.mentions.append(mentionItem)
+                    
                     if item.key as? String == selectedKey {
                         currentInfo.selectedMention = mentionItem.toAnyObject()
                     }
                 }
+                    
                 else {
                     let mentionItem = MentionItem(titel: mentionData!["titel"] as! String, addedByUser: mentionData!["addedByUser"] as! String, category: mentionData!["category"] as! String, location: mentionData!["location"] as! Dictionary<String, String>, message: mentionData!["message"] as! String, timeStamp: mentionData!["timeStamp"] as! String, key: item.key as! String)
                     currentInfo.mentions.append(mentionItem)
+                    
                     if item.key as? String == selectedKey {
                         currentInfo.selectedMention = mentionItem.toAnyObject()
                     }
                 }
-                
             }
         }
         currentInfo.mentions = currentInfo.mentions.reversed()
         NotificationCenter.default.post(name: .reload, object: nil)
     })
 }
+
 
 func updateCurrentUserInfo() {
     FIRDatabase.database().reference(withPath: "users").observe(.value, with: { snapshot in
@@ -71,8 +77,8 @@ func updateCurrentUserInfo() {
             }
         }
     })
-
 }
+
 
 func updateUserDict () {
     FIRDatabase.database().reference(withPath: "users").observe(.value, with: { snapshot in
@@ -128,6 +134,7 @@ func getLocation(longitude: CLLocationDegrees, latitude:CLLocationDegrees, compl
             }
             else {
                 print("NOT IN POSTCODE REGION")
+                completion("invalid")
             }
         }
             

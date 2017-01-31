@@ -32,14 +32,11 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
                                       location: coordinatesDict,
                                       message: messageField.text,
                                       timeStamp: String(describing: NSDate()))
-                                      //replies: [["test", "test", "test"]])
             let mentionItemRef = ref.child(currentInfo.user["postcode"]!).childByAutoId()
             mentionItemRef.setValue(mentionItem.toAnyObject())
             self.performSegue(withIdentifier: "UnwindToFeedSegue", sender: self)
         }
     }
-    
-    
     
     
     override func viewDidLoad() {
@@ -56,26 +53,33 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
         categoryField.inputView = pickerView
 
         // LOCATION
-        self.locationManager.requestAlwaysAuthorization()
-        self.locationManager.requestWhenInUseAuthorization()
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            //locationManager.startUpdatingLocation()
-            locationManager.requestLocation()
+        if coordinatesDict.isEmpty {
+            self.locationManager.requestAlwaysAuthorization()
+            self.locationManager.requestWhenInUseAuthorization()
+            if CLLocationManager.locationServicesEnabled() {
+                locationManager.delegate = self
+                locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+                locationManager.requestLocation()
+            }
         }
     
         if coordinates.latitude != 0.0 {
             setLocationField()
         }
-    
-    
-    
+        
     }
     
     func setLocationField() {
         getLocation(longitude: coordinates.longitude, latitude: coordinates.latitude, completion: {(locationName: String) -> Void in
-            self.locationField.text = locationName
+            
+            if locationName == "invalid" {
+                let alert = UIAlertController(title: "Locatiefout", message: "De gekozen locatie bevindt zich niet in uw woonwijk.", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+            else {
+                self.locationField.text = locationName
+            }
         })
     }
     
@@ -91,19 +95,6 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
         }
     }
     
-    // LOCATION MANAGER FUNCTION
-    /*
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
-        coordinates["longitude"] = String(locValue.longitude)
-        coordinates["latitude"] = String(locValue.latitude)
-        self.locationField.text =  getLocation(longitude: locValue.longitude, latitude: locValue.latitude)
-        if self.locationField.text != "" {
-            locationManager.stopUpdatingLocation()
-        }
-    }
-    */
-    
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("error:: \(error.localizedDescription)")
     }
@@ -117,6 +108,7 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if locations.first != nil {
             let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+            print("AUTO LOC", locValue)
             coordinatesDict["longitude"] = String(locValue.longitude)
             coordinatesDict["latitude"] = String(locValue.latitude)
             coordinates = locValue
