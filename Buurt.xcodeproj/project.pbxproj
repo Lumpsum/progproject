@@ -47,6 +47,7 @@
 		10EB5E3F1E4209B4007983CB /* 22.png in Resources */ = {isa = PBXBuildFile; fileRef = 10EB5E391E4209B4007983CB /* 22.png */; };
 		10EB5E401E4209B4007983CB /* 24.png in Resources */ = {isa = PBXBuildFile; fileRef = 10EB5E3A1E4209B4007983CB /* 24.png */; };
 		10EB5E411E4209B4007983CB /* 25.png in Resources */ = {isa = PBXBuildFile; fileRef = 10EB5E3B1E4209B4007983CB /* 25.png */; };
+		10EB5E431E42147C007983CB /* REPORT.md in Sources */ = {isa = PBXBuildFile; fileRef = 10EB5E421E42147C007983CB /* REPORT.md */; };
 		10F3929B1E24270900D71952 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F3929A1E24270900D71952 /* AppDelegate.swift */; };
 		10F3929D1E24270900D71952 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F3929C1E24270900D71952 /* LoginViewController.swift */; };
 		10F392A51E24270900D71952 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10F392A31E24270900D71952 /* LaunchScreen.storyboard */; };
@@ -103,6 +104,7 @@
 		10EB5E391E4209B4007983CB /* 22.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 22.png; sourceTree = "<group>"; };
 		10EB5E3A1E4209B4007983CB /* 24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 24.png; sourceTree = "<group>"; };
 		10EB5E3B1E4209B4007983CB /* 25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 25.png; sourceTree = "<group>"; };
+		10EB5E421E42147C007983CB /* REPORT.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = REPORT.md; sourceTree = "<group>"; };
 		10F392971E24270800D71952 /* Buurt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Buurt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10F3929A1E24270900D71952 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10F3929C1E24270900D71952 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 				10BA311B1E2677DF002BE3E7 /* DESIGN.md */,
 				10BA312A1E2677DF002BE3E7 /* PROCESS.md */,
 				10BA312B1E2677DF002BE3E7 /* README.md */,
+				10EB5E421E42147C007983CB /* REPORT.md */,
 				10EB5E341E420538007983CB /* README_old.md */,
 				10BA311C1E2677DF002BE3E7 /* doc */,
 				10F392991E24270800D71952 /* Buurt */,
@@ -439,6 +442,7 @@
 				10BA312C1E2677DF002BE3E7 /* DESIGN.md in Sources */,
 				10431A371E2AA04B003D7BE4 /* SettingsViewController.swift in Sources */,
 				10F3929D1E24270900D71952 /* LoginViewController.swift in Sources */,
+				10EB5E431E42147C007983CB /* REPORT.md in Sources */,
 				103488D81E291A020038DCFE /* SWRevealViewController.m in Sources */,
 				10FE98701E255706002FAA1F /* GlobalCode.swift in Sources */,
 				1017E2E41E3B83D000FF29C2 /* AUDIT.md in Sources */,
