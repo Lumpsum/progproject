@@ -14,7 +14,7 @@ Registreren en inloggen bij Firebase voor gebruiker gemaakt. Extra informatie zo
 Probleem: Soms tweemaal inlog segue, mogelijke oorzaak is de listener. Sidebar menu geimplementeerd met behulp van een Objective-C library. Gebruikers naam laden bij de berichten in de feed, het probleem was dat de namen asynchroon geladen werden. Dit is opgelost door in de viewDidLoad de namen te laden en in een dict te zetten.
 
 ## Dag 6 (16-01-2017)
-Van coordinaat naar straatnaam en postcode. Tijdsinterval tussen opgeslagen tijd en actuele tijd en omzetten naar notatie nu/minuten/uren/dagen/weken. Reageren implementeren. Probleem was eerst dat ik niet aan de key van het geselecteerde bericht kon komen. Dit kon na van alles proberene echter heel makkelijk door de 'toAnyObject' methode aan te passen en de key mee terug te geven. 
+Van coordinaat naar straatnaam en postcode. Tijdsinterval tussen opgeslagen tijd en actuele tijd en omzetten naar notatie nu/minuten/uren/dagen/weken. Reageren implementeren. Probleem was eerst dat ik niet aan de key van het geselecteerde bericht kon komen. Dit kon na van alles proberen echter heel makkelijk door de 'toAnyObject' methode aan te passen en de key mee terug te geven. 
 
 ## Dag 7 (17-01-2017)
 Reageren is nu mogelijk op een speciefieke melding. Probleem was eerst dat de meest recente comment overschreven werd, maar door de data opnieuw in te laden is dit probleem verholpen. Mapkit geimplementeerd, kaartje met pin is nu zichtbaar op de pagina van een enkele melding. Ook de 'In de buurt' ViewController aangemaakt, ook hierbij worden alle pins geplaatst op de kaart. Er kan nog niet doorgelinkt worden naar de pagina's van de meldingen.
@@ -23,7 +23,7 @@ Reageren is nu mogelijk op een speciefieke melding. Probleem was eerst dat de me
 Naast de startUpdateLocation() methode heb ik ook de requestLocation() methode geimplementeerd. Instellingen scherm functioneel gemaakt. Start gemaakt met het mogelijk maken van berichten volgen, extra eigenschap aan de 'user' class gegeven hiervoor. Gewerkt aan de Style Guide.
 
 ## Dag 9 (19-01-2017)
-Style Guide besproken met de groep en afgemaakt. Volgen van berichten nu mogelijk en weggeschreven in Firebase. Proberen om dezelfde ViewController te gebruiken voor zowel feed als volgen, maar ik kan geen identifier checken door het sidemenu dat ik gebruik. Opgelost! Na struinen door de Objective-C bestanden te struinen en vanalles geprobeerd te hebben kwam Julian er achter dat ik gebruik maakte van een Swift 2 functie, die in Swift 3 net wat anders in elkaar zit. Nieuw probleem was de navigation controller die tussen de twee controllers in zit, dit is opgelost door eerst te linken naar de nav controller en dan door naar de destination controller.
+Style Guide besproken met de groep en afgemaakt. Volgen van berichten nu mogelijk en weggeschreven in Firebase. Proberen om dezelfde ViewController te gebruiken voor zowel feed als volgen, maar ik kan geen identifier checken door het sidemenu dat ik gebruik. Opgelost! Na struinen door de Objective-C bestanden en vanalles geprobeerd te hebben kwam Julian er achter dat ik gebruik maakte van een Swift 2 functie, die in Swift 3 net wat anders in elkaar zit. Nieuw probleem was de navigation controller die tussen de twee controllers in zit, dit is opgelost door eerst te linken naar de nav controller en dan door naar de destination controller.
 
 ## Dag 10 (20-01-2017)
 Alpha versie gepresenteerd.
@@ -50,4 +50,7 @@ Alle viewcontrollers zijn responsive. Bestanden zijn 's avonds door mijn eigen b
 Segmentation Fault: 11 gefixt, dit had te maken met de referentie naar Firebase Storage. Deze had ik bovenaan in de VC class gedefineerd, en later in een functie gebruikt. Nu defineer ik de referentie pas in de functie. 
 
 ## Dag 18 (01-02-2017)
-Code opgeruimd, hulpfuncties aangemaakt voor functies die erg lang werden. Functies die in meerdere ViewControllers gebruikt worden verplaatst en globaal gemaakt.
+Code opgeruimd, hulpfuncties aangemaakt voor functies die erg lang werden. Functies die in meerdere ViewControllers gebruikt worden verplaatst en globaal gemaakt. Readme aangepast en report geschreven.
+
+## Dag 19 (02-02-2017)
+

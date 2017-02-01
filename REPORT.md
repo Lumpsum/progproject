@@ -74,7 +74,13 @@ De firebase structuur bestaat uit twee hoofdtakken: 'mentions' en 'users'
         - postcode
         - profilePictureUrl
         - followlist
-            -[mention_id, mention_id]
+            - [mention_id, mention_id]
 
 ####Uitdagingen
+- Sidebar menu
+- Tijdsinterval berekenen
+- Reacties init
+- Locatiegebruik StartUpdate en request
+- MainVC voor meerdere, dag 9
+- Postcode voor mentions, dag 12
 
