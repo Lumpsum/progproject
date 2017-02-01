@@ -14,6 +14,7 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     let locationManager = CLLocationManager()
     var coordinates = CLLocationCoordinate2D()
+    let categoriesDictDutch = ["Verdachte situatie":"warning", "Klacht":"complaint", "Aandachtspunt":"focus", "Evenement":"event", "Bericht":"message"]
     
     @IBOutlet var titleField: UITextField!
     @IBOutlet var categoryField: UITextField!
@@ -62,7 +63,7 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
     private func saveMention() {
         let mentionItem = MentionItem(titel: titleField.text!,
                                       addedByUser: currentInfo.user["uid"]!,
-                                      category: categoryField.text!,
+                                      category: categoriesDictDutch[categoryField.text!]!,
                                       location: ["latitude": String(coordinates.latitude), "longitude": String(coordinates.longitude)],
                                       message: messageField.text,
                                       timeStamp: String(describing: NSDate()))
@@ -124,14 +125,14 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return  Array(currentInfo.categoriesDictDutch.keys).count
+        return  Array(categoriesDictDutch.keys).count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return Array(currentInfo.categoriesDictDutch.keys)[row]
+        return Array(categoriesDictDutch.keys)[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        categoryField.text = Array(currentInfo.categoriesDictDutch.keys)[row]
+        categoryField.text = Array(categoriesDictDutch.keys)[row]
     }
 }

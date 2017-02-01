@@ -19,6 +19,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet var postcodeField: UITextField!
     
     @IBAction func SignUpButtonDidTouch(_ sender: Any) {
+        print("testprint")
         if checkInputFields() && checkPasswords() {
             FIRAuth.auth()!.createUser(withEmail: emailField.text!, password: passwordField.text!) { user, error in
                 if error == nil {

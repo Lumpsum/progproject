@@ -19,7 +19,6 @@ struct currentInfo {
     static var selectedMention =  Dictionary<String, Any>()
     static var uidNameDict = Dictionary<String, String>()
     static var uidPictureDict = Dictionary<String, String>()
-    static let categoriesDictDutch = ["Verdachte situatie":"warning", "Klacht":"complaint", "Aandachtspunt":"focus", "Evenement":"event", "Bericht":"message"]
 }
 
 
@@ -30,7 +29,7 @@ extension Notification.Name {
 /// Helpfunction of updateMentions(). Fills currentInfo.mentions and currentInfo.selectedMention.
 private func fillMentionsArray(replies: Bool, mentionData: NSDictionary, mentionKey: String, selectedKey: String?) {
     if replies == false {
-        let mentionItem = MentionItem(titel: mentionData["titel"] as! String, addedByUser: mentionData["addedByUser"] as! String, category: mentionData["category"] as! String, location: mentionData["location"] as! Dictionary<String, String>, message: mentionData["message"] as! String, timeStamp: mentionData["timeStamp"] as! String, replies: mentionData["replies"] as! Array<Array<Any>>, key: mentionKey)
+        let mentionItem = MentionItem(titel: mentionData["titel"] as! String, addedByUser: mentionData["addedByUser"] as! String, category: mentionData["category"] as! String, location: mentionData["location"] as! Dictionary<String, String>, message: mentionData["message"] as! String, timeStamp: mentionData["timeStamp"] as! String, replies: mentionData["replies"] as! Array<Array<String>>, key: mentionKey)
         currentInfo.mentions.append(mentionItem)
         if mentionKey == selectedKey {
             currentInfo.selectedMention = mentionItem.toAnyObject()

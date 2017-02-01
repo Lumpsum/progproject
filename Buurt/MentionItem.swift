@@ -18,10 +18,10 @@ struct MentionItem {
     var location: Dictionary<String, String>
     var message: String
     var timeStamp: String
-    var replies: Array<Array<Any>>
+    var replies: Array<Array<String>>
     let ref: FIRDatabaseReference?
     
-    init(titel: String, addedByUser: String, category: String, location: Dictionary<String, String>, message: String, timeStamp: String, replies: Array<Array<Any>> = [[]], key: String = "") {
+    init(titel: String, addedByUser: String, category: String, location: Dictionary<String, String>, message: String, timeStamp: String, replies: Array<Array<String>> = [[]], key: String = "") {
         self.key = key
         self.titel = titel
         self.category = category

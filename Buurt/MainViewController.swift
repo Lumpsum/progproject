@@ -123,7 +123,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "mentionCell", for: indexPath) as! MentionCell
         let cellData = presentData[indexPath.row].toAnyObject()
-        cell.iconHolder.image = UIImage(named:  currentInfo.categoriesDictDutch[(cellData["category"] as! String?)!]!)
+        cell.iconHolder.image = UIImage(named: (cellData["category"] as! String?)!)
         cell.titleLabel.text = cellData["titel"] as! String?
         cell.nameLabel.text = currentInfo.uidNameDict[(cellData["addedByUser"] as! String?)!]
         cell.messageField.text = cellData["message"] as! String?
