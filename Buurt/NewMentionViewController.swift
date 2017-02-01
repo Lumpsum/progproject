@@ -72,7 +72,7 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     private func setLocationField() {
-        getLocation(longitude: coordinates.longitude, latitude: coordinates.latitude, completion: {(locationName: String) -> Void in
+        getLocationName(longitude: coordinates.longitude, latitude: coordinates.latitude, completion: {(locationName: String) -> Void in
             if locationName == "invalid" {
                 let alert = UIAlertController(title: "Locatiefout", message: "De gekozen locatie bevindt zich niet in uw woonwijk.", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
@@ -92,6 +92,44 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
             let alert = UIAlertController(title: "Melden mislukt", message: "U heeft niet alle velden ingevuld.", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
+            return false
+        }
+    }
+    
+    /// Takes coordinates and gives back the adress as String and checks if the given location is in the postalcode area of the current user. Gives back "invalid" if location is outside the postalcode area.
+    private func getLocationName(longitude: CLLocationDegrees, latitude: CLLocationDegrees, completion: @escaping (_ locationName: String) -> Void) {
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        CLGeocoder().reverseGeocodeLocation(location, completionHandler: {(placemarks, error) -> Void in
+            
+            if error != nil {
+                print("Reverse geocoder failed with error" + (error?.localizedDescription)!)
+            }
+            
+            if (placemarks?.count)! > 0 {
+                let pm = (placemarks?[0])! as CLPlacemark
+                
+                if self.postalcodeCheck(fullPostalcode: pm.postalCode!) {
+                    completion((pm.name! as String))
+                }
+                else {
+                    completion("invalid")
+                }
+            }
+                
+            else {
+                print("Couldn't find address")
+            }
+        })
+    }
+    
+    /// Helpfunction of getLocation(). Checks if location is in postalcode area of the current user.
+    private func postalcodeCheck(fullPostalcode: String) -> Bool {
+        let index = fullPostalcode.index(fullPostalcode.startIndex, offsetBy: 4)
+        let postalcode = fullPostalcode.substring(to: index)
+        if postalcode == currentInfo.user["postcode"] {
+            return true
+        }
+        else {
             return false
         }
     }

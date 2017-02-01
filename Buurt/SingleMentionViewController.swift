@@ -79,13 +79,7 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
         let initialLocation = CLLocation(latitude: Double(dbLocation["latitude"]!)!, longitude: Double(dbLocation["longitude"]!)!)
         centerMapOnLocation(location: initialLocation, regionRadius: 100, map: mapView)
         
-        var locationNameLocal = String()
-        getLocation(longitude: Double(dbLocation["longitude"]!)!, latitude: Double(dbLocation["latitude"]!)!, completion: {(locationName: String) -> Void in
-            locationNameLocal = locationName
-            
-        })
-        
-        let mapPointer = MapPointer(title: (currentInfo.selectedMention["titel"] as! String?)!, locationName: locationNameLocal, coordinate: CLLocationCoordinate2D(latitude: Double(dbLocation["latitude"]!)!, longitude: Double(dbLocation["longitude"]!)!))
+        let mapPointer = MapPointer(title: (currentInfo.selectedMention["titel"] as! String?)!, coordinate: CLLocationCoordinate2D(latitude: Double(dbLocation["latitude"]!)!, longitude: Double(dbLocation["longitude"]!)!))
         mapView.addAnnotation(mapPointer)
     }
 

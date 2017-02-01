@@ -26,24 +26,6 @@ extension Notification.Name {
     static let reload = Notification.Name("reload")
 }
 
-/// Helpfunction of updateMentions(). Fills currentInfo.mentions and currentInfo.selectedMention.
-private func fillMentionsArray(replies: Bool, mentionData: NSDictionary, mentionKey: String, selectedKey: String?) {
-    if replies == false {
-        let mentionItem = MentionItem(titel: mentionData["titel"] as! String, addedByUser: mentionData["addedByUser"] as! String, category: mentionData["category"] as! String, location: mentionData["location"] as! Dictionary<String, String>, message: mentionData["message"] as! String, timeStamp: mentionData["timeStamp"] as! String, replies: mentionData["replies"] as! Array<Array<String>>, key: mentionKey)
-        currentInfo.mentions.append(mentionItem)
-        if mentionKey == selectedKey {
-            currentInfo.selectedMention = mentionItem.toAnyObject()
-        }
-    }
-    else {
-        let mentionItem = MentionItem(titel: mentionData["titel"] as! String, addedByUser: mentionData["addedByUser"] as! String, category: mentionData["category"] as! String, location: mentionData["location"] as! Dictionary<String, String>, message: mentionData["message"] as! String, timeStamp: mentionData["timeStamp"] as! String, key: mentionKey)
-        currentInfo.mentions.append(mentionItem)
-        if mentionKey == selectedKey {
-            currentInfo.selectedMention = mentionItem.toAnyObject()
-        }
-    }
-}
-
 
 /// Retrieve all mentions from the Firebase server for the current postal code and sets global variables.
 func updateMentions(selectedKey: String?) {
@@ -67,6 +49,25 @@ func updateMentions(selectedKey: String?) {
 }
 
 
+/// Helpfunction of updateMentions(). Fills currentInfo.mentions and currentInfo.selectedMention.
+private func fillMentionsArray(replies: Bool, mentionData: NSDictionary, mentionKey: String, selectedKey: String?) {
+    if replies == false {
+        let mentionItem = MentionItem(titel: mentionData["titel"] as! String, addedByUser: mentionData["addedByUser"] as! String, category: mentionData["category"] as! String, location: mentionData["location"] as! Dictionary<String, String>, message: mentionData["message"] as! String, timeStamp: mentionData["timeStamp"] as! String, replies: mentionData["replies"] as! Array<Array<String>>, key: mentionKey)
+        currentInfo.mentions.append(mentionItem)
+        if mentionKey == selectedKey {
+            currentInfo.selectedMention = mentionItem.toAnyObject()
+        }
+    }
+    else {
+        let mentionItem = MentionItem(titel: mentionData["titel"] as! String, addedByUser: mentionData["addedByUser"] as! String, category: mentionData["category"] as! String, location: mentionData["location"] as! Dictionary<String, String>, message: mentionData["message"] as! String, timeStamp: mentionData["timeStamp"] as! String, key: mentionKey)
+        currentInfo.mentions.append(mentionItem)
+        if mentionKey == selectedKey {
+            currentInfo.selectedMention = mentionItem.toAnyObject()
+        }
+    }
+}
+
+
 /// Retrieve information of current user and stores it in currentInfo.user.
 func updateCurrentUserInfo() {
     FIRDatabase.database().reference(withPath: "users").observe(.value, with: { snapshot in
@@ -87,7 +88,7 @@ func updateCurrentUserInfo() {
 
 
 /// Retrieves information of all users and stores them in currrentInfo.uidNameDict. This is used to show names at the posts in the feed.
-func updateUserDict () {
+func updateUserDict() {
     FIRDatabase.database().reference(withPath: "users").observe(.value, with: { snapshot in
         let userData = (snapshot.value as? NSDictionary)!
         for item in userData {
@@ -120,45 +121,6 @@ func getTimeDifference(inputDate: String) -> String {
         return inputDate.substring(to: index)
     }
     
-}
-
-/// Takes coordinates and gives back the adress as String and checks if the given location is in the postalcode area of the current user. Gives back "invalid" if location is outside the postalcode area.
-func getLocation(longitude: CLLocationDegrees, latitude:CLLocationDegrees, completion: @escaping (_ locationName: String) -> Void) {
-    let location = CLLocation(latitude: latitude, longitude: longitude)
-    CLGeocoder().reverseGeocodeLocation(location, completionHandler: {(placemarks, error) -> Void in
-        
-        if error != nil {
-            print("Reverse geocoder failed with error" + (error?.localizedDescription)!)
-        }
-        
-        if (placemarks?.count)! > 0 {
-            let pm = (placemarks?[0])! as CLPlacemark
-            
-            if postalcodeCheck(fullPostalcode: pm.postalCode!) {
-                completion((pm.name! as String))
-            }
-            else {
-                completion("invalid")
-            }
-        }
-            
-        else {
-            print("Couldn't find address")
-        }
-    })
-}
-
-
-/// Helpfunction of getLocation(). Checks if location is in postalcode area of the current user.
-private func postalcodeCheck(fullPostalcode: String) -> Bool {
-    let index = fullPostalcode.index(fullPostalcode.startIndex, offsetBy: 4)
-    let postalcode = fullPostalcode.substring(to: index)
-    if postalcode == currentInfo.user["postcode"] {
-        return true
-    }
-    else {
-        return false
-    }
 }
 
 

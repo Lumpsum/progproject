@@ -39,13 +39,7 @@ class ExploreViewController: UIViewController, CLLocationManagerDelegate {
         for item in currentInfo.mentions {
             let dbLocation = item.location as Dictionary<String, String>
             
-            var locationNameLocal = String()
-            getLocation(longitude: Double(dbLocation["longitude"]!)!, latitude: Double(dbLocation["latitude"]!)!, completion: {(locationName: String) -> Void in
-                locationNameLocal = locationName
-                
-            })
-            
-            let mapPointer = MapPointer(title: item.titel, locationName: locationNameLocal, coordinate: CLLocationCoordinate2D(latitude: Double(dbLocation["latitude"]!)!, longitude: Double(dbLocation["longitude"]!)!))
+            let mapPointer = MapPointer(title: item.titel, coordinate: CLLocationCoordinate2D(latitude: Double(dbLocation["latitude"]!)!, longitude: Double(dbLocation["longitude"]!)!))
             mapView.addAnnotation(mapPointer)
         }
     }

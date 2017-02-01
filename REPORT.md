@@ -27,9 +27,6 @@ Navigatie:
 
 In Main.storyboard is nog een extra viewcontroller te zien van de class 'SWRevealViewController'. Deze viewcontroller is nodig om het menu onder de andere viewcontrollers te laten 'verdwijnen' als een menuitem geselecteerd wordt. 
 
-TOEVOEGEN VAN SCHEMA
-
-
 ####Modellen
 - GlobalCode Struct: Deze struct wordt gebruikt om alle actuele data in de gehele app toegankelijk te hebben. De meldingen worden onder 'mentions' in een lijst opgeslagen. De informatie over de ingelogde gebruiker, zoals uid, naam en postcode, wordt opgeslagen in de dictionary 'user'. De lijst met unieke id's van de meldingen die de ingelogde gebruikers volgt wordt opgeslagen in een lijst 'followlist'. In de variabel 'selectedMention' is in een dictionary de informatie van de geselecteerde item opgeslagen. Het item wordt in de MainViewController geselecteerd om vervolgens volledig weergegeven te worden in de SingelMentionViewController. Er is gekozen om deze informatie via deze variabel mee te geven in plaats van via een prepareForSegue functie, omdat de informatie ook nog aangepast kan worden (denk aan de reacties) als de SingleMentionViewController al geopend is. Omdat de informatie centraal in een varaiabel staat kan deze worden aagepast door de hulpfunctie fillMentionsArray() van updateMentions(). De variabelen 'uidNameDict' en 'uidPictureDict' bevatten een dicitonary van respectievelijk uid's en namen van de gebruikers en uid's en linkjes naar de profielfoto's van gebruikers. Deze informatie wordt gebruikt om de naam en foto's weer te geven bij de meldingen in de MainViewController en in de SingleViewController bij zowel de melding als reacties.
 - Mention Struct: Een instantie van deze struct is een elkele melding. De meldingen worden opgehaald uit Firebase en met alle eigenschappen (key, titel, categorie, user id, locatie, bericht, tijdstempel en reacties) als instantie geinitialiseerd om vervolges in de mentions lijst te verzamelen. Ook wordt deze struct gebruikt om een nieuwe melding weg te schrijven in Firebase. Gebruik van deze struct voor meldingen zorgt ervoor dat de infromatie van een meldingen altijd compleet is. De locatie wordt weggeschreven in een dictionary met twee key-value paren, 'longitude' en 'latitude', als string. De reacties worden opgeslagen als een lijst van lijsten, waarbij elke lijst bestaat uit drie elementen: userid, tijdstempel, en bericht (string) en dit representeert 1 reactie. Alle overige eigenschappen zijn ook als string weggeschreven. De functie toAnyObject() kan aangeroepen worden en geeft van de instantie een dictionary met alle eigenschappen terug.
@@ -40,11 +37,44 @@ TOEVOEGEN VAN SCHEMA
 - ViewController Extentie: Deze extentie is van Goktugyil (zie credits) en zorgt simpelweg voor het herkennen van een tapgesture ergens op het beeldscherm en laat het toetsenbord zakken indien deze actief is.
 - SWRevealViewController.h, SWRevealViewController.m en Buurt-Bridging-Header.h zijn de Objective-C bestanden die horen bij de sidebar menu bibliotheek van Simon NG (zie credtis). 
 
+####Functies en Methoden
+Algemene functies: 
+- func updateMentions(selectedKey: String?): Mentions ophalen uit Firebase voor actieve postcode en plaatsen in 'currentInfo.mentions' en updaten 'currentInfo.selectedMention'.
+- private func fillMentionsArray(replies: Bool, mentionData: NSDictionary, mentionKey: String, selectedKey: String?): Daadwerkelijk vullen van de bovengenoemde variabelen en onderscheid maken tussen de meldingen met en zonder reacties. Dit is nodig omdat als er geen reacties zijn de 'replies' eigenschap met een default waarde wordt geinitialiseerd. Dit heeft de voorkeur gekregen boven een optionele eigenschap, omdat de structuur dan al aanwezig is voor het wegschrijven naar Firebase.
+- func updateCurrentUserInfo()
+- func updateUserDict()
+- func getTimeDifference(inputDate: String) -> String: Neemt een tijdstempel als parameter en vergelijkt deze tijd met de huidige tijd. Geeft een string terug in de vorm van 'Nu', 'x minuten', 'x uur' of een datum.
+- func setProfilePictures(pictureUrl: String?, pictureHolder: UIImageView, userid: String)
+- func centerMapOnLocation(location: CLLocation, regionRadius: CLLocationDistance, map: MKMapView)
 
+Onderstaand een schema van de viewcontrollers en de bijbehordende methoden
 
+####Firebase structuur
+De firebase structuur bestaat uit twee hoofdtakken: 'mentions' en 'users'
 
-####
+- mentions
+    - postcode
+        - mention_id
+            - addedByUser
+            - category
+            - timeStamp
+            - titel
+            - location
+                - latitude
+                - longitude
+            - message
+            - replies
+                - []
+                    - [user_id, timestamp, message]
+- users
+    - user_id
+        - email
+        - firstName
+        - lastName
+        - postcode
+        - profilePictureUrl
+        - followlist
+            -[mention_id, mention_id]
 
-####Functies
+####Uitdagingen
 
-#### Firebase structuur
