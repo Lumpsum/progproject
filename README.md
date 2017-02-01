@@ -14,14 +14,8 @@ Deze repository bevat alle bestanden en aanvullende documenten van de app 'Buurt
 De app 'Buurt' is een verbetering op het opkomend aantal Whatsapp-groepen in buurten. Deze groepen zijn in het leven geroepen om samen de buurt in de gate te houden en verdachte situaties te delen met buren. Een chat kan echter snel onoverzichtelijk worden en biedt geen snel overzicht van wat er speelt in de buurt. Deze app brengt buren met elkaar in contact en maakt het mogelijk om melding te maken van bijvoorbeeld verdachte situaties, aandachtspunten en misstanden in de wijk.
 
 
-###Features
+###Beschrijving
 Deze app maakt het mogelijk om meldingen te maken in de wijk (postcode gebied). Deze meldingen zijn te zien voor iedereen in de wijk. Deze meldingen worden gecategoirseerd in de volgende categorieen: verdachte situaties, aandachtspunten, evenementen, klachten en berichten. Een melding bestaat uit een titel, beschrijving, categorie, tijdstempel en locatie. Het is voor buren mogelijk om te reageren op deze meldingen en zo samen contact te houden over een specifiek onderwerp. Meldingen kan je ook volgen, zodat de gebruiker zelf kan bepalen wat hij of zij wilt volgen in de buurt. Door het melden van een probleem laagdrempelig te houden, door bijvoorbeeld maar 5 categorieen te gebruiken, zal de gebruiker snel een melding kunnen maken. Daarnaast is een apart overizcht voor de meldingen die de gebruiker zelf heeft gemaakt, hier kan de gebruiker ook zijn/haar melding verwijderen. In de tab 'Verkennen' kan de gebruiker de buurt verkennen en op de kaart de verschillende meldingen zien en zo een globaal beeld krijgen van (probleem-)gebieden in de wijk. In de 'Instellingen' tab kan de gebruiker zijn/haar informatie en profielfoto aanpassen en uitloggen.
-
-Mogelijke extra features:
-- Verschillende soorten gebruikers, zoals een beheerder, wijkagent, ambtenaar en buur.
-- Het kunnen markeren als voltooid of afgehandeld van berichten.
-- Chatten mogelijk maken.
-- Andere wijken kunnen inzien en ontdekken.
 
 
 ###Screenshots
@@ -37,5 +31,13 @@ Mogelijke extra features:
 Dit is een publieke repository zodat de begeleiders van het vak Programmeerproject de voortgang van dit project kunnen volgen en beoordelen. Voel je vrij om inspiratie op te doen uit de code. De rechten van het distribueren van de gehele app blijven bij de mij.
 
 
-###BetterCodeHub
+###Credits
+- Sidebar menu bibliotheek, Simon NG (http://www.appcoda.com/sidebar-menu-swift/)
+- Gebruik van cache voor afbeeldingen in ImageExtension.swift, tutorial van 'Lets Build That App' (https://www.youtube.com/watch?v=GX4mcOOUrWQ)
+- Gebruik van tap voor het laten zakken van het toetsenbord in ViewControllerExtension.swift, Goktugyil (https://github.com/goktugyil/EZSwiftExtensions)
+- Gebruik van functies om scherm boven toetsenbord te houden in SingleMentionViewController.swift, David Sanford (http://stackoverflow.com/questions/26070242/move-view-with-keyboard-using-swift)
+- Gebruik van een Pickerview voor de input van categorieën in NewMentionViewController.swift, Apoorvmote (http://blog.apoorvmote.com/uipickerview-as-inputview-to-uitextfield-in-swift/?lang=nl)
+- Afbeeldingen: Chris Veight, Freepik, EpicCoders, Karthik Aathis, Gregor Cresnar van www.flaticon.com 
+
+
 [![BCH compliance](https://bettercodehub.com/edge/badge/Martijn66/progproject)](https://bettercodehub.com)

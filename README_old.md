@@ -21,6 +21,8 @@ Mogelijke extra features:
 - Verschillende soorten gebruikers, zoals een beheerder, wijkagent, ambtenaar en buur.
 - Het kunnen markeren als voltooid of afgehandeld van berichten.
 - Chatten mogelijk maken.
+- Andere wijken kunnen inzien en ontdekken.
+
 
 ###Schetsen
 <img src="https://github.com/Martijn66/progproject/blob/master/doc/11.png" width=30%>
