@@ -987,7 +987,7 @@
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="logOutAction:" destination="akH-4w-ZGR" eventType="touchUpInside" id="Npt-BG-oPm"/>
+                                            <action selector="LogOutButtonDidTouch:" destination="akH-4w-ZGR" eventType="touchUpInside" id="V3U-3X-za9"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1006,7 +1006,7 @@
                                 </constraints>
                                 <state key="normal" title="Veranderingen opslaan"/>
                                 <connections>
-                                    <action selector="updateUserData:" destination="akH-4w-ZGR" eventType="touchUpInside" id="Z5T-7W-weO"/>
+                                    <action selector="UpdateButtonDidTouch:" destination="akH-4w-ZGR" eventType="touchUpInside" id="BXf-xC-yMm"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1049,7 +1049,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cfk-Gh-auO" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="YRI-Fw-uw8">
                     <connections>
-                        <action selector="didTapProfilePicture:" destination="akH-4w-ZGR" id="HWF-iA-QBw"/>
+                        <action selector="ProfilePictureDidTap:" destination="akH-4w-ZGR" id="MhT-rI-MQr"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

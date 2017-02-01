@@ -9,17 +9,20 @@
 import UIKit
 import MapKit
 
-class PickLocationViewController: UIViewController, UIGestureRecognizerDelegate, UINavigationControllerDelegate {
+class PickLocationViewController: UIViewController, UIGestureRecognizerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
 
     var coordinates = CLLocationCoordinate2D()
+    var locationManager = CLLocationManager()
     
     @IBOutlet var mapView: MKMapView!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         navigationController?.delegate = self
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        locationManager.requestLocation()
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(sender:)))
         gestureRecognizer.delegate = self
@@ -34,7 +37,6 @@ class PickLocationViewController: UIViewController, UIGestureRecognizerDelegate,
         let location = sender.location(in: mapView)
         coordinates = mapView.convert(location,toCoordinateFrom: mapView)
         
-        // Add annotation:
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinates
         mapView.addAnnotation(annotation)
@@ -47,13 +49,12 @@ class PickLocationViewController: UIViewController, UIGestureRecognizerDelegate,
         }
     }
     
-    // LOCATION CENTERING
-    let regionRadius: CLLocationDistance = 1000
-    func centerMapOnLocation(location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
-                                                                  regionRadius * 2.0, regionRadius * 2.0)
-        mapView.setRegion(coordinateRegion, animated: true)
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let initialLocation:CLLocation = manager.location!
+        centerMapOnLocation(location: initialLocation, regionRadius: 1000, map: mapView)
     }
     
-
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("error:: \(error.localizedDescription)")
+    }
 }

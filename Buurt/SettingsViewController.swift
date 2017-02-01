@@ -24,13 +24,13 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
     @IBOutlet var lockIcon: UIBarButtonItem!
     @IBOutlet var profilePicture: UIImageView!
 
-    @IBAction func didTapProfilePicture(_ sender: Any) {
+    @IBAction func ProfilePictureDidTap(_ sender: Any) {
         imagePicker.allowsEditing = true
         imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true, completion: nil)
     }
     
-    @IBAction func updateUserData(_ sender: Any) {
+    @IBAction func UpdateButtonDidTouch(_ sender: Any) {
         let userRef = FIRDatabase.database().reference(withPath: "users").child(currentInfo.user["uid"]!)
         userRef.updateChildValues(["firstname": firstNameField.text!])
         userRef.updateChildValues(["lastname": lastNameField.text!])
@@ -39,7 +39,7 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
         userRef.updateChildValues(["picture": picturePath])
     }
     
-    @IBAction func logOutAction(_ sender: Any) {
+    @IBAction func LogOutButtonDidTouch(_ sender: Any) {
         try! FIRAuth.auth()!.signOut()
         currentInfo.mentions = Array<MentionItem>()
         let loginViewController = self.storyboard!.instantiateViewController(withIdentifier: "Login")
@@ -50,52 +50,33 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
         
-        // IMAGE PICKER
         imagePicker.delegate = self
         
-        // SET TEXTFIELDS
         self.firstNameField.text = currentInfo.user["firstname"]!
         self.lastNameField.text = currentInfo.user["lastname"]!
         self.emailField.text = currentInfo.user["email"]!
         self.postcodeField.text = currentInfo.user["postcode"]!
-        
-        // SET PROFILE PICTURE        
-        let pictureUrl = currentInfo.uidPictureDict[currentInfo.user["uid"]!]
-        if pictureUrl != nil && pictureUrl != "" {
-            self.profilePicture.loadImagesWithCache(urlstring: pictureUrl!, uid: currentInfo.user["uid"]!)
-            self.profilePicture.layer.cornerRadius = self.profilePicture.frame.size.width / 2
-            self.profilePicture.clipsToBounds = true
-        }
-        
-        // SIDE BAR MENU SETUP
+        setProfilePictures(pictureUrl: currentInfo.uidPictureDict[currentInfo.user["uid"]!], pictureHolder: self.profilePicture, userid: currentInfo.user["uid"]!)
+
         menuButton.target = self.revealViewController()
         menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
     }
     
-    
-    
-    private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             profilePicture.image = image
-            var data = NSData()
-            data = UIImageJPEGRepresentation(profilePicture.image!, 0.8)! as NSData
-            let filePath = "\(FIRAuth.auth()!.currentUser!.uid)/\("profilePicture")"
-            let metaData = FIRStorageMetadata()
-            metaData.contentType = "image/jpg"
+            profilePicture.layer.cornerRadius = profilePicture.frame.size.width / 2
+            profilePicture.clipsToBounds = true
             
-            FIRStorage.storage().reference().child(filePath).put(data as Data, metadata: metaData){(metaData,error) in
-                if let error = error {
-                    print("IMAGE UPLOAD ERROR", error.localizedDescription)
-                    return
-                } else {
-                    self.picturePath = metaData!.downloadURL()!.absoluteString
-                }
-            }
-            
-            
-        } else{
-            print("Something went wrong")
+            saveImage(image: profilePicture.image!)
+        }
+        else {
+            print("Image picking went wrong")
         }
         self.dismiss(animated: true, completion: nil)
     }
@@ -103,12 +84,25 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
+    
+    // Saves given UIImage for currentuser as profilepicture.
+    private func saveImage(image: UIImage) {
+        var data = NSData()
+        data = UIImageJPEGRepresentation(image, 0.8)! as NSData
+        let filePath = "\(FIRAuth.auth()!.currentUser!.uid)/\("profilePicture")"
+        let metaData = FIRStorageMetadata()
+        metaData.contentType = "image/jpg"
+        
+        FIRStorage.storage().reference().child(filePath).put(data as Data, metadata: metaData){(metaData,error) in
+            if let error = error {
+                print("IMAGE UPLOAD ERROR", error.localizedDescription)
+                return
+            } else {
+                self.picturePath = metaData!.downloadURL()!.absoluteString
+            }
+        }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-
-
+    
 }

@@ -2,6 +2,9 @@
 //  SingleMentionViewController.swift
 //  Buurt
 //
+//  Keyboard functions created by David Sanford
+//  http://stackoverflow.com/questions/26070242/move-view-with-keyboard-using-swift
+//
 //  Created by Martijn de Jong on 13-01-17.
 //  Copyright © 2017 Martijn de Jong. All rights reserved.
 //
@@ -50,28 +53,31 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
         
-        // KEYBOARD NOTIFICATIONS
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        
-        // SHOW INFORMATION
         self.title = currentInfo.selectedMention["titel"] as! String?
         nameLabel.text = currentInfo.uidNameDict[(currentInfo.selectedMention["addedByUser"] as! String?)!]
         timeLabel.text = getTimeDifference(inputDate: (currentInfo.selectedMention["timeStamp"] as! String?)!)
         messageField.text = currentInfo.selectedMention["message"] as! String?
+        setProfilePictures(pictureUrl: currentInfo.uidPictureDict[(currentInfo.selectedMention["addedByUser"] as! String?)!]!, pictureHolder: self.profilePictureHolder, userid: ((currentInfo.selectedMention["addedByUser"] as! String?)!))
+        setMapForMention()
         
-        // SET PICTURE OF WRITER
-        let pictureUrl = currentInfo.uidPictureDict[(currentInfo.selectedMention["addedByUser"] as! String?)!]
-        if pictureUrl != nil && pictureUrl != "" {
-            self.profilePictureHolder.loadImagesWithCache(urlstring: pictureUrl!, uid: ((currentInfo.selectedMention["addedByUser"] as! String?)!))
-            self.profilePictureHolder.layer.cornerRadius = self.profilePictureHolder.frame.size.width / 2
-            self.profilePictureHolder.clipsToBounds = true
+        if currentInfo.followlist.contains(currentInfo.selectedMention["key"] as! String) {
+            followIcon.tintColor = UIColor.green
         }
         
-        // SHOW MAP
+        // MARK: Notifications to make sure the screen moves up if keyboards shows.
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    /// Sets map and annotation for a selected mention in the SingleMentionViewController.
+    private func setMapForMention() {
         let dbLocation = currentInfo.selectedMention["location"] as! Dictionary<String, String>
         let initialLocation = CLLocation(latitude: Double(dbLocation["latitude"]!)!, longitude: Double(dbLocation["longitude"]!)!)
-        centerMapOnLocation(location: initialLocation)
+        centerMapOnLocation(location: initialLocation, regionRadius: 100, map: mapView)
         
         var locationNameLocal = String()
         getLocation(longitude: Double(dbLocation["longitude"]!)!, latitude: Double(dbLocation["latitude"]!)!, completion: {(locationName: String) -> Void in
@@ -80,20 +86,10 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
         })
         
         let mapPointer = MapPointer(title: (currentInfo.selectedMention["titel"] as! String?)!, locationName: locationNameLocal, coordinate: CLLocationCoordinate2D(latitude: Double(dbLocation["latitude"]!)!, longitude: Double(dbLocation["longitude"]!)!))
-        //mapView.removeAnnotations(mapView.annotations)
         mapView.addAnnotation(mapPointer)
-        
-        // SET FOLLOW ICON
-        if currentInfo.followlist.contains(currentInfo.selectedMention["key"] as! String) {
-            followIcon.tintColor = UIColor.green
-        }
-        
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
+
+    /// Appends new comment to commentlist and uploads to Firebase.
     private func saveComment() {
         let commentRef = ref.child(currentInfo.user["postcode"]!).child((currentInfo.selectedMention["key"] as! String))
         var tempComments = currentInfo.selectedMention["replies"] as! Array<Array<String>>
@@ -107,11 +103,11 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
         self.commentField.text = ""
         dismissKeyboard()
     }
-
-    // KEYBOARD FUNCTIONS
+    
+    // MARK: Keyboard functions.
     func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0{
+            if self.view.frame.origin.y == 0 {
                 self.view.frame.origin.y -= keyboardSize.height
             }
         }
@@ -124,17 +120,8 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
             }
         }
     }
-
-    // CENTERING MAP
-    let regionRadius: CLLocationDistance = 100
-    func centerMapOnLocation(location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
-                                                                  regionRadius * 2.0, regionRadius * 2.0)
-        mapView.setRegion(coordinateRegion, animated: true)
-    }
     
-    
-    // TABLE FUNCTIONS
+    // MARK: Tableview methods.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (currentInfo.selectedMention["replies"] as! Array<Array<String>>)[0].isEmpty == false {
             return (currentInfo.selectedMention["replies"] as! Array<Array<String>>).count
@@ -147,15 +134,7 @@ class SingleMentionViewController: UIViewController, UITableViewDelegate, UITabl
         let cellData = currentInfo.selectedMention["replies"] as! Array<Array<String>>
         cell.nameLabel.text = currentInfo.uidNameDict[cellData[indexPath.row][0]]
         cell.commentField.text = cellData[indexPath.row][2]
-        
-        let pictureUrl = currentInfo.uidPictureDict[cellData[indexPath.row][0]]
-        if pictureUrl != nil && pictureUrl != "" {
-            cell.profilePictureHolder.loadImagesWithCache(urlstring: pictureUrl!, uid: (cellData[indexPath.row][0]))
-            cell.profilePictureHolder.layer.cornerRadius = cell.profilePictureHolder.frame.size.width / 2
-            cell.profilePictureHolder.clipsToBounds = true
-        }
-        
+        setProfilePictures(pictureUrl: currentInfo.uidPictureDict[cellData[indexPath.row][0]]!, pictureHolder: cell.profilePictureHolder, userid: (cellData[indexPath.row][0]))
         return cell
     }
-
 }

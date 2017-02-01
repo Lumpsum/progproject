@@ -113,7 +113,7 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
         }
     }
     
-    // Pickerview functions
+    // MARK: Pickerview functions.
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
     }

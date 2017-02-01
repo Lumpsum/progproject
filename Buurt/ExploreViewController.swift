@@ -65,15 +65,9 @@ class ExploreViewController: UIViewController, CLLocationManagerDelegate {
             coordinates["longitude"] = String(locations[0].coordinate.longitude)
             coordinates["latitude"] = String(locations[0].coordinate.latitude)
             let initialLocation = CLLocation(latitude: Double(coordinates["latitude"]!)!, longitude: Double(coordinates["longitude"]!)!)
-            centerMapOnLocation(location: initialLocation, regionRadius: 1000)
+            centerMapOnLocation(location: initialLocation, regionRadius: 1000, map: mapView)
         }
-    }
-    
-    private func centerMapOnLocation(location: CLLocation, regionRadius: CLLocationDistance) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2.0, regionRadius * 2.0)
-        mapView.setRegion(coordinateRegion, animated: true)
-    }
-    
+    }    
 }
     
 

@@ -161,3 +161,19 @@ private func postalcodeCheck(fullPostalcode: String) -> Bool {
         return false
     }
 }
+
+
+/// Sets profilepicture for given pictureHolder from a given picture url and uid.
+func setProfilePictures(pictureUrl: String?, pictureHolder: UIImageView, userid: String) {
+    if pictureUrl != nil && pictureUrl != "" {
+        pictureHolder.loadImagesWithCache(urlstring: pictureUrl!, uid: userid)
+        pictureHolder.layer.cornerRadius = pictureHolder.frame.size.width / 2
+        pictureHolder.clipsToBounds = true
+    }
+}
+
+/// Centers a mapview for the given location with the given radius.
+func centerMapOnLocation(location: CLLocation, regionRadius: CLLocationDistance, map: MKMapView) {
+    let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2.0, regionRadius * 2.0)
+    map.setRegion(coordinateRegion, animated: true)
+}
