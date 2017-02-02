@@ -37,8 +37,8 @@ Dit is een publieke repository zodat de begeleiders van het vak Programmeerproje
 - Gebruik van cache voor afbeeldingen in ImageExtension.swift, tutorial van ['Lets Build That App'](https://www.youtube.com/watch?v=GX4mcOOUrWQ)
 - Gebruik van tap voor het laten zakken van het toetsenbord in ViewControllerExtension.swift, [Goktugyil](https://github.com/goktugyil/EZSwiftExtensions)
 - Gebruik van functies om scherm boven toetsenbord te houden in SingleMentionViewController.swift, [David Sanford](http://stackoverflow.com/questions/26070242/move-view-with-keyboard-using-swift)
-- Gebruik van een Pickerview voor de input van categorieën in NewMentionViewController.swift, Apoorvmote[(http://blog.apoorvmote.com/uipickerview-as-inputview-to-uitextfield-in-swift/?lang=nl)]
-- Afbeeldingen: Chris Veight, Freepik, EpicCoders, Karthik Aathis, Gregor Cresnar van www.flaticon.com 
+- Gebruik van een Pickerview voor de input van categorieën in NewMentionViewController.swift, [Apoorvmote](http://blog.apoorvmote.com/uipickerview-as-inputview-to-uitextfield-in-swift/?lang=nl)
+- Afbeeldingen: Chris Veight, Freepik, EpicCoders, Karthik Aathis, Gregor Cresnar van [FlatIcon](http://www.flaticon.com)
 
 
 [![BCH compliance](https://bettercodehub.com/edge/badge/Martijn66/progproject)](https://bettercodehub.com)
