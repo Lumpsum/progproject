@@ -1,4 +1,4 @@
-##Verslag
+#Verslag
 
 Naam: Martijn de Jong
 
@@ -6,15 +6,14 @@ Studentnummer: 10774807
 
 Datum: 02-02-2017
 
-###Beschrijving
+##Beschrijving
 Deze app maakt het mogelijk om meldingen te maken in de wijk (postcode gebied). Deze meldingen zijn te zien voor iedereen in de wijk. Deze meldingen worden gecategoirseerd in de volgende categorieen: verdachte situaties, aandachtspunten, evenementen, klachten en berichten. Een melding bestaat uit een titel, beschrijving, categorie, tijdstempel en locatie. Het is voor buren mogelijk om te reageren op deze meldingen en zo samen contact te houden over een specifiek onderwerp. Meldingen kan je ook volgen, zodat de gebruiker zelf kan bepalen wat hij of zij wilt volgen in de buurt. Door het melden van een probleem laagdrempelig te houden, door bijvoorbeeld maar 5 categorieen te gebruiken, zal de gebruiker snel een melding kunnen maken. Daarnaast is een apart overizcht voor de meldingen die de gebruiker zelf heeft gemaakt, hier kan de gebruiker ook zijn/haar melding verwijderen. In de tab 'Verkennen' kan de gebruiker de buurt verkennen en op de kaart de verschillende meldingen zien en zo een globaal beeld krijgen van (probleem-)gebieden in de wijk. In de 'Instellingen' tab kan de gebruiker zijn/haar informatie en profielfoto aanpassen en uitloggen. Door middel van een navigatie balk bovenaan de app kan de gebruiker altijd zien op welk scherm hij/zij zich bevindt, terug indien de gebruiker verder dan het beginscherm komt, acties uitvoeren en het sidebar menu raadplegen.
 
-Navigatie:
-<img style="float: right;" src="https://github.com/Martijn66/progproject/blob/master/doc/27.png" width=30%>
 
-###Technisch ontwerp
+##Technisch ontwerp
 
-####Viewcontrollers
+
+###Viewcontrollers
 - LoginViewController: Hier kan de gebruiker inloggen met een emailadres en wachtwoord. Indien de gebuiker al is ingelogd zal de listner dit constanteren en de segue naar de MainViewController direct uitvoeren. Daarnaast is het mogelijk om door te klikken naar de SignUpViewController.
 - SignUpViewController: De gebruiker kan hier een nieuw account aanmaken. Hiervoor worden de noodzakelijke gegevens als input gevraagd.
 - MainViewController: Deze viewcontroller wordt gebruikt voor drie schermen die te bereieken zijn uit het sidebar menu: 'Overizcht', 'Mijn Meldingen' en 'Volgend'. Indien de functie van de VC 'Overzicht' is, verschijnt rechts boven in de navigatiebar de knop om een nieuwe melding te maken. Deze knop is niet beschikbaar voor de andere twee functies. Indien de functie 'Mijn Meldingen' is, kan de gebruiker door middel van 'swipe to delete' zijn of haar melding verwijderen uit de database.
@@ -27,7 +26,7 @@ Navigatie:
 
 In Main.storyboard is nog een extra viewcontroller te zien van de class 'SWRevealViewController'. Deze viewcontroller is nodig om het menu onder de andere viewcontrollers te laten 'verdwijnen' als een menuitem geselecteerd wordt. 
 
-####Modellen
+###Modellen
 - GlobalCode Struct: Deze struct wordt gebruikt om alle actuele data in de gehele app toegankelijk te hebben. De meldingen worden onder 'mentions' in een lijst opgeslagen. De informatie over de ingelogde gebruiker, zoals uid, naam en postcode, wordt opgeslagen in de dictionary 'user'. De lijst met unieke id's van de meldingen die de ingelogde gebruikers volgt wordt opgeslagen in een lijst 'followlist'. In de variabel 'selectedMention' is in een dictionary de informatie van de geselecteerde item opgeslagen. Het item wordt in de MainViewController geselecteerd om vervolgens volledig weergegeven te worden in de SingelMentionViewController. Er is gekozen om deze informatie via deze variabel mee te geven in plaats van via een prepareForSegue functie, omdat de informatie ook nog aangepast kan worden (denk aan de reacties) als de SingleMentionViewController al geopend is. Omdat de informatie centraal in een varaiabel staat kan deze worden aagepast door de hulpfunctie fillMentionsArray() van updateMentions(). De variabelen 'uidNameDict' en 'uidPictureDict' bevatten een dicitonary van respectievelijk uid's en namen van de gebruikers en uid's en linkjes naar de profielfoto's van gebruikers. Deze informatie wordt gebruikt om de naam en foto's weer te geven bij de meldingen in de MainViewController en in de SingleViewController bij zowel de melding als reacties.
 - Mention Struct: Een instantie van deze struct is een elkele melding. De meldingen worden opgehaald uit Firebase en met alle eigenschappen (key, titel, categorie, user id, locatie, bericht, tijdstempel en reacties) als instantie geinitialiseerd om vervolges in de mentions lijst te verzamelen. Ook wordt deze struct gebruikt om een nieuwe melding weg te schrijven in Firebase. Gebruik van deze struct voor meldingen zorgt ervoor dat de infromatie van een meldingen altijd compleet is. De locatie wordt weggeschreven in een dictionary met twee key-value paren, 'longitude' en 'latitude', als string. De reacties worden opgeslagen als een lijst van lijsten, waarbij elke lijst bestaat uit drie elementen: userid, tijdstempel, en bericht (string) en dit representeert 1 reactie. Alle overige eigenschappen zijn ook als string weggeschreven. De functie toAnyObject() kan aangeroepen worden en geeft van de instantie een dictionary met alle eigenschappen terug.
 - User Struct: Deze struct wordt voor dezelfde doeleinden gebruik als de Mention Struct, maar dan voor een gebruiker. Naast de userid en email die standaard in Firebase worden weggeschreven bij het aanmaken van een account, wordt ook de voornaam, achternaam, postcode en een lijst van id's van melding die gevolgd worden door de gebruiker opgeslagen.
@@ -37,19 +36,21 @@ In Main.storyboard is nog een extra viewcontroller te zien van de class 'SWRevea
 - ViewController Extentie: Deze extentie is van Goktugyil (zie credits) en zorgt simpelweg voor het herkennen van een tapgesture ergens op het beeldscherm en laat het toetsenbord zakken indien deze actief is.
 - SWRevealViewController.h, SWRevealViewController.m en Buurt-Bridging-Header.h zijn de Objective-C bestanden die horen bij de sidebar menu bibliotheek van Simon NG (zie credtis). 
 
-####Functies en Methoden
+###Functies en Methoden
 Algemene functies: 
-- func updateMentions(selectedKey: String?): Mentions ophalen uit Firebase voor actieve postcode en plaatsen in 'currentInfo.mentions' en updaten 'currentInfo.selectedMention'.
-- private func fillMentionsArray(replies: Bool, mentionData: NSDictionary, mentionKey: String, selectedKey: String?): Daadwerkelijk vullen van de bovengenoemde variabelen en onderscheid maken tussen de meldingen met en zonder reacties. Dit is nodig omdat als er geen reacties zijn de 'replies' eigenschap met een default waarde wordt geinitialiseerd. Dit heeft de voorkeur gekregen boven een optionele eigenschap, omdat de structuur dan al aanwezig is voor het wegschrijven naar Firebase.
-- func updateCurrentUserInfo()
-- func updateUserDict()
-- func getTimeDifference(inputDate: String) -> String: Neemt een tijdstempel als parameter en vergelijkt deze tijd met de huidige tijd. Geeft een string terug in de vorm van 'Nu', 'x minuten', 'x uur' of een datum.
-- func setProfilePictures(pictureUrl: String?, pictureHolder: UIImageView, userid: String)
-- func centerMapOnLocation(location: CLLocation, regionRadius: CLLocationDistance, map: MKMapView)
+- updateMentions(selectedKey: String?): Mentions ophalen uit Firebase voor actieve postcode en plaatsen in 'currentInfo.mentions' en updaten 'currentInfo.selectedMention'.
+- fillMentionsArray(replies: Bool, mentionData: NSDictionary, mentionKey: String, selectedKey: String?): Daadwerkelijk vullen van de bovengenoemde variabelen en onderscheid maken tussen de meldingen met en zonder reacties. Dit is nodig omdat als er geen reacties zijn de 'replies' eigenschap met een default waarde wordt geinitialiseerd. Dit heeft de voorkeur gekregen boven een optionele eigenschap, omdat de structuur dan al aanwezig is voor het wegschrijven naar Firebase.
+- updateCurrentUserInfo()
+- updateUserDict()
+- getTimeDifference(inputDate: String) -> String: Neemt een tijdstempel als parameter en vergelijkt deze tijd met de huidige tijd. Geeft een string terug in de vorm van 'Nu', 'x minuten', 'x uur' of een datum.
+- setProfilePictures(pictureUrl: String?, pictureHolder: UIImageView, userid: String)
+- centerMapOnLocation(location: CLLocation, regionRadius: CLLocationDistance, map: MKMapView)
 
 Onderstaand een schema van de viewcontrollers en de bijbehordende methoden. De standaard methoden viewDidLoad() en didReceiveMemoryWarning() zijn hierin niet opgenomen.
 
-####Firebase structuur
+[SCHEMA INVOEGEN]
+
+###Firebase structuur
 De firebase structuur bestaat uit twee hoofdtakken: 'mentions' en 'users'
 
 - mentions
@@ -76,7 +77,16 @@ De firebase structuur bestaat uit twee hoofdtakken: 'mentions' en 'users'
         - followlist
             - [mention_id, mention_id]
 
-####Uitdagingen
+###Uitdagingen
+Het eerste ontwerp van de app bestond uit een navigatiebar bovenaan en een tabbar onderaan het scherm. In het overzicht zou men de meldingen kunnen filteren op soort en vanuit het overzicht moest de gebuiker een nieuwe melding kunnen maken. Om al deze functionaliteiten een plek een knop te geven op het scherm, zou het scherm aardig vol worden. Als oplossing heb ik gekozen om een sidebar menu te implementeren. En nieuwe melding is wel nog te maken vanuit de MainViewController, maar de navigatie naar de andere viewcontrollers gaat via dit menu. De filterfuntie is uiteindelijk weg gelaten omdat de categorie van de meldingen dmv een icoon al duidlijk zijn in het overzicht. Het sidebar menu is een Objective-C bibliotheek. Het bridging bestand werd door XCode zelf aangemaakt. De grootste uitdaging was het koppelen van de viewcontrollers in Main.storyboard en de MainViewController een andere functies geven afhankelijk van het menuitem dat geselecteerd wordt. Een seguefuntie gebruiken in SideBarMenuTableViewController werkte niet, evenals een variabel in de MainViewController aanpassen vanuit een segue functie in het Objective-C header bestand. Uiteindelijk bleek de segue functie die ik gebruikte in de SideBarMenuTableViewController een Swift 2 functie te zijn en geen Swift 3. 
+
+Bij de meldingen in zowel het overzicht als in de SingleMentionViewController wilde ik graag het tijdstip van plaatsen weergeven in de vorm van 'nu', 'x minuten', 'x uur' of datum. Hiervoor heb ik een functie geschreven. De tijdstempel sloeg ik op als een string in de vorm '2017-02-02 10:45:32 +0000'. Deze moest eerst omgezet worden naar een NSDate format met behulp van een formatter functie, vervolgens moet de interval berekend worden tussen die tijd en de huidige tijd en aan de hand daarvan een string terug gegeven worden in de juiste vorm. Dit had ik volledig werkend. Deze tijdstempel wilde ik echter ook gebruiken om op te sorteren in het overzicht. Daarom heb ik er voor gekozen om vrij laat nog de tijd op te slaan als aantal seconden sinds 1970. Doordat de tijdstempels nu een double zijn, kunnen deze makkelijk onderling vergeleken worden. Doordat ik de hier eerder genoemde functie apart had staan kon ik deze aanpassing gemakkelijk maken.
+
+
+
+
+
+
 - Sidebar menu
 - Tijdsinterval berekenen
 - Reacties init

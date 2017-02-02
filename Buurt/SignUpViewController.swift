@@ -19,7 +19,6 @@ class SignUpViewController: UIViewController {
     @IBOutlet var postcodeField: UITextField!
     
     @IBAction func SignUpButtonDidTouch(_ sender: Any) {
-        print("testprint")
         if checkInputFields() && checkPasswords() {
             FIRAuth.auth()!.createUser(withEmail: emailField.text!, password: passwordField.text!) { user, error in
                 if error == nil {
@@ -76,7 +75,7 @@ class SignUpViewController: UIViewController {
                             firstname: self.firstNameField.text!,
                             lastname: self.lastNameField.text!,
                             postcode: self.postcodeField.text!,
-                            followlist: ["test"])
+                            followlist: [""])
         let userItemRef = FIRDatabase.database().reference(withPath: "users").child((FIRAuth.auth()?.currentUser?.uid)!)
         userItemRef.setValue(userItem.toAnyObject())
     }
