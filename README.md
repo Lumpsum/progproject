@@ -19,12 +19,13 @@ Deze app maakt het mogelijk om meldingen te maken in de wijk (postcode gebied). 
 
 
 ###Screenshots
-<img src="https://github.com/Martijn66/progproject/blob/master/doc/21.png" width=30%>
-<img src="https://github.com/Martijn66/progproject/blob/master/doc/22.png" width=30%>
-<img src="https://github.com/Martijn66/progproject/blob/master/doc/23.png" width=30%>
-<img src="https://github.com/Martijn66/progproject/blob/master/doc/24.png" width=30%>
-<img src="https://github.com/Martijn66/progproject/blob/master/doc/25.png" width=30%>
-<img src="https://github.com/Martijn66/progproject/blob/master/doc/26.png" width=30%>
+<img src="https://github.com/Martijn66/progproject/blob/master/doc/21.png" width=20%>
+<img src="https://github.com/Martijn66/progproject/blob/master/doc/22.png" width=20%>
+<img src="https://github.com/Martijn66/progproject/blob/master/doc/23.png" width=20%>
+<img src="https://github.com/Martijn66/progproject/blob/master/doc/24.png" width=20%>
+<img src="https://github.com/Martijn66/progproject/blob/master/doc/25.png" width=20%>
+<img src="https://github.com/Martijn66/progproject/blob/master/doc/26.png" width=20%>
+<img src="https://github.com/Martijn66/progproject/blob/master/doc/27.png" width=20%>
 
 
 ###Copyright

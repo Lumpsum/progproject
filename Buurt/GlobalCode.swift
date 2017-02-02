@@ -29,7 +29,7 @@ extension Notification.Name {
 
 /// Retrieve all mentions from the Firebase server for the current postal code and sets global variables.
 func updateMentions(selectedKey: String?) {
-    ref.child(currentInfo.user["postcode"]!).observe(.value, with: { snapshot in
+    ref.child(currentInfo.user["postcode"]!).queryOrdered(byChild: "timeStamp").observe(.value, with: { snapshot in
         let rawData = snapshot.value as? NSDictionary
         currentInfo.mentions = []
         if rawData != nil {
@@ -43,7 +43,6 @@ func updateMentions(selectedKey: String?) {
                 }
             }
         }
-        currentInfo.mentions = currentInfo.mentions.reversed()
         NotificationCenter.default.post(name: .reload, object: nil)
     })
 }
@@ -102,11 +101,7 @@ func updateUserDict() {
 
 /// Calculates the timeinterval from the given timestamp till now. Returns in string to display at each mentions in the feed.
 func getTimeDifference(inputDate: String) -> String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZ"
-    let date = dateFormatter.date(from: inputDate)
-    let interval = NSDate().timeIntervalSince(date!)
-    
+    let interval = NSDate().timeIntervalSince(NSDate(timeIntervalSince1970: Double(inputDate)!) as Date)
     if interval < 60 {
         return "Nu"
     }
@@ -118,7 +113,10 @@ func getTimeDifference(inputDate: String) -> String {
     }
     else {
         let index = inputDate.index(inputDate.startIndex, offsetBy: 10)
-        return inputDate.substring(to: index)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateString = dateFormatter.string(from: NSDate(timeIntervalSince1970: Double(inputDate)!) as Date)
+        return  dateString
     }
     
 }

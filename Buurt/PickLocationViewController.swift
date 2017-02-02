@@ -37,6 +37,7 @@ class PickLocationViewController: UIViewController, UIGestureRecognizerDelegate,
         let location = sender.location(in: mapView)
         coordinates = mapView.convert(location,toCoordinateFrom: mapView)
         
+        mapView.removeAnnotations(mapView.annotations)
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinates
         mapView.addAnnotation(annotation)
@@ -50,8 +51,10 @@ class PickLocationViewController: UIViewController, UIGestureRecognizerDelegate,
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let initialLocation:CLLocation = manager.location!
-        centerMapOnLocation(location: initialLocation, regionRadius: 1000, map: mapView)
+        if manager.location != nil {
+            let initialLocation:CLLocation = manager.location!
+            centerMapOnLocation(location: initialLocation, regionRadius: 1000, map: mapView)
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

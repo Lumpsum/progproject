@@ -66,7 +66,7 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
                                       category: categoriesDictDutch[categoryField.text!]!,
                                       location: ["latitude": String(coordinates.latitude), "longitude": String(coordinates.longitude)],
                                       message: messageField.text,
-                                      timeStamp: String(describing: NSDate()))
+                                      timeStamp: String(describing: NSDate().timeIntervalSince1970))
         let mentionItemRef = FIRDatabase.database().reference(withPath: "mentions").child(currentInfo.user["postcode"]!).childByAutoId()
         mentionItemRef.setValue(mentionItem.toAnyObject())
     }
@@ -145,8 +145,8 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if locations.first != nil {
-            let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+        if manager.location?.coordinate != nil {
+            let locValue:CLLocationCoordinate2D = (manager.location?.coordinate)!
             coordinates = locValue
             setLocationField()
         }

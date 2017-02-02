@@ -34,7 +34,7 @@ class ViewController: UIViewController {
         FIRAuth.auth()!.addStateDidChangeListener() { auth, user in
             if user != nil {
                 currentInfo.user["uid"] = (user?.uid)!
-                self.performSegue(withIdentifier: "LoginToFeed", sender: nil)
+                self.performSegue(withIdentifier: "LoginToFeed", sender: self)
             }
         }
     }

@@ -47,7 +47,7 @@ Algemene functies:
 - func setProfilePictures(pictureUrl: String?, pictureHolder: UIImageView, userid: String)
 - func centerMapOnLocation(location: CLLocation, regionRadius: CLLocationDistance, map: MKMapView)
 
-Onderstaand een schema van de viewcontrollers en de bijbehordende methoden
+Onderstaand een schema van de viewcontrollers en de bijbehordende methoden. De standaard methoden viewDidLoad() en didReceiveMemoryWarning() zijn hierin niet opgenomen.
 
 ####Firebase structuur
 De firebase structuur bestaat uit twee hoofdtakken: 'mentions' en 'users'

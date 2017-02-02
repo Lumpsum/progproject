@@ -53,4 +53,4 @@ Segmentation Fault: 11 gefixt, dit had te maken met de referentie naar Firebase 
 Code opgeruimd, hulpfuncties aangemaakt voor functies die erg lang werden. Functies die in meerdere ViewControllers gebruikt worden verplaatst en globaal gemaakt. Readme aangepast en report geschreven.
 
 ## Dag 19 (02-02-2017)
-
+Timestamp aangepast van een NSDescription naar een TimeIntervalSince1970, nu worden de berichten juist op volgorde van nieuw naar oud gepresenteerd. Launchscreen toegevoegd. Dubbel check voor locatiegebruik geimplementeerd, zodat er geen crash is indien de locatie in de simulator niet aan staat.
