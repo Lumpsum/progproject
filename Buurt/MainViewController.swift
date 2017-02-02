@@ -24,12 +24,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableData(_:)), name: .reload, object: nil)
-        
         setMenuButton(controller: self, button: menuButton)
         setPropertiesViewFunction()
         loadAllData()
-        
-        
     }
     
     override func didReceiveMemoryWarning() {
