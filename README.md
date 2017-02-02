@@ -19,17 +19,16 @@ Deze app maakt het mogelijk om meldingen te maken in de wijk (postcode gebied). 
 
 
 ###Screenshots
-<img src="https://github.com/Martijn66/progproject/blob/master/doc/27.png" width=20%>
-<img src="https://github.com/Martijn66/progproject/blob/master/doc/21.png" width=20%>
-<img src="https://github.com/Martijn66/progproject/blob/master/doc/22.png" width=20%>
-<img src="https://github.com/Martijn66/progproject/blob/master/doc/23.png" width=20%>
-<img src="https://github.com/Martijn66/progproject/blob/master/doc/24.png" width=20%>
-<img src="https://github.com/Martijn66/progproject/blob/master/doc/25.png" width=20%>
-<img src="https://github.com/Martijn66/progproject/blob/master/doc/26.png" width=20%>
+<img src="https://github.com/Martijn66/progproject/blob/master/doc/27.png" width=30%>
+<img src="https://github.com/Martijn66/progproject/blob/master/doc/21.png" width=30%>
+<img src="https://github.com/Martijn66/progproject/blob/master/doc/22.png" width=30%>
+<img src="https://github.com/Martijn66/progproject/blob/master/doc/28.png" width=30%>
+<img src="https://github.com/Martijn66/progproject/blob/master/doc/25.png" width=30%>
+<img src="https://github.com/Martijn66/progproject/blob/master/doc/26.png" width=30%>
 
 
 ###Copyright
-Dit is een publieke repository zodat de begeleiders van het vak Programmeerproject de voortgang van dit project kunnen volgen en beoordelen. Voel je vrij om inspiratie op te doen uit de code. De rechten van het distribueren van de gehele app blijven bij de mij.
+Dit is een publieke repository zodat de begeleiders van het vak Programmeerproject de voortgang van dit project kunnen volgen en beoordelen. Voel je vrij om inspiratie op te doen uit de code. De rechten van het distribueren van de gehele app blijven bij mij (Martijn66).
 
 
 ###Credits
@@ -38,6 +37,7 @@ Dit is een publieke repository zodat de begeleiders van het vak Programmeerproje
 - Gebruik van tap voor het laten zakken van het toetsenbord in ViewControllerExtension.swift, [Goktugyil](https://github.com/goktugyil/EZSwiftExtensions)
 - Gebruik van functies om scherm boven toetsenbord te houden in SingleMentionViewController.swift, [David Sanford](http://stackoverflow.com/questions/26070242/move-view-with-keyboard-using-swift)
 - Gebruik van een Pickerview voor de input van categorieën in NewMentionViewController.swift, [Apoorvmote](http://blog.apoorvmote.com/uipickerview-as-inputview-to-uitextfield-in-swift/?lang=nl)
+- Firebase setup, [ Attila Hegedüs (Ray Wenderlich)](https://www.raywenderlich.com/139322/firebase-tutorial-getting-started-2)
 - Afbeeldingen: Chris Veight, Freepik, EpicCoders, Karthik Aathis, Gregor Cresnar van [FlatIcon](http://www.flaticon.com)
 
 

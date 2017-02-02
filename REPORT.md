@@ -12,7 +12,6 @@ Deze app maakt het mogelijk om meldingen te maken in de wijk (postcode gebied). 
 
 ##Technisch ontwerp
 
-
 ###Viewcontrollers
 - LoginViewController: Hier kan de gebruiker inloggen met een emailadres en wachtwoord. Indien de gebuiker al is ingelogd zal de listner dit constanteren en de segue naar de MainViewController direct uitvoeren. Daarnaast is het mogelijk om door te klikken naar de SignUpViewController.
 - SignUpViewController: De gebruiker kan hier een nieuw account aanmaken. Hiervoor worden de noodzakelijke gegevens als input gevraagd.
@@ -37,7 +36,7 @@ In Main.storyboard is nog een extra viewcontroller te zien van de class 'SWRevea
 - SWRevealViewController.h, SWRevealViewController.m en Buurt-Bridging-Header.h zijn de Objective-C bestanden die horen bij de sidebar menu bibliotheek van Simon NG (zie credtis). 
 
 ###Functies en Methoden
-Algemene functies: 
+Globale functies: 
 - updateMentions(selectedKey: String?): Mentions ophalen uit Firebase voor actieve postcode en plaatsen in 'currentInfo.mentions' en updaten 'currentInfo.selectedMention'.
 - fillMentionsArray(replies: Bool, mentionData: NSDictionary, mentionKey: String, selectedKey: String?): Daadwerkelijk vullen van de bovengenoemde variabelen en onderscheid maken tussen de meldingen met en zonder reacties. Dit is nodig omdat als er geen reacties zijn de 'replies' eigenschap met een default waarde wordt geinitialiseerd. Dit heeft de voorkeur gekregen boven een optionele eigenschap, omdat de structuur dan al aanwezig is voor het wegschrijven naar Firebase.
 - updateCurrentUserInfo()
@@ -45,8 +44,10 @@ Algemene functies:
 - getTimeDifference(inputDate: String) -> String: Neemt een tijdstempel als parameter en vergelijkt deze tijd met de huidige tijd. Geeft een string terug in de vorm van 'Nu', 'x minuten', 'x uur' of een datum.
 - setProfilePictures(pictureUrl: String?, pictureHolder: UIImageView, userid: String)
 - centerMapOnLocation(location: CLLocation, regionRadius: CLLocationDistance, map: MKMapView)
+- setMenuButton(controller: UIViewController, button: UIBarButtonItem)
 
 Onderstaand een schema van de viewcontrollers en de bijbehordende methoden. De standaard methoden viewDidLoad() en didReceiveMemoryWarning() zijn hierin niet opgenomen.
+
 
 [SCHEMA INVOEGEN]
 
@@ -84,15 +85,7 @@ Bij de meldingen in zowel het overzicht als in de SingleMentionViewController wi
 
 De reactieseigenschap van een melding bestaat uit een lijst van lijsten met de benodigde informatie per reactie op de melding. Deze lijst is echter leeg bij de initialisatie van een melding, omdat er nog geen reacties zijn. Eerst had ik een testlijst meegegeven met de initialisatie en bij de eerste reactie werd deze overschreven. Dit heb ik aangepast omdat dit geen mooie oplossing heeft. Een melding kan nu geinitialiseerd worden met of zonder de eigenschap van reacties. Indien deze niet wordt meegegeven wordt een default waarde hier aan toegekend. Indien deze default waarde is toegekend, wordt er nog niks weg geschreven voor de reacties in Firebase. Pas als de eerste reactie geplaatst wordt, wordt de tak voor reacties aangemaakt in Firebase. Op deze manier staat er geen nepinformatie in Firebase. Voor de lijst met volgende berichten die bij de initialisatie van een gebruiker wordt aangemaakt, wordt wel nog een lijst met een lege string meegegeven. Dit kan in de toekomst nog op dezelfde manier aangepast worden.
 
-Bij het implementeren van de postcode check, waarbij alleen de berichten worden geladen uit het postcodegebied van de gebruiker, was de grote uitdaging de volgorde van handelingen. 
+Bij het implementeren van de postcode check, waarbij alleen de berichten worden geladen uit het postcodegebied van de gebruiker, was de grote uitdaging de volgorde van handelingen. Als eerst moet de postcode bekend zijn die opgeslagen is onder de user tak in Firebase om vervolgens alle mentions op te halen die onder deze postcode zijn weggeschreven in de mentions tak. Om ervoor te zorgen dat eerst de gebruikersgegevens en daarmee de postcode worden opgehaald is er gewerkt met een notificatie. 
 
-
-
-
-- Sidebar menu
-- Tijdsinterval berekenen
-- Reacties init
-- Locatiegebruik StartUpdate en request
-- MainVC voor meerdere, dag 9
-- Postcode voor mentions, dag 12
+###Verdediging beslissingen
 

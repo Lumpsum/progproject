@@ -49,6 +49,7 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
+        setMenuButton(controller: self, button: menuButton)
         
         imagePicker.delegate = self
         
@@ -57,10 +58,6 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
         self.emailField.text = currentInfo.user["email"]!
         self.postcodeField.text = currentInfo.user["postcode"]!
         setProfilePictures(pictureUrl: currentInfo.uidPictureDict[currentInfo.user["uid"]!], pictureHolder: self.profilePicture, userid: currentInfo.user["uid"]!)
-
-        menuButton.target = self.revealViewController()
-        menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
-        self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
     }
     
     override func didReceiveMemoryWarning() {

@@ -25,15 +25,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableData(_:)), name: .reload, object: nil)
         
+        setMenuButton(controller: self, button: menuButton)
         setPropertiesViewFunction()
         loadAllData()
         
-        // SIDEBARMENU ENABLED
-        if self.revealViewController() != nil {
-            menuButton.target = self.revealViewController()
-            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
-            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-        }
+        
     }
     
     override func didReceiveMemoryWarning() {

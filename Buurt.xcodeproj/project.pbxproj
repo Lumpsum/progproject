@@ -39,6 +39,7 @@
 		10BA31401E279439002BE3E7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BA313F1E279439002BE3E7 /* User.swift */; };
 		10BA31471E27A324002BE3E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10BA31451E27A324002BE3E7 /* Main.storyboard */; };
 		10C4488A1E2CFE94004B16A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10C448891E2CFE94004B16A9 /* Assets.xcassets */; };
+		10E1F3F61E437D29009D7CBE /* 28.png in Resources */ = {isa = PBXBuildFile; fileRef = 10E1F3F51E437D29009D7CBE /* 28.png */; };
 		10EB5E331E40C8ED007983CB /* ViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10EB5E321E40C8ED007983CB /* ViewControllerExtension.swift */; };
 		10EB5E351E420538007983CB /* README_old.md in Sources */ = {isa = PBXBuildFile; fileRef = 10EB5E341E420538007983CB /* README_old.md */; };
 		10EB5E3C1E4209B4007983CB /* 26.png in Resources */ = {isa = PBXBuildFile; fileRef = 10EB5E361E4209B4007983CB /* 26.png */; };
@@ -97,6 +98,7 @@
 		10BA313F1E279439002BE3E7 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		10BA31461E27A324002BE3E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		10C448891E2CFE94004B16A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		10E1F3F51E437D29009D7CBE /* 28.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 28.png; sourceTree = "<group>"; };
 		10EB5E321E40C8ED007983CB /* ViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerExtension.swift; sourceTree = "<group>"; };
 		10EB5E341E420538007983CB /* README_old.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README_old.md; sourceTree = "<group>"; };
 		10EB5E361E4209B4007983CB /* 26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 26.png; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				10EB5E3B1E4209B4007983CB /* 25.png */,
 				10EB5E361E4209B4007983CB /* 26.png */,
 				10EB5E441E421960007983CB /* 27.png */,
+				10E1F3F51E437D29009D7CBE /* 28.png */,
 				1017E2E51E3B841700FF29C2 /* bettercodebefore.png */,
 				10BA311D1E2677DF002BE3E7 /* 1.png */,
 				10BA311E1E2677DF002BE3E7 /* 11.png */,
@@ -361,6 +364,7 @@
 				10EB5E411E4209B4007983CB /* 25.png in Resources */,
 				10F392AF1E24EACA00D71952 /* GoogleService-Info.plist in Resources */,
 				10BA31321E2677DF002BE3E7 /* 15.png in Resources */,
+				10E1F3F61E437D29009D7CBE /* 28.png in Resources */,
 				1017E2E61E3B841700FF29C2 /* bettercodebefore.png in Resources */,
 				10C4488A1E2CFE94004B16A9 /* Assets.xcassets in Resources */,
 				10BA31471E27A324002BE3E7 /* Main.storyboard in Resources */,

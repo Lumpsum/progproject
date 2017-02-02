@@ -136,3 +136,12 @@ func centerMapOnLocation(location: CLLocation, regionRadius: CLLocationDistance,
     let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2.0, regionRadius * 2.0)
     map.setRegion(coordinateRegion, animated: true)
 }
+
+/// Enables menubutton in navigationbar.
+func setMenuButton(controller: UIViewController, button: UIBarButtonItem) {
+    if controller.revealViewController() != nil {
+        button.target = controller.revealViewController()
+        button.action = #selector(SWRevealViewController.revealToggle(_:))
+        controller.view.addGestureRecognizer(controller.revealViewController().panGestureRecognizer())
+    }
+}
