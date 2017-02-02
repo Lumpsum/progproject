@@ -10,7 +10,7 @@ Datum: 02-02-2017
 Deze app maakt het mogelijk om meldingen te maken in de wijk (postcode gebied). Deze meldingen zijn te zien voor iedereen in de wijk. Deze meldingen worden gecategoirseerd in de volgende categorieen: verdachte situaties, aandachtspunten, evenementen, klachten en berichten. Een melding bestaat uit een titel, beschrijving, categorie, tijdstempel en locatie. Het is voor buren mogelijk om te reageren op deze meldingen en zo samen contact te houden over een specifiek onderwerp. Meldingen kan je ook volgen, zodat de gebruiker zelf kan bepalen wat hij of zij wilt volgen in de buurt. Door het melden van een probleem laagdrempelig te houden, door bijvoorbeeld maar 5 categorieen te gebruiken, zal de gebruiker snel een melding kunnen maken. Daarnaast is een apart overizcht voor de meldingen die de gebruiker zelf heeft gemaakt, hier kan de gebruiker ook zijn/haar melding verwijderen. In de tab 'Verkennen' kan de gebruiker de buurt verkennen en op de kaart de verschillende meldingen zien en zo een globaal beeld krijgen van (probleem-)gebieden in de wijk. In de 'Instellingen' tab kan de gebruiker zijn/haar informatie en profielfoto aanpassen en uitloggen. Door middel van een navigatie balk bovenaan de app kan de gebruiker altijd zien op welk scherm hij/zij zich bevindt, terug indien de gebruiker verder dan het beginscherm komt, acties uitvoeren en het sidebar menu raadplegen.
 
 Navigatie:
-<img src="https://github.com/Martijn66/progproject/blob/master/doc/27.png" width=30%>
+<img src="https://github.com/Martijn66/progproject/blob/master/doc/27.png" width=30% style="float: right>
 
 ###Technisch ontwerp
 
