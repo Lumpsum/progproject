@@ -37,6 +37,7 @@ Dit is een publieke repository zodat de begeleiders van het vak Programmeerproje
 - Gebruik van tap voor het laten zakken van het toetsenbord in ViewControllerExtension.swift, [Goktugyil](https://github.com/goktugyil/EZSwiftExtensions)
 - Gebruik van functies om scherm boven toetsenbord te houden in SingleMentionViewController.swift, [David Sanford](http://stackoverflow.com/questions/26070242/move-view-with-keyboard-using-swift)
 - Gebruik van een Pickerview voor de input van categorieën in NewMentionViewController.swift, [Apoorvmote](http://blog.apoorvmote.com/uipickerview-as-inputview-to-uitextfield-in-swift/?lang=nl)
+- Volgend textfield selecteren met return toets, [Nhgrif](http://stackoverflow.com/questions/27028617/using-next-as-a-return-key)
 - Firebase setup, [ Attila Hegedüs (Ray Wenderlich)](https://www.raywenderlich.com/139322/firebase-tutorial-getting-started-2)
 - Afbeeldingen: Chris Veight, Freepik, EpicCoders, Karthik Aathis, Gregor Cresnar van [FlatIcon](http://www.flaticon.com)
 

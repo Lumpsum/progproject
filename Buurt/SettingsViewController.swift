@@ -31,12 +31,16 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     @IBAction func UpdateButtonDidTouch(_ sender: Any) {
-        let userRef = FIRDatabase.database().reference(withPath: "users").child(currentInfo.user["uid"]!)
-        userRef.updateChildValues(["firstname": firstNameField.text!])
-        userRef.updateChildValues(["lastname": lastNameField.text!])
-        userRef.updateChildValues(["email": emailField.text!])
-        userRef.updateChildValues(["postcode": postcodeField.text!])
-        userRef.updateChildValues(["picture": picturePath])
+        self.view.endEditing(true)
+        let alertController = UIAlertController(title: "Controle", message: "Weet u zeker dat u de gegevens wilt aanpassen?", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ja", style: UIAlertActionStyle.default) {
+            UIAlertAction in
+            self.updateUserInformation()
+        }
+        let cancelAction = UIAlertAction(title: "Nee", style: UIAlertActionStyle.cancel)
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     @IBAction func LogOutButtonDidTouch(_ sender: Any) {
@@ -53,11 +57,19 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
         
         imagePicker.delegate = self
         
+        if currentInfo.uidPictureDict[currentInfo.user["uid"]!] != nil {
+            picturePath = currentInfo.uidPictureDict[currentInfo.user["uid"]!]!
+        }
+        
         self.firstNameField.text = currentInfo.user["firstname"]!
         self.lastNameField.text = currentInfo.user["lastname"]!
         self.emailField.text = currentInfo.user["email"]!
         self.postcodeField.text = currentInfo.user["postcode"]!
-        setProfilePictures(pictureUrl: currentInfo.uidPictureDict[currentInfo.user["uid"]!], pictureHolder: self.profilePicture, userid: currentInfo.user["uid"]!)
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        setProfilePictures(pictureUrl: picturePath, pictureHolder: self.profilePicture, userid: currentInfo.user["uid"]!)
     }
     
     override func didReceiveMemoryWarning() {
@@ -67,7 +79,7 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             profilePicture.image = image
-            profilePicture.layer.cornerRadius = profilePicture.frame.size.width / 2
+            profilePicture.layer.cornerRadius = self.profilePicture.frame.size.width / 2
             profilePicture.clipsToBounds = true
             
             saveImage(image: profilePicture.image!)
@@ -82,7 +94,7 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
         dismiss(animated: true, completion: nil)
     }
     
-    // Saves given UIImage for currentuser as profilepicture.
+    /// Saves given UIImage for currentuser as profilepicture.
     private func saveImage(image: UIImage) {
         var data = NSData()
         data = UIImageJPEGRepresentation(image, 0.8)! as NSData
@@ -98,8 +110,20 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
                 self.picturePath = metaData!.downloadURL()!.absoluteString
             }
         }
-
     }
     
+    /// Updates the user information in Firebase.
+    private func updateUserInformation() {
+        let userRef = FIRDatabase.database().reference(withPath: "users").child(currentInfo.user["uid"]!)
+        userRef.updateChildValues(["firstname": self.firstNameField.text!])
+        userRef.updateChildValues(["lastname": self.lastNameField.text!])
+        userRef.updateChildValues(["email": self.emailField.text!])
+        userRef.updateChildValues(["postcode": self.postcodeField.text!])
+        userRef.updateChildValues(["picture": self.picturePath])
+    }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
 }

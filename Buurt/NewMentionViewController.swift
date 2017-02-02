@@ -173,4 +173,9 @@ class NewMentionViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         categoryField.text = Array(categoriesDictDutch.keys)[row]
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.nextField?.becomeFirstResponder()
+        return true
+    }
 }

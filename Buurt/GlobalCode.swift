@@ -126,6 +126,7 @@ func getTimeDifference(inputDate: String) -> String {
 func setProfilePictures(pictureUrl: String?, pictureHolder: UIImageView, userid: String) {
     if pictureUrl != nil && pictureUrl != "" {
         pictureHolder.loadImagesWithCache(urlstring: pictureUrl!, uid: userid)
+        print("TESTPRINT HIER")
         pictureHolder.layer.cornerRadius = pictureHolder.frame.size.width / 2
         pictureHolder.clipsToBounds = true
     }

@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var emailField: UITextField!
     @IBOutlet var passwordField: UITextField!
@@ -79,5 +79,16 @@ class SignUpViewController: UIViewController {
         let userItemRef = FIRDatabase.database().reference(withPath: "users").child((FIRAuth.auth()?.currentUser?.uid)!)
         userItemRef.setValue(userItem.toAnyObject())
     }
-
+    
+    /// Sets cursor in next texfield when the user hits the return button, for the last field it performs the same action as the SignUp button.
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == passwordCheckField {
+            self.view.endEditing(true)
+            SignUpButtonDidTouch(sender: self)
+        }
+        else {
+            textField.nextField?.becomeFirstResponder()
+        }
+        return true
+    }
 }

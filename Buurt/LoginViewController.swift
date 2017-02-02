@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet var emailField: UITextField!
     @IBOutlet var passwordField: UITextField!
@@ -48,6 +48,18 @@ class ViewController: UIViewController {
         let alert = UIAlertController(title: "Inloggen mislukt", message: showMessage, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Probeer opnieuw", style: UIAlertActionStyle.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    /// Sets cursor in next texfield when the user hits the return button.
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == passwordField {
+            self.view.endEditing(true)
+            LoginButtonDidTouch(sender: self)
+        }
+        else {
+            textField.nextField?.becomeFirstResponder()
+        }
+        return true
     }
 }
 
