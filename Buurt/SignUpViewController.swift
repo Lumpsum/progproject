@@ -75,7 +75,7 @@ class SignUpViewController: UIViewController {
                             firstname: self.firstNameField.text!,
                             lastname: self.lastNameField.text!,
                             postcode: self.postcodeField.text!,
-                            followlist: [""])
+                            followlist: ["test"])
         let userItemRef = FIRDatabase.database().reference(withPath: "users").child((FIRAuth.auth()?.currentUser?.uid)!)
         userItemRef.setValue(userItem.toAnyObject())
     }
